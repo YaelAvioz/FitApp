@@ -10,6 +10,7 @@ import { MentorsPageComponent } from '../components/mentors-page/mentors-page.co
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { RecipesPageComponent } from '../components/recipes-page/recipes-page.component';
 import { SignInComponent } from '../components/sign-in/sign-in.component';
+import { HeroComponent } from '../components/hero/hero.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { SignInComponent } from '../components/sign-in/sign-in.component';
     NavbarComponent,
     RecipesPageComponent,
     SignInComponent,
+    HeroComponent
   ],
   imports: [
     BrowserModule,

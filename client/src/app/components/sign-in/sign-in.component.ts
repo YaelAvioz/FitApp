@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
+import { NavbarComponent } from '../nav-bar/nav-bar.component';
 
 @Component({
   selector: 'app-sign-in',

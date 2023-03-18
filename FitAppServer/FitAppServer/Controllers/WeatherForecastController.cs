@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace FitAppServer.Controllers
+
+namespace fitappserver.Controllers
 {
     [ApiController]
     [Route("[controller]")]

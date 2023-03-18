@@ -11,6 +11,7 @@ import { NavbarComponent } from '../components/navbar/navbar.component';
 import { RecipesPageComponent } from '../components/recipes-page/recipes-page.component';
 import { SignInComponent } from '../components/sign-in/sign-in.component';
 import { HeroComponent } from '../components/hero/hero.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { HeroComponent } from '../components/hero/hero.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

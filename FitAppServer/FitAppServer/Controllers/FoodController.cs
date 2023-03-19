@@ -1,11 +1,10 @@
-﻿using fitappserver.Services;
-using fitappserver.Controllers;
-using fitappserver.Model;
+﻿using FitAppServer.Services;
+using FitAppServer.Model;
 using AutoMapper;
 using FitAppServer.DTO;
 using Microsoft.AspNetCore.Mvc;
 
-namespace fitappserver.Controllers
+namespace FitAppServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -15,6 +14,19 @@ namespace fitappserver.Controllers
         public FoodController(IMapper mapper) : base(mapper)
         {
             _foodService = new FoodService(mapper);
+        }
+
+
+        [HttpGet]
+        [Route("{foodName}")]
+        public async Task<ActionResult<Food>> GetFood([FromRoute] string foodName)
+        {
+            Food food = await _foodService.GetDefaultFoodInfo(foodName);
+            if (food == null)
+            {
+                return NotFound();
+            }
+            return Ok(food);
         }
     }
 }

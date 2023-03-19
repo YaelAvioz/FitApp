@@ -1,9 +1,10 @@
-﻿using fitappserver.Model;
-using fitappserver.Services;
+﻿using FitAppServer.Model;
+using FitAppServer.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 
-namespace fitappserver.Controllers
+namespace FitAppServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -30,10 +31,11 @@ namespace fitappserver.Controllers
             return CreatedAtAction(nameof(Get), new { id = entity.Id }, newEntity);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<TDTO>> Get(int id)
+        [HttpGet("{id:length(24)}", Name = "GetById")]
+        public async Task<ActionResult<TDTO>> Get(string id)
         {
-            TDTO entity = await _genericService.Get(id);
+            TDTO entity = await _genericService.Get(ObjectId.Parse(id).ToString());
+
             if (entity == null)
             {
                 return NotFound();
@@ -41,25 +43,29 @@ namespace fitappserver.Controllers
             return Ok(entity);
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<TDTO>> Update([FromRoute] int id, [FromBody] T newEntity)
+        [HttpPut("{id:length(24)}")]
+        public async Task<ActionResult<TDTO>> Update(string id, [FromBody] T newEntity)
         {
-            if (await Get(id) == null)
+            TDTO entity = await _genericService.Get(ObjectId.Parse(id).ToString());
+
+            if (entity == null)
             {
                 return NotFound();
             }
-            TDTO updatedEntity = await _genericService.Update(id, newEntity);
+            TDTO updatedEntity = await _genericService.Update(ObjectId.Parse(id).ToString(), newEntity);
             return Ok(updatedEntity);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        [HttpDelete("{id:length(24)}")]
+        public async Task<ActionResult> Delete(string id)
         {
-            if (await Get(id) == null)
+            TDTO entity = await _genericService.Get(ObjectId.Parse(id).ToString());
+
+            if (entity == null)
             {
                 return NotFound();
             }
-            _genericService.Delete(id);
+            _ = _genericService.Delete(ObjectId.Parse(id).ToString());
             return NoContent();
         }
     }

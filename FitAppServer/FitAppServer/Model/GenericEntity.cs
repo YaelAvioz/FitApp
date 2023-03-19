@@ -1,7 +1,12 @@
-﻿namespace fitappserver.Model
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
+namespace FitAppServer.Model
 {
     public class GenericEntity
     {
-        public virtual int Id { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
     }
 }

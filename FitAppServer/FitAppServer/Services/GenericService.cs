@@ -1,21 +1,25 @@
 ﻿using AutoMapper;
-using fitappserver.Model;
+using FitAppServer.Model;
+using MongoDB.Bson;
 using MongoDB.Driver;
+using System.Collections;
 
-namespace fitappserver.Services
+namespace FitAppServer.Services
 {
     public class GenericService<T, TDTO> where T : GenericEntity where TDTO : GenericEntity
     {
         private readonly IMongoCollection<T> _collection;
         private readonly IMongoDatabase _db;
         private readonly IMapper _mapper;
-        private readonly String connectionString = "mongodb+srv://<fitapp>:<FitAppYaelCoral>@cluster0.hsylfut.mongodb.net/?retryWrites=true&w=majority";
-        private readonly String databaseName = "fitapp";
+        private readonly string connectionString = "mongodb+srv://FitApp:FitAppYaelCoral@cluster0.hsylfut.mongodb.net/?retryWrites=true&w=majority";
+        private readonly string databaseName = "fitapp";
 
         public GenericService(IMapper mapper)
         {
             var client = new MongoClient(connectionString);
             _db = client.GetDatabase(databaseName);
+            string s = typeof(T).ToString();
+            _collection = _db.GetCollection<T>(s.Substring(s.LastIndexOf('.') + 1).ToLower());
             _mapper = mapper;
         }
 
@@ -37,13 +41,14 @@ namespace fitappserver.Services
 
         public async Task<List<TDTO>> GetAll()
         {
-            var entities = await _collection.Find(x => true).ToListAsync();
+            var entities = await _collection.Find(_ => true).ToListAsync();
             return _mapper.Map<List<TDTO>>(entities);
         }
 
-        public async Task<TDTO> Get(int id)
+        public async Task<TDTO> Get(string id)
         {
-            var entity = await _collection.Find(x => x.Id == id).FirstOrDefaultAsync();
+            var objectId = new ObjectId(id);
+            var entity = await _collection.Find(x => x.Id.Equals(objectId)).FirstOrDefaultAsync();
             return _mapper.Map<TDTO>(entity);
         }
 
@@ -53,16 +58,18 @@ namespace fitappserver.Services
             return _mapper.Map<TDTO>(entity);
         }
 
-        public async Task<TDTO> Update(int id, T newEntity)
+        public async Task<TDTO> Update(string id, T newEntity)
         {
-            newEntity.Id = id;
-            await _collection.ReplaceOneAsync(x => x.Id == id, newEntity);
+            var objectId = new ObjectId(id);
+            newEntity.Id = objectId.ToString();
+            await _collection.ReplaceOneAsync(x => x.Id.Equals(objectId), newEntity);
             return _mapper.Map<TDTO>(newEntity);
         }
 
-        public async void Delete(int id)
+        public async Task Delete(string id)
         {
-            await _collection.DeleteOneAsync(x => x.Id == id);
+            var objectId = new ObjectId(id);
+            await _collection.DeleteOneAsync(x => x.Id.Equals(objectId));
         }
     }
 }

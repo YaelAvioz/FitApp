@@ -1,19 +1,19 @@
-﻿using fitappserver.Model;
+﻿using FitAppServer.Model;
 using AutoMapper;
 using FitAppServer.DTO;
 using MongoDB.Driver;
 
-namespace fitappserver.Services
+namespace FitAppServer.Services
 {
     public class FoodService : GenericService<Food, FoodDTO>
     {
         private readonly IMongoCollection<Food> _collection;
 
-        public FoodService(IMapper mapper) : base(mapper) {  }
+        public FoodService(IMapper mapper) : base(mapper, "food") {  }
 
         public async Task<Food> GetDefaultFoodInfo(string foodName)
         {
-            var filter = Builders<Food>.Filter.Eq(x => x.FoodName, foodName);
+            var filter = Builders<Food>.Filter.Eq(x => x.name, foodName);
             var foods = await _collection.Find(filter).ToListAsync();
             return foods.FirstOrDefault();
         }

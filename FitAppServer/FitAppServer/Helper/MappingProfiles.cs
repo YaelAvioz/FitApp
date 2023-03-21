@@ -9,5 +9,6 @@ public class MappingProfiles : Profile
     public MappingProfiles()
     {
         CreateMap<Food, FoodDTO>();
+        CreateMap<Mentor, MentorDTO>();
     }
 }

@@ -17,38 +17,42 @@ namespace FitAppServer.Services
             var foods = await _collection.Find(filter).ToListAsync();
             return foods.FirstOrDefault();
         }
-    }
-}
 
-/*
-
-public Food GetFoodInfoByServing(string foodName, string count, string serving)
-{
-    List<Food> foods = _entities.FindAll(food => food.FoodName.Equals(foodName));
-    if (foods.Any())
-    {
-        Food food = foods.First();
-        if (food.ServingSize.Equals(serving))
+        public async Task<string> GetCaloriesPerDefaultServing(string foodName)
         {
-            return food;
+            var filter = Builders<Food>.Filter.Eq(x => x.name, foodName);
+            var foods = await _collection.Find(filter).ToListAsync();
+            return foods.FirstOrDefault().calories;
         }
-        else
+
+        /*public async Task<Food> GetFoodInfoByServing(string foodName, string count, string serving)
         {
-            switch (serving)
+            var filter = Builders<Food>.Filter.Eq(x => x.name, foodName);
+            var foods = await _collection.Find(filter).ToListAsync();
+
+            if (foods.Any())
             {
-                case "g":
-                    break;
-                case "kg":
-                    break;
+                Food food = foods.First();
+                if (food.serving_size.Equals(serving))
+                {
+                    return food;
+                }
+                else
+                {
+                    switch (serving)
+                    {
+                        case "g":
+                            return food.FoodByGrams(int.Parse(count));
+                        case "kg":
+                            return food.FoodBy100Grams(int.Parse(count));
+                            
+
+
+                    }
+                }
 
             }
-        }
+        }*/
 
     }
 }
-
-public String GetCaloriesPerServing(string foodName)
-{
-    List<Food> foods = _entities.FindAll(food => food.FoodName.Equals(foodName));
-    return foods.Any() ? foods.First().Calories : "0";
-}*/

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Mentor } from 'src/interfaces/mentor';
 
 @Component({
   selector: 'app-mentor-card',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./mentor-card.component.scss']
 })
 export class MentorCardComponent {
-
+  @Input() mentor !: Mentor;
 }

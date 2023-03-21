@@ -15,17 +15,5 @@ namespace FitAppServer.Controllers
         {
             _mentorService = new MentorService(mapper);
         }
-
-        [HttpGet]
-        [Route("{mentorName}")]
-        public async Task<ActionResult<Food>> GetFood([FromRoute] string mentorName)
-        {
-            Mentor mentor = await _mentorService.GetMentorInfo(mentorName);
-            if (mentor == null)
-            {
-                return NotFound();
-            }
-            return Ok(mentor);
-        }
     }
 }

@@ -15,18 +15,5 @@ namespace FitAppServer.Controllers
         {
             _foodService = new FoodService(mapper);
         }
-
-
-        [HttpGet]
-        [Route("{foodName}")]
-        public async Task<ActionResult<Food>> GetFood([FromRoute] string foodName)
-        {
-            Food food = await _foodService.GetDefaultFoodInfo(foodName);
-            if (food == null)
-            {
-                return NotFound();
-            }
-            return Ok(food);
-        }
     }
 }

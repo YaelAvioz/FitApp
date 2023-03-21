@@ -8,11 +8,11 @@ namespace FitAppServer.Services
 {
     public class GenericService<T, TDTO> where T : GenericEntity where TDTO : GenericEntity
     {
-        private readonly IMongoCollection<T> _collection;
-        private readonly IMongoDatabase _db;
-        private readonly IMapper _mapper;
-        private readonly string connectionString = "mongodb+srv://FitApp:FitAppYaelCoral@cluster0.hsylfut.mongodb.net/?retryWrites=true&w=majority";
-        private readonly string databaseName = "fitapp";
+        protected readonly IMongoCollection<T> _collection;
+        protected readonly IMongoDatabase _db;
+        protected readonly IMapper _mapper;
+        protected readonly string connectionString = "mongodb+srv://FitApp:FitAppYaelCoral@cluster0.hsylfut.mongodb.net/?retryWrites=true&w=majority";
+        protected readonly string databaseName = "fitapp";
 
         public GenericService(IMapper mapper)
         {

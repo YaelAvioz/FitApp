@@ -7,8 +7,6 @@ namespace FitAppServer.Services
 {
     public class FoodService : GenericService<Food, FoodDTO>
     {
-        private readonly IMongoCollection<Food> _collection;
-
         public FoodService(IMapper mapper) : base(mapper, "food") {  }
 
         public async Task<Food> GetDefaultFoodInfo(string foodName)

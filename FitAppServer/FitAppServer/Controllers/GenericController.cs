@@ -31,7 +31,7 @@ namespace FitAppServer.Controllers
             return CreatedAtAction(nameof(Get), new { id = entity.Id }, newEntity);
         }
 
-        [HttpGet("{id:length(24)}", Name = "GetById")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<TDTO>> Get(string id)
         {
             TDTO entity = await _genericService.Get(ObjectId.Parse(id).ToString());

@@ -16,6 +16,10 @@ import { AboutUsComponent } from '../components/about-us/about-us.component';
 import { OurMentorsComponent } from '../components/our-mentors/our-mentors.component';
 import {MatCardModule} from '@angular/material/card';
 import { MentorCardComponent } from '../components/mentor-card/mentor-card.component';
+import { HomePageEffects } from '../effects/homePageEffect';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { homePageReducer } from '../store/home-page/homePageReducer';
 
 @NgModule({
   declarations: [
@@ -37,6 +41,8 @@ import { MentorCardComponent } from '../components/mentor-card/mentor-card.compo
     AppRoutingModule,
     BrowserAnimationsModule,
     MatCardModule,
+    EffectsModule.forRoot([HomePageEffects]),
+    StoreModule.forRoot({homePageReducer}),
   ],
   providers: [],
   bootstrap: [AppComponent]

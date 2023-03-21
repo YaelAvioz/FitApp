@@ -1,5 +1,5 @@
 <div class="home-page">
-    <app-our-mentors></app-our-mentors>
+    <app-our-mentors *ngIf="mentors$ | async as mentors" [mentors]="mentors"></app-our-mentors>
     <app-about-us></app-about-us>
     <!-- <div class="video-container">
         <video autoplay controls="false">

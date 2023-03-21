@@ -12,6 +12,10 @@ import { SignInComponent } from '../components/sign-in/sign-in.component';
 import { HeroComponent } from '../components/hero/hero.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from '../components/nav-bar/nav-bar.component';
+import { AboutUsComponent } from '../components/about-us/about-us.component';
+import { OurMentorsComponent } from '../components/our-mentors/our-mentors.component';
+import {MatCardModule} from '@angular/material/card';
+import { MentorCardComponent } from '../components/mentor-card/mentor-card.component';
 
 @NgModule({
   declarations: [
@@ -23,12 +27,16 @@ import { NavbarComponent } from '../components/nav-bar/nav-bar.component';
     RecipesPageComponent,
     SignInComponent,
     HeroComponent,
-    NavbarComponent
+    NavbarComponent,
+    AboutUsComponent,
+    OurMentorsComponent,
+    MentorCardComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

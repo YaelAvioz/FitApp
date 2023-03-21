@@ -1,0 +1,24 @@
+.about-us{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+    padding: 40px;
+    font-family: 'Helvetica Neue';
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-size: 18px;
+    border: 1px solid black;
+
+    .text{
+        width: 900px;
+
+        p{
+            margin: 0px;
+        }
+    }
+
+    .logo{
+        width: 230px;
+    }
+}

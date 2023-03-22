@@ -1,1 +1,11 @@
-<p>home-page works!</p>
+<div class="home-page">
+    <app-our-mentors *ngIf="mentors$ | async as mentors" [mentors]="mentors"></app-our-mentors>
+    <app-about-us></app-about-us>
+    <!-- <div class="video-container">
+        <video autoplay controls="false">
+            <source src="../../../assets/images/fitapp-video.mp4" type="video/mp4">
+        </video>
+    </div> -->
+</div>
+
+  

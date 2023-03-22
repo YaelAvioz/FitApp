@@ -1,0 +1,12 @@
+<div class="nav-bar">
+    <div class="nav-bar-left">
+        <a routerLink="/home-page">FitApp</a>
+        <a routerLink="/food-dictionary-page">Food Dictionary</a>
+        <a routerLink="/recipes-page">Recipes</a>
+        <a routerLink="/mentors-page">Mentors</a>
+    </div>
+    <div class="nav-bar-right">
+        <img (click)="isSignInVisible=!isSignInVisible" src="../../../assets/images/sign-in.svg" alt="sign-in">
+        <app-sign-in *ngIf="isSignInVisible"></app-sign-in>
+    </div>
+</div>

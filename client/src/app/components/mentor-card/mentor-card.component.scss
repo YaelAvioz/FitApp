@@ -1,0 +1,30 @@
+.mentor-card-container {
+    display: flex;
+    justify-content: center;
+    font-family: "TitilliumWeb", sans-serif;
+    font-size: 16px;
+    padding: 0px;
+
+    .mentor-card {
+        width: 300px;
+        height: 350px;
+        padding: 10px;
+
+        .card-header{
+            display: flex;
+            padding: 0px;
+
+            img {
+                object-fit: cover;
+                width: 100%;
+                height: 200px;
+            }
+        }
+    }
+
+    .card-content {
+        flex-direction: column;
+        display: flex;
+        margin-top: 10px;
+    }
+}

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from '../app.component';
 import { HomePageComponent } from '../components/home-page/home-page.component';
@@ -20,6 +19,7 @@ import { HomePageEffects } from '../effects/homePageEffect';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { homePageReducer } from '../store/home-page/homePageReducer';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -43,6 +43,7 @@ import { homePageReducer } from '../store/home-page/homePageReducer';
     MatCardModule,
     EffectsModule.forRoot([HomePageEffects]),
     StoreModule.forRoot({homePageReducer}),
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

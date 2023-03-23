@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\coral\\Source\\Repos\\FitApp\\FitAppServer\\FitAppServer\\FitAppServer.csproj": {}
+    "/Users/yaelavioz/Desktop/FitApp/FitAppServer/FitAppServer/FitAppServer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\coral\\Source\\Repos\\FitApp\\FitAppServer\\FitAppServer\\FitAppServer.csproj": {
+    "/Users/yaelavioz/Desktop/FitApp/FitAppServer/FitAppServer/FitAppServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\coral\\Source\\Repos\\FitApp\\FitAppServer\\FitAppServer\\FitAppServer.csproj",
+        "projectUniqueName": "/Users/yaelavioz/Desktop/FitApp/FitAppServer/FitAppServer/FitAppServer.csproj",
         "projectName": "FitAppServer",
-        "projectPath": "C:\\Users\\coral\\Source\\Repos\\FitApp\\FitAppServer\\FitAppServer\\FitAppServer.csproj",
-        "packagesPath": "C:\\Users\\coral\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\coral\\Source\\Repos\\FitApp\\FitAppServer\\FitAppServer\\obj\\",
+        "projectPath": "/Users/yaelavioz/Desktop/FitApp/FitAppServer/FitAppServer/FitAppServer.csproj",
+        "packagesPath": "/Users/yaelavioz/.nuget/packages/",
+        "outputPath": "/Users/yaelavioz/Desktop/FitApp/FitAppServer/FitAppServer/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\coral\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/yaelavioz/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -46,7 +44,7 @@
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[7.0.3, )"
+              "version": "[7.0.4, )"
             },
             "Microsoft.AspNetCore.Mvc.Versioning": {
               "target": "Package",
@@ -58,7 +56,7 @@
             },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
-              "version": "[7.0.2, )"
+              "version": "[7.0.4, )"
             },
             "Microsoft.IdentityModel.Tokens": {
               "target": "Package",
@@ -108,7 +106,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.201/RuntimeIdentifierGraph.json"
         }
       }
     }

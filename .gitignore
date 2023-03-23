@@ -1,18 +1,5 @@
 ﻿################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
-
-/FitAppServer/.vs/FitAppServer/FileContentIndex/791331b4-b330-49eb-8b5d-593abe4c5f6f.vsidx
-/FitAppServer/.vs/FitAppServer/FileContentIndex/3427acea-dcf1-4723-bc50-99b7126750ce.vsidx
-/FitAppServer/.vs/FitAppServer/FileContentIndex/2f3c7ca8-9e20-4462-adb8-dd7258fed234.vsidx
-/FitAppServer/.vs/FitAppServer/FileContentIndex/0c485a19-022b-43fc-a7c9-37e15d860987.vsidx
-/FitAppServer/.vs/FitAppServer/v17/.suo
-/FitAppServer/.vs/FitAppServer/v17/.futdcache.v2
-/FitAppServer/.vs/FitAppServer/FileContentIndex/e60c0cc0-8523-413a-9256-a9f99d2777a7.vsidx
-/FitAppServer/.vs/FitAppServer/FileContentIndex/d072addf-2525-44cf-a8d1-98c0a05fc81c.vsidx
-/FitAppServer/.vs/FitAppServer/FileContentIndex/a978d4b9-a198-44b4-ba28-e964563eab18.vsidx
-/FitAppServer/.vs/FitAppServer/FileContentIndex/91c8d96a-6eba-408d-b7ae-abca98e0fafd.vsidx
-/FitAppServer/.vs/FitAppServer/FileContentIndex/7ad7b5e2-5a02-4795-ad39-48455a743ec9.vsidx
-/FitAppServer/.vs/FitAppServer/FileContentIndex/75dd3525-8d87-4ec0-b921-ce13e3171d76.vsidx
-/FitAppServer/.vs/FitAppServer/FileContentIndex/5daecad4-1c26-4880-8c42-c0a853fc299c.vsidx
-/FitAppServer/.vs/FitAppServer/FileContentIndex/29ec59de-6c01-4677-b7d7-4dc45e1faa78.vsidx
+/FitAppServer/.vs/FitAppServer/v17/*
+/FitAppServer/.vs/FitAppServer/FileContentIndex/*

@@ -1,6 +1,17 @@
-.cards-container {
+.our-mentors {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
+    flex-direction: column;
+    padding: 30px;
+
+    .title{
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+    }
 }

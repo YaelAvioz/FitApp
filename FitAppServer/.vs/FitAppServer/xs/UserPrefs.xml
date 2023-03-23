@@ -1,18 +1,14 @@
 ﻿<Properties StartupConfiguration="{A7555A0A-0247-47DC-BB63-2901D1E3C655}|https">
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="FitAppServer/Properties/launchSettings.json">
     <Files>
       <File FileName="FitAppServer/appsettings.json" Line="1" Column="1" />
-      <File FileName="FitAppServer/Program.cs" Line="44" Column="13" />
+      <File FileName="FitAppServer/Program.cs" Line="11" Column="101" />
       <File FileName="FitAppServer/Properties/launchSettings.json" Line="13" Column="32" />
-      <File FileName="FitAppServer/Controllers/GenericController.cs" Line="1" Column="1" />
-      <File FileName="FitAppServer/Controllers/MentorController.cs" Line="1" Column="1" />
-      <File FileName="FitAppServer/Services/FoodService.cs" Line="1" Column="1" />
-      <File FileName="FitAppServer/FitAppServer.csproj.user" Line="1" Column="1" />
+      <File FileName="FitAppServer/Controllers/GenericController.cs" />
+      <File FileName="FitAppServer/Controllers/MentorController.cs" />
+      <File FileName="FitAppServer/Services/FoodService.cs" />
+      <File FileName="FitAppServer/FitAppServer.csproj.user" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -22,12 +18,33 @@
               <Node name="Dependencies" expanded="True">
                 <Node name="PackageDependencies" expanded="True" />
               </Node>
+              <Node name="Properties" expanded="True">
+                <Node name="launchSettings.json" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="FitAppServer" expanded="True">
+            <Node name="FitAppServer" expanded="True">
+              <Node name="Dependencies" expanded="True">
+                <Node name="PackageDependencies" expanded="True" />
+              </Node>
+              <Node name="Properties" expanded="True">
+                <Node name="launchSettings.json" selected="True" />
+              </Node>
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.ItemProperties.FitAppServer PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>

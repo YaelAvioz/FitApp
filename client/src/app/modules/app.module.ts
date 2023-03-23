@@ -20,6 +20,7 @@ import { HomePageEffects } from '../effects/homePageEffect';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { homePageReducer } from '../store/home-page/homePageReducer';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { homePageReducer } from '../store/home-page/homePageReducer';
     MatCardModule,
     EffectsModule.forRoot([HomePageEffects]),
     StoreModule.forRoot({homePageReducer}),
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -3,15 +3,13 @@ import { Mentor } from 'src/interfaces/mentor';
 import { loadMentors, loadMentorsFailure, loadMentorsSuccess } from './homePageAction';
 
 export interface HomePageState {
-  mentors: Mentor[];
-}
-
-export interface HomePageState {
     mentors: Mentor[];
+    error: Error;
 }
 
 const initialState: HomePageState = {
     mentors: [],
+    error: {} as Error,
 }
 
 export const homePageReducer = createReducer(

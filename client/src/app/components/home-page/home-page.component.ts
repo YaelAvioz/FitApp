@@ -12,17 +12,14 @@ import { Mentor } from 'src/interfaces/mentor';
 })
 export class HomePageComponent {
   mentors$: Observable<Mentor[]>;
-  mentors:Mentor[] | undefined;
 
-  constructor(private store: Store<any>) {
-    this.mentors$ = this.store.select((state) => state.homePageReducer.mentor)
+  constructor(private store: Store<{homePageReducer: HomePageState}>) {
+    this.mentors$ = this.store.select((state) => {    
+      return state.homePageReducer.mentors;
+    })
   }
 
   ngOnInit() {
     this.store.dispatch(loadMentors());
-    this.mentors$.subscribe((data) => {
-      this.mentors = data;
-    });
-    console.log(this.mentors);
   }
 }

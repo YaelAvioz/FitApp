@@ -14,6 +14,6 @@ export class mentorService {
   constructor(private store: Store, private http: HttpClient) { }
 
   getAll() {
-    return this.http.get<Mentor[]>(this.baseUrl);
+    return this.http.get<Mentor[]>(this.baseUrl);  
   }
 }

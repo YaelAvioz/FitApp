@@ -23,6 +23,8 @@ import { homePageReducer } from '../store/home-page/homePageReducer';
 import { HttpClientModule } from '@angular/common/http';
 import { FoodDictionaryEffects } from '../effects/foodDictionaryPageEffect';
 import { foodDictionaryPageReducer } from '../store/food-dictionary-page/foodDictionaryPageReducer';
+import { FoodItemCardComponent } from '../components/food-item-card/food-item-card.component';
+import { FoodItemModalComponent } from '../components/food-item-modal/food-item-modal.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { foodDictionaryPageReducer } from '../store/food-dictionary-page/foodDic
     AboutUsComponent,
     OurMentorsComponent,
     MentorCardComponent,
+    FoodItemCardComponent,
+    FoodItemModalComponent,
   ],
   imports: [
     BrowserModule,

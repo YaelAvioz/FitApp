@@ -1,0 +1,17 @@
+<div *ngIf="isModalVisible" class="modal">
+    <img (click)="isModalVisible()" class="close-button" src="../../../assets/images/X.svg" alt="x-img">
+    <div class="modal-content">
+        <p class="title">{{foodItem.name}}</p>
+        <p class="sub-title">Nutritional Values per serving ({{ foodItem.serving_size }})</p>
+        <div class="details">
+            <p>calories: {{foodItem.calories}}</p>
+            <p>total fat: {{foodItem.total_fat}}</p>
+            <p>calcium: {{foodItem.calcium}}</p>
+            <p>protein: {{foodItem.protein}} </p>
+            <p>carbohydrate: {{foodItem.carbohydrate}} </p>
+            <p>fiber: {{foodItem.fiber}}</p>
+            <p>sugars: {{foodItem.sugars}}</p>
+            <p>fat: {{foodItem.fat}}</p>
+        </div>
+    </div>
+</div>

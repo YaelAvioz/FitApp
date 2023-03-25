@@ -22,8 +22,5 @@ export class FoodDictionaryPageComponent {
 
   ngOnInit() {
     this.store.dispatch(loadFoodItems());
-    // this.foodItems$.subscribe(foodItemsToShow => {
-    //   return this.foodItems = foodItemsToShow;
-    // });
   }
 }

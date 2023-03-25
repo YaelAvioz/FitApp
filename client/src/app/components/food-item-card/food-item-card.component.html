@@ -1,0 +1,13 @@
+<div class="food-card-container">
+    <mat-card class="food-card">
+        <mat-card-header class="card-header">
+            <mat-card-title>{{foodItem.name}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <p>{{ foodItem.calories }} calories per serving ({{ foodItem.serving_size }})</p>
+            <button type="button" (click)="isModalVisible=!isModalVisible">More Nutritional Values</button>
+          </mat-card-content>
+    </mat-card>
+</div>
+<app-food-item-modal *ngIf="isModalVisible" [foodItem]="foodItem"></app-food-item-modal>
+  

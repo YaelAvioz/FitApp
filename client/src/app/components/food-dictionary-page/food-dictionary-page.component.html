@@ -1,1 +1,6 @@
 <app-hero></app-hero>
+<div *ngIf="foodItems$ | async as foodItems"> 
+        <div *ngFor="let foodItem of foodItems">
+            <p>{{foodItem.name}}</p>
+        </div>
+</div>

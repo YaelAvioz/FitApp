@@ -21,6 +21,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { homePageReducer } from '../store/home-page/homePageReducer';
 import { HttpClientModule } from '@angular/common/http';
+import { FoodDictionaryEffects } from '../effects/foodDictionaryPageEffect';
+import { foodDictionaryPageReducer } from '../store/food-dictionary-page/foodDictionaryPageReducer';
 
 @NgModule({
   declarations: [
@@ -42,8 +44,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatCardModule,
-    EffectsModule.forRoot([HomePageEffects]),
-    StoreModule.forRoot({homePageReducer}),
+    EffectsModule.forRoot([HomePageEffects, FoodDictionaryEffects]),
+    StoreModule.forRoot({homePageReducer, foodDictionaryPageReducer}),
     HttpClientModule,
   ],
   providers: [],

@@ -20,7 +20,7 @@ namespace FitAppServer.Services
         {
             // Represent the claims or information to be encoded in the token.
             var claims = new List<Claim>{
-            new Claim( JwtRegisteredClaimNames.NameId,user.Username)
+            new Claim( JwtRegisteredClaimNames.NameId,user.username)
             };
             // class, which is used to sign the token
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512);

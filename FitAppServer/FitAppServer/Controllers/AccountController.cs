@@ -2,7 +2,6 @@
 using FitAppServer.Interfaces;
 using FitAppServer.Model;
 using FitAppServer.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitAppServer.Controllers
@@ -28,8 +27,8 @@ namespace FitAppServer.Controllers
                 var user = await _accountService.RegisterUser(registerUserDTO);
                 var userDTO = new UserDTO
                 {
-                    Username = user.Username,
-                    Token = _tokenService.CreateToken(user)
+                    username = user.username,
+                    token = _tokenService.CreateToken(user)
                 };
                 return Ok(userDTO);
             }
@@ -47,8 +46,8 @@ namespace FitAppServer.Controllers
                 var user = await _accountService.Login(loginDTO);
                 var userDTO = new UserDTO
                 {
-                    Username = user.Username,
-                    Token = _tokenService.CreateToken(user)
+                    username = user.username,
+                    token = _tokenService.CreateToken(user)
                 };
                 return Ok(userDTO);
             }

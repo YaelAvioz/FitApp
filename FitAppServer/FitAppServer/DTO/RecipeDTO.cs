@@ -1,4 +1,5 @@
 ﻿using FitAppServer.Model;
+using MongoDB.Libmongocrypt;
 
 namespace FitAppServer.DTO
 {
@@ -8,5 +9,6 @@ namespace FitAppServer.DTO
         public virtual string Ingredients { get; set; }
         public virtual string Instructions { get; set; }
         public virtual string Image_Name { get; set; }
+        public virtual Binary Image { get; set; }
     }
 }

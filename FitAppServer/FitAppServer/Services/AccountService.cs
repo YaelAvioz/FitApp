@@ -25,7 +25,7 @@ namespace FitAppServer.Services
 
         public async Task<User> RegisterUser(RegisterDTO userDTO)
         {
-            var isUserExist = await UserExists(userDTO.Username);
+            var isUserExist = await UserExists(userDTO.username);
             if (isUserExist != null)
             {
                 throw new Exception("User exists!");
@@ -33,8 +33,8 @@ namespace FitAppServer.Services
             using var hmac = new HMACSHA512();
             var user = new User
             {
-                username = userDTO.Username.ToLower(),
-                passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userDTO.Password)),
+                username = userDTO.username.ToLower(),
+                passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userDTO.password)),
                 passwordSalt = hmac.Key
             };
 
@@ -44,10 +44,10 @@ namespace FitAppServer.Services
 
         public async Task<User> Login(LoginDTO userDTO)
         {
-            var userExists = await UserExists(userDTO.Username);
+            var userExists = await UserExists(userDTO.username);
             if (userExists == null) throw new Exception("Unauthorized user!");
             using var hmac = new HMACSHA512(userExists.passwordSalt);
-            var computeHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userDTO.Password));
+            var computeHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userDTO.password));
             for (int i = 0; i < computeHash.Length; i++)
             {
                 if (computeHash[i] != userExists.passwordHash[i]) throw new Exception("Unauthorized user!");

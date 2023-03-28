@@ -46,6 +46,15 @@ namespace FitAppServer.Services
             return _mapper.Map<List<TDTO>>(entities);
         }
 
+        public async Task<List<TDTO>> GetNext(int skip)
+        {
+            var entities = await _collection.Find(_ => true)
+                                             .Skip(skip)
+                                             .Limit(50)
+                                             .ToListAsync();
+            return _mapper.Map<List<TDTO>>(entities);
+        }
+
         public async Task<TDTO> Get(string id)
         {
             var objectId = new ObjectId(id);

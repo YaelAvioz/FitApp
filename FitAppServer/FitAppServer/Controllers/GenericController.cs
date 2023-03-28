@@ -24,6 +24,13 @@ namespace FitAppServer.Controllers
             return Ok(all);
         }
 
+        [HttpGet("next/{skip}")]
+        public async Task<ActionResult<List<TDTO>>> GetNext(int skip)
+        {
+            List<TDTO> all = await _genericService.GetNext(skip);
+            return Ok(all);
+        }
+
         [HttpPost]
         public async Task<ActionResult<TDTO>> Create([FromBody] T entity)
         {

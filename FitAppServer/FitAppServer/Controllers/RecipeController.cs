@@ -11,9 +11,24 @@ namespace FitAppServer.Controllers
     public class RecipeController : GenericController<Recipe, RecipeDTO>
     {
         private static RecipeService _recipeService;
-        public RecipeController(IMapper mapper) : base(mapper)
+
+        public RecipeController(IMapper mapper) : base(mapper) 
         {
             _recipeService = new RecipeService(mapper);
+        }
+
+        [HttpGet]
+        [Route("search/{query}")]
+        public ActionResult<List<Recipe>> GetRecipesByQuery([FromRoute] string query)
+        {
+            var recipes = _recipeService.GetRecipesByQuery(query);
+
+            if (recipes == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(recipes);
         }
     }
 }

@@ -135,7 +135,6 @@ dist
 .yarn/unplugged
 .yarn/build-state.yml
 .yarn/install-state.gz
-<<<<<<< HEAD
 .pnp.*
 
 
@@ -391,6 +390,3 @@ AkavacheSqliteLinkerOverride.cs
 NuGetBuild
 WiX.Toolset.DummyFile.txt
 GitHubVS.sln.DotSettings
-=======
-.pnp.*
->>>>>>> f52c4a55f99057125ae8a57d90909d8876caae1f

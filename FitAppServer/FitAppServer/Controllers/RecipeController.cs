@@ -32,10 +32,8 @@ namespace FitAppServer.Controllers
             }
             else
             {
-                recipes = _recipeIMGService.GetImgs(recipes);
+               return Ok(_recipeIMGService.GetImgs(recipes));
             }
-
-            return Ok(recipes);
         }
     }
 }

@@ -19,7 +19,8 @@ namespace FitAppServer.Services
             var client = new MongoClient(connectionString);
             _db = client.GetDatabase(databaseName);
             string s = typeof(T).ToString();
-            _collection = _db.GetCollection<T>(s.Substring(s.LastIndexOf('.') + 1).ToLower());
+            string collectionName = s.Substring(s.LastIndexOf('.') + 1).ToLower();
+            _collection = _db.GetCollection<T>(collectionName);
             _mapper = mapper;
         }
 

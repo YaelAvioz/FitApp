@@ -7,6 +7,6 @@ namespace FitAppServer.Services
 {
     public class RecipeService : GenericService<Recipe, RecipeDTO>
     {
-        public RecipeService(IMapper mapper) : base(mapper, "recipe") {  }
+        public RecipeService(IMapper mapper) : base(mapper) {  }
     }
 }

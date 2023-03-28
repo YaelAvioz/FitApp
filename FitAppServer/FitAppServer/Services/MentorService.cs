@@ -7,7 +7,7 @@ namespace FitAppServer.Services
 {
     public class MentorService : GenericService<Mentor, MentorDTO>
     {
-        public MentorService(IMapper mapper) : base(mapper, "mentors") {  }
+        public MentorService(IMapper mapper) : base(mapper) {  }
 
         public async Task<Mentor> GetMentorInfo(string mentorName)
         {

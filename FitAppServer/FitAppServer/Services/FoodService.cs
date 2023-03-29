@@ -7,7 +7,7 @@ namespace FitAppServer.Services
 {
     public class FoodService : GenericService<Food, FoodDTO>
     {
-        public FoodService(IMapper mapper) : base(mapper, "food") {  }
+        public FoodService(IMapper mapper) : base(mapper) {  }
 
         public async Task<Food> GetDefaultFoodInfo(string foodName)
         {

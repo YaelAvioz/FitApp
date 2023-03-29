@@ -11,6 +11,7 @@ namespace FitAppServer.Controllers
     public class MentorController : GenericController<Mentor, MentorDTO>
     {
         private static MentorService _mentorService;
+
         public MentorController(IMapper mapper) : base(mapper)
         {
             _mentorService = new MentorService(mapper);

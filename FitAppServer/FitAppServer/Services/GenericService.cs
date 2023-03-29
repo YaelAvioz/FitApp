@@ -19,7 +19,8 @@ namespace FitAppServer.Services
             var client = new MongoClient(connectionString);
             _db = client.GetDatabase(databaseName);
             string s = typeof(T).ToString();
-            _collection = _db.GetCollection<T>(s.Substring(s.LastIndexOf('.') + 1).ToLower());
+            string collectionName = s.Substring(s.LastIndexOf('.') + 1).ToLower();
+            _collection = _db.GetCollection<T>(collectionName);
             _mapper = mapper;
         }
 
@@ -42,6 +43,15 @@ namespace FitAppServer.Services
         public async Task<List<TDTO>> GetAll()
         {
             var entities = await _collection.Find(_ => true).ToListAsync();
+            return _mapper.Map<List<TDTO>>(entities);
+        }
+
+        public async Task<List<TDTO>> GetNext(int skip)
+        {
+            var entities = await _collection.Find(_ => true)
+                                             .Skip(skip)
+                                             .Limit(50)
+                                             .ToListAsync();
             return _mapper.Map<List<TDTO>>(entities);
         }
 

@@ -31,5 +31,53 @@ namespace FitAppServer.Controllers
                 return Ok(food);
             }
         }
+
+        [HttpGet]
+        [Route("{id}/protein")]
+        public async Task<ActionResult<string>> GetFoodProtein(string id)
+        {
+            FoodDTO food = await _foodService.Get(id);
+
+            if (food == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(food.protein);
+            }
+        }
+
+        [HttpGet]
+        [Route("{id}/fat")]
+        public async Task<ActionResult<string>> GetFoodFat(string id)
+        {
+            FoodDTO food = await _foodService.Get(id);
+
+            if (food == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(food.fat);
+            }
+        }
+
+        [HttpGet]
+        [Route("{id}/carbs")]
+        public async Task<ActionResult<string>> GetFoodCarbs(string id)
+        {
+            FoodDTO food = await _foodService.Get(id);
+
+            if (food == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(food.carbohydrate);
+            }
+        }
     }
 }

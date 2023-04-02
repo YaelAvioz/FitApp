@@ -57,8 +57,7 @@ namespace FitAppServer.Services
 
         public async Task<TDTO> Get(string id)
         {
-            var objectId = new ObjectId(id);
-            var entity = await _collection.Find(x => x.Id.Equals(objectId)).FirstOrDefaultAsync();
+            var entity = await _collection.Find(x => x.Id.Equals(id)).FirstOrDefaultAsync();
             return _mapper.Map<TDTO>(entity);
         }
 
@@ -70,16 +69,14 @@ namespace FitAppServer.Services
 
         public async Task<TDTO> Update(string id, T newEntity)
         {
-            var objectId = new ObjectId(id);
-            newEntity.Id = objectId.ToString();
-            await _collection.ReplaceOneAsync(x => x.Id.Equals(objectId), newEntity);
+            newEntity.Id = id;
+            await _collection.ReplaceOneAsync(x => x.Id.Equals(id), newEntity);
             return _mapper.Map<TDTO>(newEntity);
         }
 
         public async Task Delete(string id)
         {
-            var objectId = new ObjectId(id);
-            await _collection.DeleteOneAsync(x => x.Id.Equals(objectId));
+            await _collection.DeleteOneAsync(x => x.Id.Equals(id));
         }
     }
 }

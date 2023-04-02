@@ -15,5 +15,21 @@ namespace FitAppServer.Controllers
         {
             _foodService = new FoodService(mapper);
         }
+
+        [HttpGet]
+        [Route("{id}/serving/{amount}/{serving}")]
+        public async Task<ActionResult<FoodDTO>> GetFoodByServing(string id, string amount, string serving)
+        {
+            FoodDTO food = await _foodService.GetFoodInfoByServing(id, amount, serving);
+            
+            if (food == null)
+            {
+                return NotFound();
+            } 
+            else
+            {
+                return Ok(food);
+            }
+        }
     }
 }

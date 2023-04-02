@@ -41,7 +41,7 @@ namespace FitAppServer.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<TDTO>> Get(string id)
         {
-            TDTO entity = await _genericService.Get(ObjectId.Parse(id).ToString());
+            TDTO entity = await _genericService.Get(id);
 
             if (entity == null)
             {
@@ -53,26 +53,26 @@ namespace FitAppServer.Controllers
         [HttpPut("{id:length(24)}")]
         public async Task<ActionResult<TDTO>> Update(string id, [FromBody] T newEntity)
         {
-            TDTO entity = await _genericService.Get(ObjectId.Parse(id).ToString());
+            TDTO entity = await _genericService.Get(id);
 
             if (entity == null)
             {
                 return NotFound();
             }
-            TDTO updatedEntity = await _genericService.Update(ObjectId.Parse(id).ToString(), newEntity);
+            TDTO updatedEntity = await _genericService.Update(id, newEntity);
             return Ok(updatedEntity);
         }
 
         [HttpDelete("{id:length(24)}")]
         public async Task<ActionResult> Delete(string id)
         {
-            TDTO entity = await _genericService.Get(ObjectId.Parse(id).ToString());
+            TDTO entity = await _genericService.Get(id);
 
             if (entity == null)
             {
                 return NotFound();
             }
-            _ = _genericService.Delete(ObjectId.Parse(id).ToString());
+            _ = _genericService.Delete(id);
             return NoContent();
         }
     }

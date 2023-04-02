@@ -2,6 +2,7 @@
 using AutoMapper;
 using FitAppServer.DTO;
 using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace FitAppServer.Services
 {
@@ -23,34 +24,29 @@ namespace FitAppServer.Services
             return foods.FirstOrDefault().calories;
         }
 
-        /*public async Task<Food> GetFoodInfoByServing(string foodName, string count, string serving)
+        public async Task<FoodDTO> GetFoodInfoByServing(string id, string amount, string serving)
         {
-            var filter = Builders<Food>.Filter.Eq(x => x.name, foodName);
-            var foods = await _collection.Find(filter).ToListAsync();
+            var food = await _collection.Find(x => x.Id.Equals(id)).FirstOrDefaultAsync();
 
-            if (foods.Any())
+            if (food != null)
             {
-                Food food = foods.First();
                 if (food.serving_size.Equals(serving))
                 {
-                    return food;
+                    return _mapper.Map<FoodDTO>(food);
                 }
                 else
                 {
                     switch (serving)
                     {
                         case "g":
-                            return food.FoodByGrams(int.Parse(count));
+                            return _mapper.Map<FoodDTO>(food.FoodByGrams(amount));
                         case "kg":
-                            return food.FoodBy100Grams(int.Parse(count));
-                            
-
-
+                            return _mapper.Map<FoodDTO>(food.FoodBy100Grams(amount));
                     }
                 }
-
             }
-        }*/
+            return null;
+        }
 
     }
 }

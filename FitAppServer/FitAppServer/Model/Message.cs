@@ -9,7 +9,7 @@ namespace FitAppServer.Model
         public string ConversationId { get; set; }
 
         // True for user to mentor, False for mentor to user
-        public bool IsFromUser { get; set; }
+        public bool IsUser { get; set; }
 
         public string Content { get; set; }
 

@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
+using FitAppServer.DTO;
 
 namespace FitAppServer.Model
 {

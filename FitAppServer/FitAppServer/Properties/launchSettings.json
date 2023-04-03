@@ -22,8 +22,8 @@
     "https": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/mentor",
-      "applicationUrl": "https://localhost:7248;http://localhost:5277",
+      "launchUrl": "index.html",
+      "applicationUrl": "https://localhost:7248",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

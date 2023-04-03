@@ -10,10 +10,11 @@ namespace FitAppServer.Services
     {
         public RecipeService(IMapper mapper) : base(mapper) {  }
 
-        public List<Recipe> GetRecipesByQuery(string query)
+        public List<RecipeCardDTO> GetRecipesByQuery(string query)
         {
             var filter = Builders<Recipe>.Filter.Regex(x => x.Title, new BsonRegularExpression(query, "i"));
-            return _collection.Find(filter).ToList();
+            
+            return _mapper.Map<List<RecipeCardDTO>>(_collection.Find(filter).ToList());
         }
     }
 }

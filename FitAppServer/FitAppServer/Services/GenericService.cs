@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FitAppServer.DTO;
 using FitAppServer.Model;
 using MongoDB.Bson;
 using MongoDB.Driver;

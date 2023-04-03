@@ -11,5 +11,6 @@ public class MappingProfiles : Profile
         CreateMap<Food, FoodDTO>();
         CreateMap<Mentor, MentorDTO>();
         CreateMap<Recipe, RecipeDTO>();
+        CreateMap<Recipe, RecipeCardDTO>();
     }
 }

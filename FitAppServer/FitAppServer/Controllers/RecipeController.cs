@@ -11,18 +11,14 @@ namespace FitAppServer.Controllers
     public class RecipeController : GenericController<Recipe, RecipeDTO>
     {
         private static RecipeService _recipeService;
-        private static RecipeIMGService _recipeIMGService;
-
 
         public RecipeController(IMapper mapper) : base(mapper) 
         {
-            _recipeService = new RecipeService(mapper);
-            _recipeIMGService = new RecipeIMGService();
-        }
+            _recipeService = new RecipeService(mapper);        }
 
         [HttpGet]
         [Route("search/{query}")]
-        public ActionResult<List<RecipeDTO>> GetRecipesByQuery([FromRoute] string query)
+        public ActionResult<List<RecipeCardDTO>> GetRecipesByQuery([FromRoute] string query)
         {
             var recipes = _recipeService.GetRecipesByQuery(query);
 
@@ -32,7 +28,7 @@ namespace FitAppServer.Controllers
             }
             else
             {
-               return Ok(_recipeIMGService.GetImgs(recipes));
+                return Ok(recipes);
             }
         }
     }

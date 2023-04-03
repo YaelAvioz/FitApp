@@ -12,5 +12,8 @@ public class MappingProfiles : Profile
         CreateMap<Mentor, MentorDTO>();
         CreateMap<Recipe, RecipeDTO>();
         CreateMap<Recipe, RecipeCardDTO>();
+        CreateMap<Conversation, ConversationDTO>();
+        CreateMap<Message, MessageDTO>();
+
     }
 }

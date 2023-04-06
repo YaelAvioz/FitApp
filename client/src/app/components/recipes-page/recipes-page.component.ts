@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { map, Observable, withLatestFrom } from 'rxjs';
+import { loadRecipes, loadRecipesByLimit } from 'src/app/store/recipes-page/recipesPageAction';
+import { recipesPageState } from 'src/app/store/recipes-page/recipesPageReducer';
+import { Recipe } from 'src/interfaces/recipe';
 
 @Component({
   selector: 'app-recipes-page',
@@ -6,5 +11,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./recipes-page.component.scss']
 })
 export class RecipesPageComponent {
+  recipes$: Observable<Recipe[]>;
+  limit: number = 0;
 
+  constructor(private store: Store<{ recipesPageReducer: recipesPageState }>) {
+    this.recipes$ = this.store.select((state) => {
+      return state.recipesPageReducer.recipes;
+    })
+  }
+
+  ngOnInit() {
+    this.store.dispatch(loadRecipesByLimit({ limit: this.limit }));
+  }
+
+  loadMore(){
+    this.limit += 50;
+    this.store.dispatch(loadRecipesByLimit({ limit: this.limit }));
+  }
 }

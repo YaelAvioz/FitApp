@@ -12,9 +12,14 @@ namespace FitAppServer.Controllers
     public class ConversationController : GenericController<Conversation, ConversationDTO>
     {
         private static ConversationService _conversationService;
+        private static MessageService _messageService;
+
+
         public ConversationController(IMapper mapper) : base(mapper)
         {
             _conversationService = new ConversationService(mapper);
+            _messageService = new MessageService(mapper);
         }
+
     }
 }

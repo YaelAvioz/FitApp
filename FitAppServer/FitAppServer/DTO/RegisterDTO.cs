@@ -16,7 +16,7 @@ namespace FitAppServer.DTO
 
         public int age { get; set; }
 
-        public int hight { get; set; }
+        public int height { get; set; }
 
         public string gender { get; set; }
 

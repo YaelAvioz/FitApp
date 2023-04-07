@@ -2,7 +2,6 @@
 using FitAppServer.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
 
 namespace FitAppServer.Controllers
 {

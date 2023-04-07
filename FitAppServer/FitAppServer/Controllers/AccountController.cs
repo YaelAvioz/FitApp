@@ -28,7 +28,13 @@ namespace FitAppServer.Controllers
                 var userDTO = new UserDTO
                 {
                     username = user.username,
-                    token = _tokenService.CreateToken(user)
+                    token = _tokenService.CreateToken(user),
+                    firstname = registerUserDTO.firstname,
+                    lastname = registerUserDTO.lastname,
+                    age = registerUserDTO.age,
+                    height = registerUserDTO.height,
+                    gender = registerUserDTO.gender,
+                    tags = registerUserDTO.tags
                 };
                 return Ok(userDTO);
             }

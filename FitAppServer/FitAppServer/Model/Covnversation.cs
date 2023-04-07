@@ -9,6 +9,7 @@ namespace FitAppServer.Model
         [BsonRepresentation(BsonType.ObjectId)]
         public string UserId { get; set; }
 
-        public List<MessageDTO> Messages { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public List<string> Messages { get; set; }
     }
 }

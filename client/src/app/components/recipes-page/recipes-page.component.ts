@@ -12,6 +12,7 @@ import { Recipe } from 'src/interfaces/recipe';
 })
 export class RecipesPageComponent {
   recipes$: Observable<Recipe[]>;
+  recipes!: Recipe[];
   limit: number = 0;
 
   constructor(private store: Store<{ recipesPageReducer: recipesPageState }>) {
@@ -22,10 +23,19 @@ export class RecipesPageComponent {
 
   ngOnInit() {
     this.store.dispatch(loadRecipesByLimit({ limit: this.limit }));
+    this.recipes$.subscribe(recipesToShow => {
+      return this.recipes = recipesToShow
+    })
   }
 
-  loadMore(){
+  loadMore() {
     this.limit += 50;
     this.store.dispatch(loadRecipesByLimit({ limit: this.limit }));
+    this.recipes$.pipe(
+      withLatestFrom(this.store.select(state => state.recipesPageReducer.recipes)),
+      map(([newRecipes, allRecipes]) => [...allRecipes, ...newRecipes])
+    ).subscribe(recipes => {
+      this.recipes = recipes;
+    });
   }
 }

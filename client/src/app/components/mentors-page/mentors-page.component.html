@@ -1,1 +1,5 @@
-<p>mentors-page works!</p>
+    <div class="cards-container" *ngIf="mentors$ | async as mentors">
+        <div *ngFor="let mentor of mentors">
+            <app-mentor-card [mentor]=mentor></app-mentor-card>
+        </div>
+    </div>

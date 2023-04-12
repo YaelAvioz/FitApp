@@ -30,7 +30,7 @@ export class RecipesPageComponent {
   }
 
   next() {
-    this.limit += 50;
+    this.limit += 20;
     this.store.dispatch(loadRecipesByLimit({ limit: this.limit }));
     this.recipes$.subscribe(recipesToShow => {
       return this.recipes = recipesToShow
@@ -38,7 +38,7 @@ export class RecipesPageComponent {
   }
 
   prev() {
-    this.limit -= 50;
+    this.limit -= 20;
     this.store.dispatch(loadRecipesByLimit({ limit: this.limit }));
     this.recipes$.subscribe(recipesToShow => {
       return this.recipes = recipesToShow

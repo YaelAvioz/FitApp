@@ -20,4 +20,8 @@ export class recipeService {
   getRecipesByLimit(limit : number){
     return this.http.get<Recipe[]>(this.baseUrl + `/next/${limit}`);
   }
+
+  getSingleRecipe(recipeName : string){
+    return this.http.get<Recipe>(this.baseUrl + `/singleRecipe/${recipeName}`);
+  }
 }

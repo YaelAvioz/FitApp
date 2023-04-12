@@ -31,5 +31,21 @@ namespace FitAppServer.Controllers
                 return Ok(recipes);
             }
         }
+
+        [HttpGet]
+        [Route("singleRecipe/{query}")]
+        public ActionResult<RecipeDTO> GetSingleRecipe([FromRoute] string query)
+        {
+            var recipe = _recipeService.GetSingleRecipe(query);
+
+            if (recipe == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(recipe);
+            }
+        }
     }
 }

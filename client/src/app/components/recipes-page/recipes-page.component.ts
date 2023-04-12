@@ -13,6 +13,7 @@ import { Recipe } from 'src/interfaces/recipe';
 export class RecipesPageComponent {
   recipes$: Observable<Recipe[]>;
   recipes!: Recipe[];
+  recipesToShow!: Recipe[];
   limit: number = 0;
 
   constructor(private store: Store<{ recipesPageReducer: recipesPageState }>) {
@@ -28,14 +29,19 @@ export class RecipesPageComponent {
     })
   }
 
-  loadMore() {
+  next() {
     this.limit += 50;
     this.store.dispatch(loadRecipesByLimit({ limit: this.limit }));
-    this.recipes$.pipe(
-      withLatestFrom(this.store.select(state => state.recipesPageReducer.recipes)),
-      map(([newRecipes, allRecipes]) => [...allRecipes, ...newRecipes])
-    ).subscribe(recipes => {
-      this.recipes = recipes;
-    });
+    this.recipes$.subscribe(recipesToShow => {
+      return this.recipes = recipesToShow
+    })
+  }
+
+  prev() {
+    this.limit -= 50;
+    this.store.dispatch(loadRecipesByLimit({ limit: this.limit }));
+    this.recipes$.subscribe(recipesToShow => {
+      return this.recipes = recipesToShow
+    })
   }
 }

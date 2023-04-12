@@ -4,6 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { loadRecipes, loadRecipesByLimit, loadRecipesByLimitFailure, loadRecipesByLimitSuccess, loadRecipesFailure, loadRecipesSuccess } from '../store/recipes-page/recipesPageAction';
 import { recipeService } from '../service/recipeService';
+import { loadSingleRecipe, loadSingleRecipeFailure, loadSingleRecipeSuccess } from '../store/single-recipe-page/singleRecipePageAction';
 
 
 @Injectable()
@@ -32,6 +33,18 @@ export class RecipesEffects {
         this.recipeService.getRecipesByLimit(limit).pipe(
           map((recipes) => loadRecipesByLimitSuccess({ recipes })),
           catchError((error) => of(loadRecipesByLimitFailure({ error })))
+        )
+      )
+    )
+  );
+
+  loadSingleRecipe$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadSingleRecipe),
+      switchMap(({recipeName}) =>
+        this.recipeService.getSingleRecipe(recipeName).pipe(
+          map((recipe) => loadSingleRecipeSuccess({ recipe })),
+          catchError((error) => of(loadSingleRecipeFailure({ error })))
         )
       )
     )

@@ -16,5 +16,12 @@ namespace FitAppServer.Services
             
             return _mapper.Map<List<RecipeCardDTO>>(_collection.Find(filter).ToList());
         }
+
+        public List<RecipeDTO> GetSingleRecipe(string query)
+        {
+            var filter = Builders<Recipe>.Filter.Regex(x => x.Title, new BsonRegularExpression(query, "i"));
+
+            return _mapper.Map<List<RecipeDTO>>(_collection.Find(filter).ToList());
+        }
     }
 }

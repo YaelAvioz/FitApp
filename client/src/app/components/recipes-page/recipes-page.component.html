@@ -1,4 +1,9 @@
 <div class="cards-container" *ngIf="recipes">
-    <app-recipe-card *ngFor="let recipe of recipes" [recipe]="recipe"></app-recipe-card>
+    <div *ngFor="let recipe of recipes">
+        <app-recipe-card [recipe]="recipe" [routerLink]="['/single-recipe', recipe.title]"></app-recipe-card>
+    </div>
 </div>
-<button (click)="loadMore()">Load More</button>
+<div class="btn">
+    <button *ngIf="limit > 0" (click)="prev()">prev</button>
+    <button (click)="next()">next</button>
+</div>

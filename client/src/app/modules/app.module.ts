@@ -31,6 +31,7 @@ import { SingleRecipePageComponent } from '../components/single-recipe-page/sing
 import { RecipeCardComponent } from '../components/recipe-card/recipe-card.component';
 import { MentorsPageEffects } from '../effects/mentorsPageEffect';
 import { mentorPageReducer } from '../store/mentors-page/mentorPageReducer';
+import { singleRecipePageReducer } from '../store/single-recipe-page/singleRecipePageReducer';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,7 @@ import { mentorPageReducer } from '../store/mentors-page/mentorPageReducer';
     BrowserAnimationsModule,
     MatCardModule,
     EffectsModule.forRoot([HomePageEffects, FoodDictionaryEffects, RecipesEffects, MentorsPageEffects]),
-    StoreModule.forRoot({homePageReducer, foodDictionaryPageReducer, recipesPageReducer, mentorPageReducer}),
+    StoreModule.forRoot({homePageReducer, foodDictionaryPageReducer, recipesPageReducer, mentorPageReducer, singleRecipePageReducer}),
     HttpClientModule,
   ],
   providers: [],

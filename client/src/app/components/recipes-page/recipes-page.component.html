@@ -3,7 +3,8 @@
         <app-recipe-card [recipe]="recipe" [routerLink]="['/single-recipe', recipe.title]"></app-recipe-card>
     </div>
 </div>
-<div class="btn">
-    <button *ngIf="limit > 0" (click)="prev()">prev</button>
-    <button (click)="next()">next</button>
-</div>
+<mat-paginator class="btn" [length]="800"
+               [pageSize]="20"
+               aria-label="Select page"
+               (page)="onPageChange($event)">
+</mat-paginator>

@@ -30,7 +30,7 @@ export class SingleRecipePageComponent {
       this.store.dispatch(loadSingleRecipe({ recipeName: this.id }));
       this.recipe$.subscribe(recipeToShow => {
         return this.recipe = recipeToShow[0];
-      })
+      })    
     }
   }
 }

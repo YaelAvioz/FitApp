@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { Store } from '@ngrx/store';
 import { map, Observable, withLatestFrom } from 'rxjs';
 import { loadRecipes, loadRecipesByLimit } from 'src/app/store/recipes-page/recipesPageAction';
@@ -27,6 +28,13 @@ export class RecipesPageComponent {
     this.recipes$.subscribe(recipesToShow => {
       return this.recipes = recipesToShow
     })
+  }
+  onPageChange(event: PageEvent) {
+    if (event.pageIndex > (event.previousPageIndex ?? -1)) {
+      this.next();
+    } else {
+      this.prev();
+    }
   }
 
   next() {

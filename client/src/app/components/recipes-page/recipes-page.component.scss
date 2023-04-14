@@ -1,0 +1,12 @@
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.btn{
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}

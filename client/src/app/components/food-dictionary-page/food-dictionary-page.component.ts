@@ -12,7 +12,6 @@ import { FoodItem } from 'src/interfaces/foodItem';
 })
 export class FoodDictionaryPageComponent {
   foodItems$: Observable<FoodItem[]>;
-  foodItems !: FoodItem[];
 
   constructor(private store: Store<{foodDictionaryPageReducer: foodDictionaryPageState}>) {
     this.foodItems$ = this.store.select((state) => {    

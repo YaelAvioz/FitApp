@@ -1,0 +1,9 @@
+<img class="recipe-img" [src]="recipe.url" alt="{{ recipe.title }}">
+<h1>{{ recipe.title }}</h1>
+<ul>
+    <li *ngFor="let ingredient of recipe.ingredients">{{ ingredient }}</li>
+</ul>
+  
+<p>{{ recipe.instructions }}</p>
+<!-- <div *ngFor="let ingredient of recipe.ingredients">{{ ingredient }}</div> -->
+<button routerLink="/recipes-page">To All Recipes</button>

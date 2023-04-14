@@ -29,6 +29,11 @@ export class RecipesPageComponent {
       return this.recipes = recipesToShow
     })
   }
+
+  search(){
+    
+  }
+
   onPageChange(event: PageEvent) {
     if (event.pageIndex > (event.previousPageIndex ?? -1)) {
       this.next();

@@ -1,3 +1,5 @@
+<input type="text" (input)="search()">
+
 <div class="cards-container" *ngIf="recipes">
     <div *ngFor="let recipe of recipes">
         <app-recipe-card [recipe]="recipe" [routerLink]="['/single-recipe', recipe.title]"></app-recipe-card>

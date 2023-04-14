@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+using System.ComponentModel.DataAnnotations;
 
 namespace FitAppServer.DTO
 {
@@ -18,8 +20,15 @@ namespace FitAppServer.DTO
 
         public int height { get; set; }
 
+        public double weight { get; set; }
+
         public string gender { get; set; }
 
+        public string goal { get; set; }
+
+        public string mentor { get; set; }
+
         public List<string> tags { get; set; }
+
     }
 }

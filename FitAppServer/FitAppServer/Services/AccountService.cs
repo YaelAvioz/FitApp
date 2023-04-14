@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using FitAppServer.DTO;
+using FitAppServer.Interfaces;
 using FitAppServer.Model;
 using MongoDB.Driver;
+using Newtonsoft.Json.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -31,26 +33,40 @@ namespace FitAppServer.Services
                 throw new Exception("User exists!");
             }
             using var hmac = new HMACSHA512();
-            var user = new User
+            var newUser = new User
             {
                 username = userDTO.username.ToLower(),
                 passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userDTO.password)),
-                passwordSalt = hmac.Key
+                passwordSalt = hmac.Key,
+
+                age = userDTO.age,
+                firstname = userDTO.firstname,
+                lastname = userDTO.lastname,
+                gender = userDTO.gender,
+                height = userDTO.height,
+                foods = new List<string>(),
+                weight = new List<Tuple<double, DateTime>>(),
+                tags = userDTO.tags,
+                goal = userDTO.goal,
+                mentor = userDTO.mentor                
             };
 
-            await _collection.InsertOneAsync(user);
-            return user;
+            newUser.weight.Add(Tuple.Create(userDTO.weight, DateTime.Now));
+            newUser.bmi = newUser.getBmi(userDTO.weight);
+
+            await _collection.InsertOneAsync(newUser);
+            return newUser;
         }
 
         public async Task<User> Login(LoginDTO userDTO)
         {
             var userExists = await UserExists(userDTO.username);
-            if (userExists == null) throw new Exception("Unauthorized user!");
+            if (userExists == null) throw new Exception("Unauthorized newUser!");
             using var hmac = new HMACSHA512(userExists.passwordSalt);
             var computeHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userDTO.password));
             for (int i = 0; i < computeHash.Length; i++)
             {
-                if (computeHash[i] != userExists.passwordHash[i]) throw new Exception("Unauthorized user!");
+                if (computeHash[i] != userExists.passwordHash[i]) throw new Exception("Unauthorized newUser!");
             }
             return userExists;
         }
@@ -60,6 +76,15 @@ namespace FitAppServer.Services
             var user = await _collection.Find(x => x.username.ToLower().Equals(username.ToLower())).FirstOrDefaultAsync();
             return user;
         }
+
+        public async Task UpdateToken(UserDTO userDTO)
+        {
+            var filter = Builders<User>.Filter.Eq(x => x.username.ToLower(), userDTO.username.ToLower());
+            var update = Builders<User>.Update.Set(x => x.token, userDTO.token);
+
+            await _collection.UpdateOneAsync(filter, update);
+        }
+
     }
 }
 

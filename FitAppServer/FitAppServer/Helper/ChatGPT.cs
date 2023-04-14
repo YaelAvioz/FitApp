@@ -15,7 +15,7 @@ namespace FitAppServer.Helper
 
             var requestBody = new
             {
-                prompt = GetPrompt(mentor.chat, user.chat),
+                prompt = GetPrompt(mentor.chat, user.getChat()),
                 temperature = 0.5,
                 max_tokens = 50
             };

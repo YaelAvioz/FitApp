@@ -15,7 +15,7 @@ namespace FitAppServer.Controllers
 
         public AccountController(AccountService accountService, ITokenService tokenService)
         {
-            this._accountService = accountService;
+            _accountService = accountService;
             _tokenService = tokenService;
         }
 
@@ -34,8 +34,15 @@ namespace FitAppServer.Controllers
                     age = registerUserDTO.age,
                     height = registerUserDTO.height,
                     gender = registerUserDTO.gender,
-                    tags = registerUserDTO.tags
+                    tags = registerUserDTO.tags,
+                    bmi = user.bmi,
+                    goal = user.goal,
+                    mentor = user.mentor,
+                    weight = user.weight,
+                    foods = user.foods
                 };
+
+                _accountService.UpdateToken(userDTO);
                 return Ok(userDTO);
             }
             catch (Exception ex)

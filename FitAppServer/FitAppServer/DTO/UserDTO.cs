@@ -21,11 +21,11 @@ namespace FitAppServer.DTO
         public int height { get; set; }
 
         // weight = [(55.3, "2.4.23"), (55.9, "30.3.23")]
-        public List<Tuple<float, DateTime>> weight { get; set; }
+        public List<Tuple<double, DateTime>> weight { get; set; }
 
         public string gender { get; set; }
 
-        public float bmi { get; set; }
+        public double bmi { get; set; }
 
         public string goal { get; set; }
 

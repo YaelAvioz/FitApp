@@ -47,5 +47,22 @@ namespace FitAppServer.Controllers
                 return Ok(recipe);
             }
         }
+
+
+        [HttpGet]
+        [Route("weekFavorite")]
+        public ActionResult<List<RecipeCardDTO>> GetWeekFavorite()
+        {
+            var recipes = _recipeService.GetWeekFavorite();
+
+            if (recipes == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(recipes);
+            }
+        }
     }
 }

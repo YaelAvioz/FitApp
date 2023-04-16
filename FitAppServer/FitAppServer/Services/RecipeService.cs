@@ -11,7 +11,7 @@ namespace FitAppServer.Services
     public class RecipeService : GenericService<Recipe, RecipeDTO>
     {
         [BsonRepresentation(BsonType.ObjectId)]
-        List<string> _weekFavorits = new List<string>();
+        static List<string> _weekFavorits = new List<string>();
 
         public RecipeService(IMapper mapper) : base(mapper) {  }
 

@@ -9,7 +9,7 @@ namespace FitAppServer.Helper
     {
         public static async Task<string> Chat(Mentor mentor, User user)
         {
-            var openAIApiKey = "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";
+            var openAIApiKey = "";
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", openAIApiKey);
 

@@ -1,11 +1,34 @@
 <div class="home-page">
-    <app-our-mentors *ngIf="mentors$ | async as mentors" [mentors]="mentors"></app-our-mentors>
-    <app-about-us></app-about-us>
+
     <!-- <div class="video-container">
         <video autoplay controls="false">
             <source src="../../../assets/images/fitapp-video.mp4" type="video/mp4">
         </video>
     </div> -->
-</div>
 
-  
+    <!-- <app-about-us></app-about-us> -->
+    <div class="recipes">
+
+    </div>
+    <div class="about">
+        <div class="about-left-side">
+            <img src="../../../assets/images/women-with-food.jpeg" alt="mentor-img">
+        </div>
+        <div class="about-right-side">
+            <h1 class="title">Tired of mealtime confusion?</h1>
+            <p class="text">At FitApp, we believe that eating healthy and staying fit should be accessible and enjoyable for everyone. Our website provides a comprehensive platform that helps people choose their diet and manage their meal history, with the support of a personal mentor who is dedicated to helping them reach their goals. Our team of nutrition experts and fitness enthusiasts have designed a program that is tailored to each person's unique needs, preferences, and lifestyle. Whether you're looking to lose weight, build muscle, or simply feel more energized and confident, FitApp has everything you need to make it happen. Join our community of like-minded individuals who are committed to living their best lives, and start your journey towards a healthier, happier you today!</p>
+        </div>
+    </div>
+
+    <div class="mentors">
+        <app-our-mentors *ngIf="mentors$ | async as mentors" [mentors]="mentors"></app-our-mentors>
+        <p>All Mentors >></p>
+    </div>
+
+    <div class="join-us">
+        <p class="text">
+            Let's start the journey together
+        </p>
+        <button class="join-btn" type="button">Join Us!</button>
+    </div>
+</div>

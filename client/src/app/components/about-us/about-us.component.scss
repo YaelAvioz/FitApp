@@ -2,23 +2,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 100px;
-    padding: 40px;
-    font-family: 'Helvetica Neue';
-    font-weight: bold;
+    gap: 10%;
+    padding:2% 0%;
     letter-spacing: 2px;
-    font-size: 18px;
-    border: 1px solid black;
+    font-size: 30px;
+    margin: 0px;
 
     .text{
-        width: 900px;
+        width: 80%;
+        display: flex;
+        left: 5%;
+        position: relative;
 
         p{
             margin: 0px;
+            line-height: 1;
         }
     }
 
     .logo{
-        width: 230px;
+        width: 70%;
     }
 }

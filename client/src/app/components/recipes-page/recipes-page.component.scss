@@ -10,3 +10,35 @@
     justify-content: center;
     padding: 30px;
 }
+
+.search {
+    width: 505px;
+    height: 48px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 6px 12px;
+    gap: 16px;
+    border: 0.5px solid #000000;
+    border-radius: 4px;
+    background: none;
+
+    input {
+        height: 29px;
+        width: 423px;
+        left: 10px;
+        top: 4.5px;
+        font-size: 24px;
+        letter-spacing: 1.29px;
+        color: #000000;
+        font-family: 'Helvetica Neue';
+        background: none;
+        border: none;
+        outline: none;
+    }
+
+    img {
+        width: 32px;
+        height: 32px;
+    }
+}

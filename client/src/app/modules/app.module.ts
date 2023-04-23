@@ -33,6 +33,7 @@ import { MentorsPageEffects } from '../effects/mentorsPageEffect';
 import { mentorPageReducer } from '../store/mentors-page/mentorPageReducer';
 import { singleRecipePageReducer } from '../store/single-recipe-page/singleRecipePageReducer';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MentorFlipCardComponent } from '../components/mentor-flip-card/mentor-flip-card.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     FoodItemModalComponent,
     SingleRecipePageComponent,
     RecipeCardComponent,
+    MentorFlipCardComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,11 +1,7 @@
-
-
 .nav-bar{
     display: flex;
     justify-content: space-between;
     padding: 20px 20px 5px 20px;
-    //box-shadow: inset 0px 8px 10px -10px rgba(0, 0, 0, 0.75);
-    //box-shadow: inset 0px -5px 5px -5px rgba(0, 0, 0, 0.5), 0px 8px 10px -10px rgba(0, 0, 0, 0.75);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     .nav-bar-left{
         display: flex;

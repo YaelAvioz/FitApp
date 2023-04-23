@@ -3,13 +3,14 @@
     width: 400px;
     height: 400px;
     -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-    -webkit-transform         : transform 1s;
-        -ms-transform         : transform 1s;
-            transform         : transform 1s;
-  }
-  .tp-box__side {
-     width: 100%;
+    transform-style: preserve-3d;
+    -webkit-transform: transform 1s;
+    -ms-transform: transform 1s;
+    transform: transform 1s;
+}
+
+.tp-box__side {
+    width: 100%;
     height: 100%;
     position: absolute;
 
@@ -22,41 +23,43 @@
     font-weight: 700;
     cursor: pointer;
     -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
-  }
-  .tp-box__front {
-    -webkit-transform : rotateY(0deg);
-    -ms-transform     : rotateY(0deg);
-    transform         : rotateY(0deg);
-  }
-  .tp-box__back {
-    -webkit-transform : rotateY(-180deg);
-    -ms-transform     : rotateY(-180deg);
-    transform         : rotateY(-180deg);
-  }
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
-    .mentor-card {
-        width: 380px;
-        height: 380px;
-        padding: 10px;
+.tp-box__front {
+    -webkit-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+}
 
-        .card-header {
-            display: flex;
-            padding: 0px;
-            justify-content: center;
+.tp-box__back {
+    -webkit-transform: rotateY(-180deg);
+    -ms-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+}
 
-            img {
-                object-fit: cover;
-                width: 100%;
-                height: 300px;
-            }
+.mentor-card {
+    width: 380px;
+    height: 380px;
+    padding: 10px;
+
+    .card-header {
+        display: flex;
+        padding: 0px;
+        justify-content: center;
+
+        img {
+            object-fit: cover;
+            width: 100%;
+            height: 300px;
         }
     }
+}
 
-    .card-content {
-        flex-direction: column;
-        display: flex;
-        margin-top: 10px;
-    }
+.card-content {
+    flex-direction: column;
+    display: flex;
+    margin-top: 10px;
+}

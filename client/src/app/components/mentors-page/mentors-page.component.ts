@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { HomePageState } from 'src/app/store/home-page/homePageReducer';
+import { MentorsPageState } from 'src/app/store/mentors-page/mentorPageReducer';
 import { loadMentors } from 'src/app/store/mentors-page/mentorsPageAction';
 import { Mentor } from 'src/interfaces/mentor';
 
@@ -13,9 +14,9 @@ import { Mentor } from 'src/interfaces/mentor';
 export class MentorsPageComponent {
   mentors$: Observable<Mentor[]>;
 
-  constructor(private store: Store<{homePageReducer: HomePageState}>) {
+  constructor(private store: Store<{mentorPageReducer: MentorsPageState}>) {
     this.mentors$ = this.store.select((state) => {    
-      return state.homePageReducer.mentors;
+      return state.mentorPageReducer.mentors;
     })
   }
 

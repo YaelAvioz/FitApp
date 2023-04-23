@@ -7,28 +7,52 @@
     </div> -->
 
     <!-- <app-about-us></app-about-us> -->
-    <div class="recipes">
 
-    </div>
     <div class="about">
         <div class="about-left-side">
             <img src="../../../assets/images/women-with-food.jpeg" alt="mentor-img">
         </div>
         <div class="about-right-side">
             <h1 class="title">Tired of mealtime confusion?</h1>
-            <p class="text">At FitApp, we believe that eating healthy and staying fit should be accessible and enjoyable for everyone. Our website provides a comprehensive platform that helps people choose their diet and manage their meal history, with the support of a personal mentor who is dedicated to helping them reach their goals. Our team of nutrition experts and fitness enthusiasts have designed a program that is tailored to each person's unique needs, preferences, and lifestyle. Whether you're looking to lose weight, build muscle, or simply feel more energized and confident, FitApp has everything you need to make it happen. Join our community of like-minded individuals who are committed to living their best lives, and start your journey towards a healthier, happier you today!</p>
+            <p class="text">At FitApp, we believe that eating healthy and staying fit should be accessible and enjoyable
+                for everyone. Our website provides a comprehensive platform that helps people choose their diet and
+                manage their meal history, with the support of a personal mentor who is dedicated to helping them reach
+                their goals. Our team of nutrition experts and fitness enthusiasts have designed a program that is
+                tailored to each person's unique needs, preferences, and lifestyle. Whether you're looking to lose
+                weight, build muscle, or simply feel more energized and confident, FitApp has everything you need to
+                make it happen. Join our community of like-minded individuals who are committed to living their best
+                lives, and start your journey towards a healthier, happier you today!</p>
+        </div>
+    </div>
+
+    <!-- <div class="recipes">
+        
+    </div> -->
+    <div class="recipes-box-container">
+        <div class="recipes-box">
+            <p class="text-recipes">we offer a wide variety of healthy recipes that are packed with nutrients to help
+                you maintain a balanced diet. Our recipes are not only delicious but also easy to prepare, making it
+                simple for you to incorporate them into your daily routine. We provide complete nutrition data for each
+                recipe, so you can make informed choices about the food you eat. Whether you're looking for quick and
+                healthy snacks, hearty vegetarian meals, or indulgent yet wholesome desserts, our website has something
+                for everyone. Browse through our collection of recipes and start your journey towards a healthier and
+                more vibrant life today!</p>
+                <button class="recipe-btn" type="button" routerLink="/recipes-page">to all recipes</button>
         </div>
     </div>
 
     <div class="mentors">
         <app-our-mentors *ngIf="mentors$ | async as mentors" [mentors]="mentors"></app-our-mentors>
-        <p>All Mentors >></p>
+        <p class="all-mentors" routerLink="/mentors-page">All Mentors >></p>
     </div>
 
-    <div class="join-us">
-        <p class="text">
-            Let's start the journey together
-        </p>
-        <button class="join-btn" type="button">Join Us!</button>
+    <div class="join-us-container">
+        <div class="join-us">
+            <p class="text">
+                Let's start the journey together
+            </p>
+            <button class="join-btn" type="button">Join Us!</button>
+        </div>
     </div>
+
 </div>

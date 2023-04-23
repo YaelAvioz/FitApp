@@ -1,14 +1,16 @@
-<div class="search">
-    <img src="../../../assets/images/search.svg" alt="search">
-    <input (keyup)="search($event)" type="text" placeholder="Search recipes...">
-</div>
+<!-- <div class="hero">
+    <div class="box">
+        <p class="text">FitApp contains all the best recipes</p>
+        <div class="search">
+            <img src="../../../assets/images/search.svg" alt="search">
+            <input (keyup)="search($event)" type="text" placeholder="Search recipes...">
+        </div>
+    </div>
+</div> -->
 <div class="cards-container" *ngIf="recipes">
     <div *ngFor="let recipe of recipes">
         <app-recipe-card [recipe]="recipe" [routerLink]="['/single-recipe', recipe.title]"></app-recipe-card>
     </div>
 </div>
-<mat-paginator class="btn" [length]="800"
-               [pageSize]="20"
-               aria-label="Select page"
-               (page)="onPageChange($event)">
+<mat-paginator class="btn" [length]="800" [pageSize]="20" aria-label="Select page" (page)="onPageChange($event)">
 </mat-paginator>

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { loadMentors } from 'src/app/store/home-page/homePageAction';
 import { HomePageState } from 'src/app/store/home-page/homePageReducer';
+import { loadMentors } from 'src/app/store/mentors-page/mentorsPageAction';
 import { Mentor } from 'src/interfaces/mentor';
 
 @Component({

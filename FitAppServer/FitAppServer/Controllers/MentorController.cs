@@ -3,6 +3,7 @@ using FitAppServer.Model;
 using AutoMapper;
 using FitAppServer.DTO;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace FitAppServer.Controllers
 {
@@ -15,6 +16,20 @@ namespace FitAppServer.Controllers
         public MentorController(IMapper mapper) : base(mapper)
         {
             _mentorService = new MentorService(mapper);
+        }
+
+        [HttpGet("getThreeMentors")]
+        public async Task<ActionResult<List<MentorDTO>>> GetThreeMentors()
+        {
+            try
+            {
+                var mentors = await _mentorService.GetThreeMentors();
+                return Ok(mentors);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
     }
 }

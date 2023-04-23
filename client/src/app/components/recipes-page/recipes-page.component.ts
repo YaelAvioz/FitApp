@@ -30,8 +30,8 @@ export class RecipesPageComponent {
     })
   }
 
-  search(){
-    
+  search(event: Event){
+    const value = (event.target as HTMLInputElement).value;
   }
 
   onPageChange(event: PageEvent) {

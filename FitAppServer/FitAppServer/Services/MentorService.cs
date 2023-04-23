@@ -15,5 +15,11 @@ namespace FitAppServer.Services
             var mentors = await _collection.Find(filter).ToListAsync();
             return mentors.FirstOrDefault();
         }
+
+        public async Task<List<MentorDTO>> GetThreeMentors()
+        {
+            var mentors = await _collection.Find(Builders<Mentor>.Filter.Empty).Limit(3).ToListAsync();
+            return _mapper.Map<List<MentorDTO>>(mentors);
+        }
     }
 }

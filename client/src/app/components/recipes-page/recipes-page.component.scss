@@ -3,6 +3,7 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 30px;
+    padding-top: 30px;
 }
 
 .btn{
@@ -10,3 +11,100 @@
     justify-content: center;
     padding: 30px;
 }
+
+.search {
+    width: 505px;
+    height: 48px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 6px 12px;
+    gap: 16px;
+    border: 0.5px solid #000000;
+    border-radius: 4px;
+    background: none;
+
+    input {
+        height: 29px;
+        width: 423px;
+        left: 10px;
+        top: 4.5px;
+        font-size: 24px;
+        letter-spacing: 1.29px;
+        color: #000000;
+        font-family: 'Helvetica Neue';
+        background: none;
+        border: none;
+        outline: none;
+    }
+
+    img {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+.hero {
+    display: flex;
+    background-image: url("../../../assets/images/meals.jpeg");
+    height: 400px;
+    background-size: cover;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0px -5px 5px -5px rgba(0, 0, 0, 0.5);
+
+    .box {
+        background: rgba(255, 255, 255, 0.88);
+        width: 776px;
+        height: 221px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 36px 126px;
+        gap: 18px;
+
+        .text {
+            width: 600px;
+            height: 80px;
+            text-align: center;
+            font-family: 'Helvetica Neue';
+            font-style: normal;
+            font-weight: 200;
+            font-size: 32px;
+        }
+    }
+
+    .search {
+        width: 500px;
+        height: 48px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 6px 12px;
+        gap: 16px;
+        border: 0.5px solid #000000;
+        border-radius: 4px;
+        background: none;
+
+        input {
+            height: 29px;
+            width: 423px;
+            left: 10px;
+            top: 4.5px;
+            font-size: 24px;
+            letter-spacing: 1.29px;
+            color: #000000;
+            font-family: 'Helvetica Neue';
+            background: none;
+            border: none;
+            outline: none;
+        }
+
+        img {
+            width: 32px;
+            height: 32px;
+        }
+    }
+}
+

@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { Mentor } from 'src/interfaces/mentor';
-import { loadMentors, loadMentorsFailure, loadMentorsSuccess } from './homePageAction';
+import { loadThreeMentors, loadThreeMentorsFailure, loadThreeMentorsSuccess } from './homePageAction';
 
 export interface HomePageState {
     mentors: Mentor[];
@@ -14,7 +14,7 @@ const initialState: HomePageState = {
 
 export const homePageReducer = createReducer(
     initialState,
-    on(loadMentors, (state) => ({ ...state })),
-    on(loadMentorsSuccess, (state, { mentors }) => ({ ...state, mentors: mentors, })),
-    on(loadMentorsFailure, (state, { error }) => ({ ...state, mentors: error, })),
+    on(loadThreeMentors, (state) => ({ ...state })),
+    on(loadThreeMentorsSuccess, (state, { mentors }) => ({ ...state, mentors: mentors, })),
+    on(loadThreeMentorsFailure, (state, { error }) => ({ ...state, mentors: error, })),
 );

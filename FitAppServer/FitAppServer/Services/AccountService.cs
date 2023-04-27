@@ -12,6 +12,7 @@ namespace FitAppServer.Services
     public class AccountService
     {
         protected readonly IMongoCollection<User> _collection;
+        protected readonly ConversationService _conversationService;
         protected readonly IMongoDatabase _db;
         protected readonly IMapper _mapper;
         protected readonly string connectionString = "mongodb+srv://FitApp:FitAppYaelCoral@cluster0.hsylfut.mongodb.net/?retryWrites=true&w=majority";
@@ -23,6 +24,7 @@ namespace FitAppServer.Services
             var client = new MongoClient(connectionString);
             _db = client.GetDatabase(databaseName);
             _collection = _db.GetCollection<User>(collectionName);
+            _conversationService = new ConversationService(_mapper);
         }
 
         public async Task<User> RegisterUser(RegisterDTO userDTO)
@@ -48,13 +50,26 @@ namespace FitAppServer.Services
                 weight = new List<Tuple<double, DateTime>>(),
                 tags = userDTO.tags,
                 goal = userDTO.goal,
-                mentor = userDTO.mentor                
+                mentor = userDTO.mentor,
             };
 
             newUser.weight.Add(Tuple.Create(userDTO.weight, DateTime.Now));
             newUser.bmi = newUser.getBmi(userDTO.weight);
 
             await _collection.InsertOneAsync(newUser);
+
+            // get the user from the db to get its Id
+            var user = await UserExists(userDTO.username);
+            Conversation conv = new Conversation
+            {
+                Messages = new List<string>(),
+                UserId = user.Id
+            };
+            // when registering a new user: create a conversation + send him the first msg.
+            conv.Messages.Add(user.FirstMsg());
+
+            // new conversation for the new user
+            await _conversationService.Create(conv);           
             return newUser;
         }
 
@@ -74,6 +89,12 @@ namespace FitAppServer.Services
         private async Task<User> UserExists(string username)
         {
             var user = await _collection.Find(x => x.username.ToLower().Equals(username.ToLower())).FirstOrDefaultAsync();
+            return user;
+        }
+
+        public async Task<User> GetUser(string id)
+        {
+            var user = await _collection.Find(x => x.Id.Equals(id)).FirstOrDefaultAsync();
             return user;
         }
 

@@ -35,5 +35,7 @@ namespace FitAppServer.DTO
 
         [BsonRepresentation(BsonType.ObjectId)]
         public List<string> foods { get; set; }
+
+        public string firstMsg { get; set; }
     }
 }

@@ -5,9 +5,9 @@ using Newtonsoft.Json;
 
 namespace FitAppServer.Helper
 {
-    public class ChatGPT
+    public static class ChatGPT
     {
-        public static async Task<string> Chat(Mentor mentor, User user)
+        public static async Task<string> GetAnswer(User user, Mentor mentor)
         {
             var openAIApiKey = "";
             var httpClient = new HttpClient();

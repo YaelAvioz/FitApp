@@ -49,6 +49,13 @@ namespace FitAppServer.Model
                     "the client ate recently: " + foods.ToString() + ".";
         }
 
+        public string FirstMsg()
+        {
+            return "Hi " + firstname + "! I'm so happy that you joined us. My name is "
+                + mentor + " and I'll be your mentor. Feel free to talk to me every time" +
+                " you have a doubt. I'm here for you";
+        }
+
         // BMI = kg/m2
         public double getBmi()
         {

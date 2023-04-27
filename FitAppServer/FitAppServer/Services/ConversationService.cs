@@ -9,5 +9,11 @@ namespace FitAppServer.Services
     {
         public ConversationService(IMapper mapper) : base(mapper) { }
 
+        public async Task<Conversation> GetConversation(string userId)
+        {
+            var conv = await _collection.Find(x => x.UserId.Equals(userId)).FirstOrDefaultAsync();
+            return conv;
+        }
+
     }
 }

@@ -3,6 +3,8 @@ using FitAppServer.Model;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using FitAppServer.DTO;
+using SharpCompress.Common;
+using FitAppServer.Helper;
 
 namespace FitAppServer.Controllers
 {
@@ -12,12 +14,17 @@ namespace FitAppServer.Controllers
     {
         private static ConversationService _conversationService;
         private static MessageService _messageService;
+        private static AccountService _accountService;
+        private static MentorService _mentorService;
+
 
 
         public ConversationController(IMapper mapper)
         {
             _conversationService = new ConversationService(mapper);
             _messageService = new MessageService(mapper);
+            _accountService = new AccountService();
+            _mentorService = new MentorService(mapper);
         }
 
         [HttpPost]
@@ -25,6 +32,47 @@ namespace FitAppServer.Controllers
         {
             ConversationDTO newEntity = await _conversationService.Create(entity);
             return CreatedAtAction(nameof(Get), new { id = entity.Id }, newEntity);
+        }
+
+        [HttpPost("{userId}")]
+        public async Task<ActionResult<string>> SendMessage(string userId, [FromBody] string msg)
+        {
+            User user = await _accountService.GetUser(userId);
+            if (user == null) 
+            {
+                return NotFound();
+            }
+
+            Conversation conv = await _conversationService.GetConversation(user.Id);
+            if (conv == null)
+            {
+                return NotFound();
+            }
+
+            // add new message from the client to the conversation
+            Message userMessage = new Message()
+            {
+                ConversationId = conv.Id,
+                Content = msg,
+                IsUser = true,
+                Timestamp = DateTime.UtcNow
+            };
+            conv.Messages.Add(userMessage.Id);
+
+            // send the message to chatGPT to get an answer
+            Mentor mentor = await _mentorService.GetMentorInfo(user.mentor);
+            string answer = await ChatGPT.GetAnswer(user, mentor);
+
+            // add the mentor's respons to the conversation
+            Message mentorMessage = new Message()
+            {
+                ConversationId = conv.Id,
+                Content = answer,
+                IsUser = false,
+                Timestamp = DateTime.UtcNow
+            };
+            conv.Messages.Add(mentorMessage.Id);
+            return answer;
         }
 
         [HttpGet("{id}")]

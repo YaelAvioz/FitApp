@@ -39,7 +39,8 @@ namespace FitAppServer.Controllers
                     goal = user.goal,
                     mentor = user.mentor,
                     weight = user.weight,
-                    foods = user.foods
+                    foods = user.foods,
+                    firstMsg = user.FirstMsg(),
                 };
 
                 _accountService.UpdateToken(userDTO);

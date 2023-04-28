@@ -41,12 +41,17 @@ namespace FitAppServer.Model
 
         public string getChat()
         {
+            string tag = "";
+            foreach (string t in tags) { tag += t; }
+            string food = "";
+            foreach (string f in foods) { food += f; }
+
             return "the client is a " + gender + " at the age of " + age.ToString() +
                     ". The height of the client  is " + height.ToString() +
-                    " and curren weight is " + weight[-1].Item1.ToString() + ". " +
+                    " and curren weight is " + weight[weight.Count - 1].Item1.ToString() + ". " +
                     "The goal of the client is: " + goal + ". and the tags the client is" +
-                    " intrested in are: " + tags.ToString() + ". Last thing you need to know is the food " +
-                    "the client ate recently: " + foods.ToString() + ".";
+                    " intrested in are: " + tag + ". Last thing you need to know is the food " +
+                    "the client ate recently: " + food + ".";
         }
 
         public string FirstMsg()

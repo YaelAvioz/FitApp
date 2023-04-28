@@ -1,47 +1,41 @@
 ﻿using System.Net.Http.Headers;
 using System.Text;
+using OpenAI_API;
 using FitAppServer.Model;
 using Newtonsoft.Json;
+using OpenAI_API.Completions;
 
 namespace FitAppServer.Helper
 {
     public static class ChatGPT
     {
-        public static async Task<string> GetAnswer(User user, Mentor mentor)
+        public static async Task<string> GetAnswer(User user, Mentor mentor, string userMsg)
         {
-            var openAIApiKey = "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";
-            var httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", openAIApiKey);
+            var openAIApiKey = ApiKey.key;
+            var openAI = new OpenAIAPI(openAIApiKey);
 
-            var requestBody = new
+            var prompt = GetPrompt(mentor.chat, user.getChat(), userMsg);
+            var completionRequest = new CompletionRequest()
             {
-                prompt = GetPrompt(mentor.chat, user.getChat()),
-                temperature = 0.5,
-                max_tokens = 50
+                Prompt = prompt,
+                Temperature = 0.5,
+                MaxTokens = 50
             };
 
-            var jsonRequest = JsonConvert.SerializeObject(requestBody);
+            var response = await openAI.Completions.CreateCompletionAsync(completionRequest);
 
-            var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-
-            var response = await httpClient.PostAsync("https://api.openai.com/v1/engines/davinci/completions", content);
-
-            if (response.IsSuccessStatusCode)
+            if (response != null)
             {
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                var responseObject = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
-                var answer = responseObject.choices[0].text;
-
+                var answer = response.Completions[0].Text;
                 return answer;
             }
             return "There was an error generating a response. Sorry for the inconveniece.";
         }
 
-        private static string GetPrompt(string mc, string uc)
+        private static string GetPrompt(string mc, string uc, string msg)
         {
             return mc + "Information about the client – " + uc + ". The message I was given – "
-                + " *MSG* ";
+                + " " + msg;
         }
     }
-
 }

@@ -61,7 +61,7 @@ namespace FitAppServer.Controllers
 
             // send the message to chatGPT to get an answer
             Mentor mentor = await _mentorService.GetMentorInfo(user.mentor);
-            string answer = await ChatGPT.GetAnswer(user, mentor);
+            string answer = await ChatGPT.GetAnswer(user, mentor, msg);
 
             // add the mentor's respons to the conversation
             Message mentorMessage = new Message()

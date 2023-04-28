@@ -23,7 +23,7 @@ namespace FitAppServer.Controllers
         {
             _conversationService = new ConversationService(mapper);
             _messageService = new MessageService(mapper);
-            _accountService = new AccountService();
+            _accountService = new AccountService(mapper);
             _mentorService = new MentorService(mapper);
         }
 

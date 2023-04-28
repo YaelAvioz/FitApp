@@ -42,18 +42,18 @@ namespace FitAppServer.Model
         public string getChat()
         {
             return "the client is a " + gender + " at the age of " + age.ToString() +
-                    ". The client's height is " + height.ToString() +
+                    ". The height of the client  is " + height.ToString() +
                     " and curren weight is " + weight[-1].Item1.ToString() + ". " +
-                    "The client's goal is: " + goal + ". and the tags the client is" +
+                    "The goal of the client is: " + goal + ". and the tags the client is" +
                     " intrested in are: " + tags.ToString() + ". Last thing you need to know is the food " +
                     "the client ate recently: " + foods.ToString() + ".";
         }
 
         public string FirstMsg()
         {
-            return "Hi " + firstname + "! I'm so happy that you joined us. My name is "
-                + mentor + " and I'll be your mentor. Feel free to talk to me every time" +
-                " you have a doubt. I'm here for you";
+            return "Hi " + firstname + "! I am so happy that you joined us. My name is "
+                + mentor + " and I will be your mentor. Feel free to talk to me every time" +
+                " you have a doubt. I am here for you";
         }
 
         // BMI = kg/m2
@@ -82,20 +82,3 @@ namespace FitAppServer.Model
 
     }
 }
-
-
-/*{
-    "username": "matansha",
-  "password": "tani123",
-  "firstname": "matan",
-  "lastname": "shamir",
-  "age": 25,
-  "height": 170,
-  "weight": 70,
-  "gender": "male",
-  "goal": "be fit",
-  "mentor": "chloe",
-  "tags": [
-    "!"
-  ]
-}*/

@@ -79,5 +79,32 @@ namespace FitAppServer.Services
         {
             await _collection.DeleteOneAsync(x => x.Id.Equals(id));
         }
+
+        public async Task<T> UpdateId(TDTO newEntity)
+        {
+            T e = _mapper.Map<T>(newEntity);
+            await _collection.ReplaceOneAsync(x => x.Id.Equals(newEntity.Id), e);
+            return e;
+        }
     }
+
+    /*
+     
+  {
+  "username": "MiSa",
+  "password": "51234",
+  "firstname": "iiii",
+  "lastname": "eee",
+  "age": 30,
+  "height": 180,
+  "weight": 70,
+  "gender": "male",
+  "goal": "FIT",
+  "mentor": "chloe",
+  "tags": [
+    "fit"
+  ]
+}
+     
+     */
 }

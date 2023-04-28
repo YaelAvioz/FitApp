@@ -11,6 +11,7 @@ public class MappingProfiles : Profile
     {
         CreateMap<Food, FoodDTO>();
         CreateMap<User, UserDTO>();
+        CreateMap<UserDTO, User>();
         CreateMap<UserLoginInfo, UserDTO>();
         CreateMap<RegisterDTO, UserDTO>();
         CreateMap<Mentor, MentorDTO>();
@@ -18,6 +19,8 @@ public class MappingProfiles : Profile
         CreateMap<Recipe, RecipeCardDTO>();
         CreateMap<Conversation, ConversationDTO>();
         CreateMap<Message, MessageDTO>();
+        CreateMap<MessageDTO, Message>();
+
 
     }
 }

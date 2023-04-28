@@ -1,4 +1,5 @@
-﻿using FitAppServer.DTO;
+﻿using AutoMapper;
+using FitAppServer.DTO;
 using FitAppServer.Interfaces;
 using FitAppServer.Model;
 using FitAppServer.Services;
@@ -13,7 +14,7 @@ namespace FitAppServer.Controllers
         private readonly AccountService _accountService;
         private readonly ITokenService _tokenService;
 
-        public AccountController(AccountService accountService, ITokenService tokenService)
+        public AccountController(AccountService accountService, ITokenService tokenService, IMapper mapper)
         {
             _accountService = accountService;
             _tokenService = tokenService;
@@ -43,7 +44,7 @@ namespace FitAppServer.Controllers
                     firstMsg = user.FirstMsg(),
                 };
 
-                _accountService.UpdateToken(userDTO);
+                await _accountService.UpdateToken(userDTO);
                 return Ok(userDTO);
             }
             catch (Exception ex)

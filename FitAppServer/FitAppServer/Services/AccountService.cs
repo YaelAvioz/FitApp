@@ -13,18 +13,22 @@ namespace FitAppServer.Services
     {
         protected readonly IMongoCollection<User> _collection;
         protected readonly ConversationService _conversationService;
+        protected readonly MessageService _messageService;
         protected readonly IMongoDatabase _db;
         protected readonly IMapper _mapper;
         protected readonly string connectionString = "mongodb+srv://FitApp:FitAppYaelCoral@cluster0.hsylfut.mongodb.net/?retryWrites=true&w=majority";
         protected readonly string databaseName = "fitapp";
         protected readonly string collectionName = "user";
+        readonly string fakeId = "aaaaaaaaaaaaaaaaaaaaaaaa";
 
-        public AccountService()
+        public AccountService(IMapper mapper)
         {
+            _mapper = mapper;
             var client = new MongoClient(connectionString);
             _db = client.GetDatabase(databaseName);
             _collection = _db.GetCollection<User>(collectionName);
             _conversationService = new ConversationService(_mapper);
+            _messageService = new MessageService(_mapper);
         }
 
         public async Task<User> RegisterUser(RegisterDTO userDTO)
@@ -56,20 +60,36 @@ namespace FitAppServer.Services
             newUser.weight.Add(Tuple.Create(userDTO.weight, DateTime.Now));
             newUser.bmi = newUser.getBmi(userDTO.weight);
 
+            // add the user to the db
             await _collection.InsertOneAsync(newUser);
 
             // get the user from the db to get its Id
             var user = await UserExists(userDTO.username);
-            Conversation conv = new Conversation
+
+            // when registering a new user: create a conversation + send him the first msg.
+            Conversation conversation = new Conversation
             {
                 Messages = new List<string>(),
                 UserId = user.Id
             };
-            // when registering a new user: create a conversation + send him the first msg.
-            conv.Messages.Add(user.FirstMsg());
 
-            // new conversation for the new user
-            await _conversationService.Create(conv);           
+            // create the first message and add it to the db
+            Message message = new Message
+            {
+                Content = user.FirstMsg(),
+                IsUser = false,
+                Timestamp = DateTime.Now,
+                ConversationId = fakeId
+            };
+            var msg = await _messageService.Create(message);
+
+            // add the message to the conversation
+            conversation.Messages.Add(msg.Id);
+
+            // new conversation for the new user + update the Id
+            var conv = await _conversationService.Create(conversation);
+            msg.ConversationId = conv.Id;
+            await _messageService.UpdateId(msg);
             return newUser;
         }
 
@@ -100,10 +120,8 @@ namespace FitAppServer.Services
 
         public async Task UpdateToken(UserDTO userDTO)
         {
-            var filter = Builders<User>.Filter.Eq(x => x.username.ToLower(), userDTO.username.ToLower());
-            var update = Builders<User>.Update.Set(x => x.token, userDTO.token);
-
-            await _collection.UpdateOneAsync(filter, update);
+            User e = _mapper.Map<User>(userDTO);
+            await _collection.ReplaceOneAsync(x => x.username.Equals(userDTO.username), e);
         }
 
     }

@@ -112,9 +112,15 @@ namespace FitAppServer.Services
             return user;
         }
 
-        public async Task<User> GetUser(string id)
+        public async Task<User> GetUserId(string id)
         {
             var user = await _collection.Find(x => x.Id.Equals(id)).FirstOrDefaultAsync();
+            return user;
+        }
+
+        public async Task<User> GetUserUsername(string username)
+        {
+            var user = await _collection.Find(x => x.username.Equals(username)).FirstOrDefaultAsync();
             return user;
         }
 

@@ -34,10 +34,10 @@ namespace FitAppServer.Controllers
             return CreatedAtAction(nameof(Get), new { id = entity.Id }, newEntity);
         }
 
-        [HttpPost("{userId}")]
-        public async Task<ActionResult<string>> SendMessage(string userId, [FromBody] string msg)
+        [HttpPost("{username}")]
+        public async Task<ActionResult<string>> SendMessage(string username, [FromBody] string msg)
         {
-            User user = await _accountService.GetUser(userId);
+            User user = await _accountService.GetUserUsername(username);
             if (user == null) 
             {
                 return NotFound();

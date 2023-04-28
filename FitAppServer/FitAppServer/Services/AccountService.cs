@@ -118,11 +118,27 @@ namespace FitAppServer.Services
             return user;
         }
 
-        public async Task UpdateToken(UserDTO userDTO)
+        public async Task<UserDTO> UpdateToken(UserDTO userDTO)
         {
-            User e = _mapper.Map<User>(userDTO);
-            await _collection.ReplaceOneAsync(x => x.username.Equals(userDTO.username), e);
+            // Create a filter to find the user in the database
+            var filter = Builders<User>.Filter.Eq(u => u.username, userDTO.username);
+
+            // Create an update definition to set the user's token to the new value
+            var update = Builders<User>.Update.Set(u => u.token, userDTO.token);
+
+            // Find the user and update their token in the database
+            var result = await _collection.FindOneAndUpdateAsync(
+                filter,
+                update,
+                new FindOneAndUpdateOptions<User, User> { ReturnDocument = ReturnDocument.After }
+            );
+
+            // Convert the updated user entity to a UserDTO model using AutoMapper
+            var updatedUserDTO = _mapper.Map<UserDTO>(result);
+
+            return updatedUserDTO;
         }
+
 
     }
 }

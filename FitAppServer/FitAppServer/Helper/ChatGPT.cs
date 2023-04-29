@@ -14,7 +14,7 @@ namespace FitAppServer.Helper
             var prompt = GetPrompt(mentor.chat, user.getChat(), userMsg);
             var completionRequest = new CompletionRequest()
             {
-                Prompt =    ,
+                Prompt = prompt,
                 Temperature = 0.5,
                 MaxTokens = 50
             };

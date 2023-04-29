@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FitAppServer.DTO;
+using FitAppServer.Helper;
 using FitAppServer.Interfaces;
 using FitAppServer.Model;
 using MongoDB.Driver;
@@ -14,6 +15,7 @@ namespace FitAppServer.Services
         protected readonly IMongoCollection<User> _collection;
         protected readonly ConversationService _conversationService;
         protected readonly MessageService _messageService;
+        protected readonly MentorService _mentorService;
         protected readonly IMongoDatabase _db;
         protected readonly IMapper _mapper;
         protected readonly string connectionString = "mongodb+srv://FitApp:FitAppYaelCoral@cluster0.hsylfut.mongodb.net/?retryWrites=true&w=majority";
@@ -29,6 +31,7 @@ namespace FitAppServer.Services
             _collection = _db.GetCollection<User>(collectionName);
             _conversationService = new ConversationService(_mapper);
             _messageService = new MessageService(_mapper);
+            _mentorService = new MentorService(_mapper);
         }
 
         public async Task<User> RegisterUser(RegisterDTO userDTO)
@@ -90,6 +93,18 @@ namespace FitAppServer.Services
             var conv = await _conversationService.Create(conversation);
             msg.ConversationId = conv.Id;
             await _messageService.UpdateId(msg);
+
+            // The client wanted us to choose mentor for him
+            if (newUser.mentor == null)
+            {
+                var newUserTags = new Dictionary<string, List<string>>
+                {
+                    { newUser.Id, newUser.tags }
+                };
+                var mentors = _mentorService.GetMappingInfo();
+                MapClientMentor map = new MapClientMentor(newUserTags, mentors);
+            }
+
             return newUser;
         }
 

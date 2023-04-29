@@ -95,7 +95,7 @@ namespace FitAppServer.Services
             await _messageService.UpdateId(msg);
 
             // The client wanted us to choose mentor for him
-            if (newUser.mentor == null)
+            if ((newUser.mentor == null) || (newUser.mentor == ""))
             {
                 var newUserTags = new Dictionary<string, List<string>>
                 {
@@ -103,8 +103,12 @@ namespace FitAppServer.Services
                 };
                 var mentors = await _mentorService.GetMappingInfo();
                 MapClientMentor map = new MapClientMentor(newUserTags, mentors);
-            }
+                newUser.mentor = map.AssignMentor(newUser.Id);
 
+                // update the user in the db (mentor added)
+                await _collection.UpdateOneAsync(Builders<User>.Filter.Eq(u => u.Id, newUser.Id),
+                    Builders<User>.Update.Set(u => u.mentor, newUser.mentor));
+            }
             return newUser;
         }
 

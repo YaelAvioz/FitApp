@@ -28,7 +28,7 @@ namespace FitAppServer.Services
             var dict = new Dictionary<string, List<string>>();
             foreach (MentorDTO mentor in mentors)
             {
-                dict.Add(mentor.Id, mentor.expertise);
+                dict.Add(mentor.name, mentor.expertise);
             }
             return dict;
         }

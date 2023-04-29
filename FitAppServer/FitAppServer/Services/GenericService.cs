@@ -88,10 +88,11 @@ namespace FitAppServer.Services
         }
     }
 
+
     /*
-     
+
   {
-  "username": "MiSa",
+  "username": "MffiSa",
   "password": "51234",
   "firstname": "iiii",
   "lastname": "eee",
@@ -100,11 +101,11 @@ namespace FitAppServer.Services
   "weight": 70,
   "gender": "male",
   "goal": "FIT",
-  "mentor": "chloe",
+  "mentor": "",
   "tags": [
-    "fit"
+    "Calorie-counting","Meal plans","Guidance","Lose weight","Women's health", "Vegetarianism"
   ]
 }
-     
+
      */
 }

@@ -1,8 +1,5 @@
-﻿using System.Net.Http.Headers;
-using System.Text;
-using OpenAI_API;
+﻿using OpenAI_API;
 using FitAppServer.Model;
-using Newtonsoft.Json;
 using OpenAI_API.Completions;
 
 namespace FitAppServer.Helper
@@ -17,7 +14,7 @@ namespace FitAppServer.Helper
             var prompt = GetPrompt(mentor.chat, user.getChat(), userMsg);
             var completionRequest = new CompletionRequest()
             {
-                Prompt = prompt,
+                Prompt =    ,
                 Temperature = 0.5,
                 MaxTokens = 50
             };
@@ -34,8 +31,7 @@ namespace FitAppServer.Helper
 
         private static string GetPrompt(string mc, string uc, string msg)
         {
-            return mc + "Information about the client – " + uc + ". The message I was given – "
-                + " " + msg;
+            return mc + "Info about the client: " + uc + ". The message I was sent: " + msg;
         }
     }
 }

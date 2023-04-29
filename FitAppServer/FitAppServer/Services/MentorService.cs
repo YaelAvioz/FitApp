@@ -21,5 +21,17 @@ namespace FitAppServer.Services
             var mentors = await _collection.Find(Builders<Mentor>.Filter.Empty).Limit(3).ToListAsync();
             return _mapper.Map<List<MentorDTO>>(mentors);
         }
+
+        public async Task<Dictionary<string, List<string>>> GetMappingInfo()
+        {
+            var mentors = await base.GetAll();
+            var dict = new Dictionary<string, List<string>>();
+            foreach (MentorDTO mentor in mentors)
+            {
+                dict.Add(mentor.Id, mentor.expertise);
+            }
+            return dict;
+        }
+        
     }
 }

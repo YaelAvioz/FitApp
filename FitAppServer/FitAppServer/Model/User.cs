@@ -1,10 +1,5 @@
-﻿using AutoMapper;
-using FitAppServer.DTO;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection;
 
 namespace FitAppServer.Model
 {
@@ -46,12 +41,9 @@ namespace FitAppServer.Model
             string food = "";
             foreach (string f in foods) { food += f; }
 
-            return "the client is a " + gender + " at the age of " + age.ToString() +
-                    ". The height of the client  is " + height.ToString() +
-                    " and curren weight is " + weight[weight.Count - 1].Item1.ToString() + ". " +
-                    "The goal of the client is: " + goal + ". and the tags the client is" +
-                    " intrested in are: " + tag + ". Last thing you need to know is the food " +
-                    "the client ate recently: " + food + ".";
+            return "the client (" + firstname + ") is a " + gender + " at the age of " + age.ToString() +
+                    ". Height (cm): " + height.ToString() + ". Curren weight (kg): " + weight[weight.Count - 1].Item1.ToString() +
+                    ". His goal: " + goal + ". His interests are: " + tag + ". The client ate recently: " + food + ".";
         }
 
         public string FirstMsg()

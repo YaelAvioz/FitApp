@@ -3,7 +3,6 @@ using FitAppServer.Model;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using FitAppServer.DTO;
-using SharpCompress.Common;
 using FitAppServer.Helper;
 
 namespace FitAppServer.Controllers

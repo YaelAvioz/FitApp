@@ -5,11 +5,13 @@
     </div>
 </div>
 
-
-<div class="cards-container" *ngIf="recipes">
+<div class="cards-container" *ngIf="recipes$ | async as  recipes">
     <div *ngFor="let recipe of recipes">
         <app-recipe-card [recipe]="recipe" [routerLink]="['/single-recipe', recipe.title]"></app-recipe-card>
     </div>
 </div>
-<mat-paginator class="btn" [length]="800" [pageSize]="20" aria-label="Select page" (page)="onPageChange($event)">
-</mat-paginator>
+
+
+
+<mat-paginator class="btn" [length]="800" [pageSize]="20" aria-label="Select page"
+    (page)="onPageChange($event)"></mat-paginator>

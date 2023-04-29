@@ -16,4 +16,8 @@ export class foodItemService {
   getAll() {
     return this.http.get<FoodItem[]>(this.baseUrl);
   }
+
+  getFoodItemsByLimit(limit : number){
+    return this.http.get<FoodItem[]>(this.baseUrl + `/next/${limit}`);
+  }
 }

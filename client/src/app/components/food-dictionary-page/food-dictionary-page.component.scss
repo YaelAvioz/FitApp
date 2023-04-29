@@ -3,4 +3,47 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 30px;
+    padding-top: 30px;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 3%;
+
+    .search {
+        width: 450px;
+        height: 50px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 6px 12px;
+        gap: 16px;
+        border-bottom: 2px solid #ccc;
+        background: none;
+
+        input {
+            height: 29px;
+            width: 423px;
+            left: 10px;
+            top: 4.5px;
+            font-size: 20px;
+            letter-spacing: 1.29px;
+            color: #000000;
+            background: none;
+            border: none;
+            outline: none;
+        }
+
+        img {
+            width: 32px;
+            height: 32px;
+        }
+    }
 }

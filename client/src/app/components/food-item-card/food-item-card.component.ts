@@ -9,4 +9,8 @@ import { FoodItem } from 'src/interfaces/foodItem';
 export class FoodItemCardComponent {
   @Input() foodItem !: FoodItem;
   isModalVisible : boolean = false;
+
+  addItem(foodItem : string){
+    alert(foodItem);
+  }
 }

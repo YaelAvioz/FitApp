@@ -12,7 +12,6 @@ import { SignInComponent } from '../components/sign-in/sign-in.component';
 import { HeroComponent } from '../components/hero/hero.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from '../components/nav-bar/nav-bar.component';
-import { AboutUsComponent } from '../components/about-us/about-us.component';
 import { OurMentorsComponent } from '../components/our-mentors/our-mentors.component';
 import {MatCardModule} from '@angular/material/card';
 import { MentorCardComponent } from '../components/mentor-card/mentor-card.component';
@@ -34,6 +33,7 @@ import { mentorPageReducer } from '../store/mentors-page/mentorPageReducer';
 import { singleRecipePageReducer } from '../store/single-recipe-page/singleRecipePageReducer';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MentorFlipCardComponent } from '../components/mentor-flip-card/mentor-flip-card.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -46,7 +46,6 @@ import { MentorFlipCardComponent } from '../components/mentor-flip-card/mentor-f
     SignInComponent,
     HeroComponent,
     NavbarComponent,
-    AboutUsComponent,
     OurMentorsComponent,
     MentorCardComponent,
     FoodItemCardComponent,
@@ -64,6 +63,8 @@ import { MentorFlipCardComponent } from '../components/mentor-flip-card/mentor-f
     EffectsModule.forRoot([HomePageEffects, FoodDictionaryEffects, RecipesEffects, MentorsPageEffects]),
     StoreModule.forRoot({homePageReducer, foodDictionaryPageReducer, recipesPageReducer, mentorPageReducer, singleRecipePageReducer}),
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

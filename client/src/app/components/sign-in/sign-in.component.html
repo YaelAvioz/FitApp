@@ -3,12 +3,30 @@
     <div class="modal-content">
         <p class="title">SIGN IN</p>
         <p class="text">To continue the order, please sign in</p>
-        <div class="details">
-            <p class="input">Email adress</p>
-            <p class="input">Password</p>
-        </div>
+        <form *ngIf="signInForm" [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="login-form">
+            <div class="form-group">
+                <div class="user-input">
+                    <label for="username">Username</label>
+                    <input type="text" formControlName="username" class="form-control" id="username">
+                </div>
+                <div *ngIf="signInForm.get('username')?.hasError('required')" class="error-message"> userName is
+                    required
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="user-input">
+                    <label for="password">Password</label>
+                    <input type="password" formControlName="password" class="form-control" id="password">
+                </div>
+                <div *ngIf="signInForm.get('password')?.hasError('required') || signInForm.get('password')?.hasError('minlength')"
+                    class="error-message"> Password is required and must be at least 6 characters long.
+                </div>
+            </div>
+            <div class="login-btn">
+               <button type="submit" class="btn">Login</button> 
+            </div>
+        </form>
         <div class="login">
-            <img class="login-btn" src="../../../assets/images/login.svg" alt="login-img">
             <p class="forget-password">Forget password?</p>
             <img class="or" src="../../../assets/images/or.svg" alt="or">
             <img class="sign-up-btn" src="../../../assets/images/sign-up.svg" alt="sign-up">

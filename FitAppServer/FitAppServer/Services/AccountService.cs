@@ -101,7 +101,7 @@ namespace FitAppServer.Services
                 {
                     { newUser.Id, newUser.tags }
                 };
-                var mentors = _mentorService.GetMappingInfo();
+                var mentors = await _mentorService.GetMappingInfo();
                 MapClientMentor map = new MapClientMentor(newUserTags, mentors);
             }
 

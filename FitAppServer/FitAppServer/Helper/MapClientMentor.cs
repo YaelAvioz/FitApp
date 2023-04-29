@@ -16,9 +16,10 @@ namespace FitAppServer.Helper
         private Dictionary<string, List<(string, double)>> clientMentorSimilarities;
 
         // Constructor to initialize the class with client and mentor data
-        public MapClientMentor(Dictionary<string, List<string>> clientTags)
+        public MapClientMentor(Dictionary<string, List<string>> clientTags, Dictionary<string, List<string>> mentorTags)
         {
             this.clientTags = clientTags;
+            this.mentorTags = mentorTags;
             clientMentorSimilarities = new Dictionary<string, List<(string, double)>>();
 
             // Calculate the similarities between clients and mentors

@@ -4,6 +4,7 @@ using FitAppServer.Interfaces;
 using FitAppServer.Model;
 using FitAppServer.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace FitAppServer.Controllers
 {
@@ -81,6 +82,27 @@ namespace FitAppServer.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet("{id}/weight")]
+        public async Task<ActionResult<List<Tuple<double, DateTime>>>> WeightCharts(string id)
+        {
+            List<Tuple<double, DateTime>> res = await _accountService.WeightCharts(id);
+            return Ok(res);
+        }
+
+        [HttpGet("{id}/water")]
+        public async Task<ActionResult<List<bool>>> GetWater(string id)
+        {
+            List<bool> res = await _accountService.GetWater(id);
+            return Ok(res);
+        }
+
+        [HttpPost("{id}/water")]
+        public async Task<ActionResult<List<bool>>> UpdateWater(string id, [FromBody] int cupsToAdd)
+        {
+            List<bool> res = await _accountService.UpdateWater(id, cupsToAdd);
+            return Ok(res);
         }
     }
 }

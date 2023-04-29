@@ -3,6 +3,7 @@ using FitAppServer.DTO;
 using FitAppServer.Helper;
 using FitAppServer.Interfaces;
 using FitAppServer.Model;
+using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
 using System.Security.Cryptography;
@@ -57,11 +58,14 @@ namespace FitAppServer.Services
                 weight = new List<Tuple<double, DateTime>>(),
                 tags = userDTO.tags,
                 goal = userDTO.goal,
+                water = new List<bool>(),
                 mentor = userDTO.mentor,
             };
 
+            // Update weight, bmi and recommended water
             newUser.weight.Add(Tuple.Create(userDTO.weight, DateTime.Now));
             newUser.bmi = newUser.getBmi(userDTO.weight);
+            newUser.water = Enumerable.Repeat(false, newUser.GetWaterRecommendation()).ToList();
 
             // add the user to the db
             await _collection.InsertOneAsync(newUser);
@@ -131,13 +135,13 @@ namespace FitAppServer.Services
             return user;
         }
 
-        public async Task<User> GetUserId(string id)
+        public async Task<User> GetUserById(string id)
         {
             var user = await _collection.Find(x => x.Id.Equals(id)).FirstOrDefaultAsync();
             return user;
         }
 
-        public async Task<User> GetUserUsername(string username)
+        public async Task<User> GetUserByUsername(string username)
         {
             var user = await _collection.Find(x => x.username.Equals(username)).FirstOrDefaultAsync();
             return user;
@@ -164,7 +168,28 @@ namespace FitAppServer.Services
             return updatedUserDTO;
         }
 
+        public async Task<List<Tuple<double, DateTime>>> WeightCharts(string id)
+        {
+            User user = await GetUserById(id);
+            return user.weight;
+        }
 
+        public async Task<List<bool>> GetWater(string id)
+        {
+            User user = await GetUserById(id);
+            return user.water;
+        }
+
+        public async Task<List<bool>> UpdateWater(string id, int cupsToAdd)
+        {
+            User user = await GetUserById(id);
+            user.AddWater(cupsToAdd);
+
+            // update the user in the db (water changed)
+            await _collection.UpdateOneAsync(Builders<User>.Filter.Eq(u => u.Id, user.Id),
+            Builders<User>.Update.Set(u => u.water, user.water));
+            return user.water;
+        }
     }
 }
 

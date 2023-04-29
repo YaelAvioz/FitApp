@@ -33,6 +33,8 @@ namespace FitAppServer.DTO
 
         public List<string> tags { get; set; }
 
+        public List<bool> water { get; set; }
+
         [BsonRepresentation(BsonType.ObjectId)]
         public List<string> foods { get; set; }
 

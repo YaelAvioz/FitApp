@@ -31,6 +31,8 @@ namespace FitAppServer.Model
 
         public List<string> tags { get; set; }
 
+        public List<bool> water { get; set; }
+
         [BsonRepresentation(BsonType.ObjectId)]
         public List<string> foods { get; set; }
 
@@ -75,6 +77,39 @@ namespace FitAppServer.Model
             }
 
             return this.bmi;
+        }
+
+        public int GetWaterRecommendation()
+        {
+            // Daily water intake (liters) = 0.033 x Body weight (kg)
+            var liters = 0.033 * weight[weight.Count - 1].Item1;
+            // Divide to get in cups
+            return (int)Math.Ceiling(liters / 4.2267528377);
+        }
+
+        public void AddWater(int capsToAdd)
+        {
+            if (capsToAdd == 0)
+                return;
+
+            if (capsToAdd > 0)
+            {
+                for (int i = 0; i < capsToAdd; i++)
+                {
+                    water.Add(true);
+                }
+            }
+
+            else
+            {
+                for (int i = 0; i < Math.Abs(capsToAdd); i++)
+                {
+                    if (water.Count > 0)
+                    {
+                        water.RemoveAt(water.Count - 1);
+                    }
+                }
+            }
         }
 
     }

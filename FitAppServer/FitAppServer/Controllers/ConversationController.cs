@@ -36,7 +36,7 @@ namespace FitAppServer.Controllers
         [HttpPost("{username}")]
         public async Task<ActionResult<string>> SendMessage(string username, [FromBody] string msg)
         {
-            User user = await _accountService.GetUserUsername(username);
+            User user = await _accountService.GetUserByUsername(username);
             if (user == null) 
             {
                 return NotFound();

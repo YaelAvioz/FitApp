@@ -89,9 +89,8 @@ namespace FitAppServer.Services
     }
 
 
-    /*
-
-  {
+/*
+{
   "username": "MffiSa",
   "password": "51234",
   "firstname": "iiii",
@@ -106,6 +105,5 @@ namespace FitAppServer.Services
     "Calorie-counting","Meal plans","Guidance","Lose weight","Women's health", "Vegetarianism"
   ]
 }
-
-     */
+*/
 }

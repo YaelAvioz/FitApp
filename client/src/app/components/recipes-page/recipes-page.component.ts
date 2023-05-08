@@ -13,8 +13,6 @@ import { Recipe } from 'src/interfaces/recipe';
 })
 export class RecipesPageComponent {
   recipes$: Observable<Recipe[]>;
-  recipes!: Recipe[];
-  recipesToShow!: Recipe[];
   limit: number = 0;
 
   constructor(private store: Store<{ recipesPageReducer: recipesPageState }>) {
@@ -25,9 +23,6 @@ export class RecipesPageComponent {
 
   ngOnInit() {
     this.store.dispatch(loadRecipesByLimit({ limit: this.limit }));
-    this.recipes$.subscribe(recipesToShow => {
-      return this.recipes = recipesToShow
-    })
   }
 
   search(event: Event){
@@ -36,25 +31,19 @@ export class RecipesPageComponent {
 
   onPageChange(event: PageEvent) {
     if (event.pageIndex > (event.previousPageIndex ?? -1)) {
-      this.next();
+      this.nextPage();
     } else {
-      this.prev();
+      this.prevPage();
     }
   }
 
-  next() {
+  nextPage() {
     this.limit += 20;
     this.store.dispatch(loadRecipesByLimit({ limit: this.limit }));
-    this.recipes$.subscribe(recipesToShow => {
-      return this.recipes = recipesToShow
-    })
   }
 
-  prev() {
+  prevPage() {
     this.limit -= 20;
     this.store.dispatch(loadRecipesByLimit({ limit: this.limit }));
-    this.recipes$.subscribe(recipesToShow => {
-      return this.recipes = recipesToShow
-    })
   }
 }

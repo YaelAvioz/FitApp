@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Store } from '@ngrx/store';
-import { map, Observable, withLatestFrom } from 'rxjs';
+import { debounceTime, fromEvent, map, Observable, Subject, withLatestFrom } from 'rxjs';
 import { loadRecipes, loadRecipesByLimit } from 'src/app/store/recipes-page/recipesPageAction';
 import { recipesPageState } from 'src/app/store/recipes-page/recipesPageReducer';
 import { Recipe } from 'src/interfaces/recipe';
@@ -14,6 +14,7 @@ import { Recipe } from 'src/interfaces/recipe';
 export class RecipesPageComponent {
   recipes$: Observable<Recipe[]>;
   limit: number = 0;
+  private debounceTimer: any;
 
   constructor(private store: Store<{ recipesPageReducer: recipesPageState }>) {
     this.recipes$ = this.store.select((state) => {
@@ -25,8 +26,12 @@ export class RecipesPageComponent {
     this.store.dispatch(loadRecipesByLimit({ limit: this.limit }));
   }
 
-  search(event: Event){
-    const value = (event.target as HTMLInputElement).value;
+  search(event: Event) {
+    clearTimeout(this.debounceTimer);
+    this.debounceTimer = setTimeout(() => {
+      const value = (event.target as HTMLInputElement).value;
+      alert(value);
+    }, 3000);
   }
 
   onPageChange(event: PageEvent) {

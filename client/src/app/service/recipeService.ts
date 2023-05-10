@@ -24,4 +24,8 @@ export class recipeService {
   getSingleRecipe(recipeName : string){
     return this.http.get<Recipe>(this.baseUrl + `/singleRecipe/${recipeName}`);
   }
+
+  getRecipesByQuery(query : string){
+    return this.http.get<Recipe[]>(this.baseUrl + `/search/${query}`);
+  }
 }

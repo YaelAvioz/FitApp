@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { map, catchError, switchMap } from 'rxjs/operators';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { loadRecipes, loadRecipesByLimit, loadRecipesByLimitFailure, loadRecipesByLimitSuccess, loadRecipesFailure, loadRecipesSuccess } from '../store/recipes-page/recipesPageAction';
+import { loadRecipes, loadRecipesByLimit, loadRecipesByLimitFailure, loadRecipesByLimitSuccess, loadRecipesByQuery, loadRecipesByQueryFailure, loadRecipesByQuerySuccess, loadRecipesFailure, loadRecipesSuccess } from '../store/recipes-page/recipesPageAction';
 import { recipeService } from '../service/recipeService';
 import { loadSingleRecipe, loadSingleRecipeFailure, loadSingleRecipeSuccess } from '../store/single-recipe-page/singleRecipePageAction';
 
@@ -49,4 +49,17 @@ export class RecipesEffects {
       )
     )
   );
+
+  loadRecipesByQuery$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(loadRecipesByQuery),
+    switchMap(({query}) =>
+      this.recipeService.getRecipesByQuery(query).pipe(
+        map((recipes) => loadRecipesByQuerySuccess({ recipes })),
+        catchError((error) => of(loadRecipesByQueryFailure({ error })))
+      )
+    )
+  )
+);
+
 }

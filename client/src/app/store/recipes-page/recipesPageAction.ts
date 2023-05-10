@@ -8,3 +8,7 @@ export const loadRecipesFailure = createAction('[recipes-page] load recipes Fail
 export const loadRecipesByLimit = createAction('[recipes-page] load recipes by limit',  props<{ limit: number }>());
 export const loadRecipesByLimitSuccess = createAction('[recipes-page] load recipes by limit success', props<{ recipes: Recipe[] }>());
 export const loadRecipesByLimitFailure = createAction('[recipes-page] load recipes by limit Failure', props<{ error: any }>());
+
+export const loadRecipesByQuery = createAction('[recipes-page] load recipes by query',  props<{ query: string }>());
+export const loadRecipesByQuerySuccess = createAction('[recipes-page] load recipes by query success', props<{ recipes: Recipe[] }>());
+export const loadRecipesByQueryFailure = createAction('[recipes-page] load recipes by query Failure', props<{ error: any }>());

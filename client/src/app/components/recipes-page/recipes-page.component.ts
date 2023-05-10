@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Store } from '@ngrx/store';
 import { debounceTime, fromEvent, map, Observable, Subject, withLatestFrom } from 'rxjs';
-import { loadRecipes, loadRecipesByLimit } from 'src/app/store/recipes-page/recipesPageAction';
+import { loadRecipes, loadRecipesByLimit, loadRecipesByQuery } from 'src/app/store/recipes-page/recipesPageAction';
 import { recipesPageState } from 'src/app/store/recipes-page/recipesPageReducer';
 import { Recipe } from 'src/interfaces/recipe';
 
@@ -30,7 +30,7 @@ export class RecipesPageComponent {
     clearTimeout(this.debounceTimer);
     this.debounceTimer = setTimeout(() => {
       const value = (event.target as HTMLInputElement).value;
-      alert(value);
+      this.store.dispatch(loadRecipesByQuery({ query: value }));
     }, 3000);
   }
 

@@ -34,6 +34,7 @@ import { singleRecipePageReducer } from '../store/single-recipe-page/singleRecip
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MentorFlipCardComponent } from '../components/mentor-flip-card/mentor-flip-card.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ChatComponent } from '../components/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SingleRecipePageComponent,
     RecipeCardComponent,
     MentorFlipCardComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

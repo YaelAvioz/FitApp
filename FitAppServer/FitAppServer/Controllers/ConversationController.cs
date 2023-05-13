@@ -76,7 +76,7 @@ namespace FitAppServer.Controllers
                 Timestamp = DateTime.UtcNow
             };
             conv.Messages.Add(mentorMessage.Id);
-            return answer;
+            return answer.Trim();
         }
 
         [HttpGet("{id}")]

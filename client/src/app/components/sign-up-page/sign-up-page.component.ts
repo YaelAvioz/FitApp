@@ -62,10 +62,10 @@ export class SignUpPageComponent {
   }
 
   signInComplete() {
-    const message = 'Sign in complete. Redirecting to home page in 3 seconds...';
+    const message = 'Sign in complete. Redirecting to home page in 2 seconds...';
     alert(message);
     setTimeout(() => {
       this.router.navigate(['/']);
-    }, 3000);
+    }, 2000);
   }
 }

@@ -6,6 +6,7 @@ import { MentorsPageComponent } from '../components/mentors-page/mentors-page.co
 import { RecipesPageComponent } from '../components/recipes-page/recipes-page.component';
 import { SingleRecipePageComponent } from '../components/single-recipe-page/single-recipe-page.component';
 import { SignUpPageComponent } from '../components/sign-up-page/sign-up-page.component';
+import { ProfilePageComponent } from '../components/profile-page/profile-page.component';
 
 const routes: Routes = [
   { path: 'home-page', component: HomePageComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'recipes-page', component: RecipesPageComponent},
   { path: 'mentors-page', component: MentorsPageComponent},
   { path: 'sign-up-page', component: SignUpPageComponent},
+  { path: 'profile-page', component: ProfilePageComponent},
   { path: 'single-recipe/:id', component: SingleRecipePageComponent},
   { path: '**', redirectTo: 'home-page'},
 ];

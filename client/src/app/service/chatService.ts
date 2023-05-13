@@ -14,7 +14,7 @@ export class chatService {
 
   sendMessage(username: string, msg: string) {
     const url = `${this.baseUrl}/${username}`;
-    const body = { msg };
+    const body = msg;
     return this.http.post<string>(url, body);
   }
 }

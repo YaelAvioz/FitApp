@@ -11,7 +11,8 @@ namespace FitAppServer.Services
 
         public async Task<Mentor> GetMentorInfo(string mentorName)
         {
-            var filter = Builders<Mentor>.Filter.Eq(x => x.name, mentorName);
+            var capMentorName = char.ToUpper(mentorName[0]) + mentorName.Substring(1);
+            var filter = Builders<Mentor>.Filter.Eq(x => x.name, capMentorName);
             var mentors = await _collection.Find(filter).ToListAsync();
             return mentors.FirstOrDefault();
         }

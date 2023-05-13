@@ -91,10 +91,10 @@ namespace FitAppServer.Services
 
 /*
 {
-  "username": "MffiSa",
+  "username": "matansha",
   "password": "51234",
-  "firstname": "iiii",
-  "lastname": "eee",
+  "firstname": "matan",
+  "lastname": "shamir",
   "age": 30,
   "height": 180,
   "weight": 70,

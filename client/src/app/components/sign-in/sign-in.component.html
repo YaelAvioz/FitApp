@@ -2,7 +2,7 @@
     <img (click)="isSignInVisible()" class="close-button" src="../../../assets/images/X.svg" alt="x-img">
     <div class="modal-content">
         <p class="title">SIGN IN</p>
-        <p class="text">To continue the order, please sign in</p>
+        <p class="text">To start healty life log in</p>
         <form *ngIf="signInForm" [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="login-form">
             <div class="form-group">
                 <div class="user-input">
@@ -29,7 +29,7 @@
         <div class="login">
             <p class="forget-password">Forget password?</p>
             <img class="or" src="../../../assets/images/or.svg" alt="or">
-            <img class="sign-up-btn" src="../../../assets/images/sign-up.svg" alt="sign-up">
+            <img class="sign-up-btn" src="../../../assets/images/sign-up.svg" alt="sign-up"  routerLink="/sign-up-page">
         </div>
     </div>
 </div>

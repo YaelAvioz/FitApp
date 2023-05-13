@@ -21,8 +21,8 @@ export class SignInComponent {
   constructor(private parent: NavbarComponent,
     private formBuilder: FormBuilder, private store: Store<{ userReducer: UserState }>,) {
 
-    this.LoginUser$ = this.store.select((allState) => {
-      return allState.userReducer.currentUser;
+    this.LoginUser$ = this.store.select((state) => {
+      return state.userReducer.currentUser;
     });
 
     this.signInForm = this.formBuilder.group({

@@ -39,6 +39,7 @@ import { chatEffects } from '../effects/chatEffect';
 import { chatReducer } from '../store/chat/chatReducer';
 import { userReducer } from '../store/user/userReducer';
 import { userEffects } from '../effects/userEffect';
+import { SignUpPageComponent } from '../components/sign-up-page/sign-up-page.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { userEffects } from '../effects/userEffect';
     RecipeCardComponent,
     MentorFlipCardComponent,
     ChatComponent,
+    SignUpPageComponent,
   ],
   imports: [
     BrowserModule,

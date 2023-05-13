@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../nav-bar/nav-bar.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserState } from 'src/app/store/user/userReducer';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Login } from 'src/interfaces/user';
+import { login } from 'src/app/store/user/userAction';
 
 @Component({
   selector: 'app-sign-in',
@@ -9,9 +14,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class SignInComponent {
   signInForm: FormGroup;
+  LoginUser$: Observable<Login | null>;
+  LoginUserSubscriber: any;
+  successMessage: string = '';
 
   constructor(private parent: NavbarComponent,
-    private formBuilder: FormBuilder,) {
+    private formBuilder: FormBuilder, private store: Store<{ userReducer: UserState }>,) {
+
+    this.LoginUser$ = this.store.select((allState) => {
+      return allState.userReducer.currentUser;
+    });
 
     this.signInForm = this.formBuilder.group({
       username: ['', Validators.required],
@@ -19,34 +31,30 @@ export class SignInComponent {
     });
   }
 
-   onSubmit() {
-  //   if (!this.signInForm || !this.signInForm.valid) return;
-  //   var LoginDTO: LoginDTO = {
-  //     username: this.signInForm.value['username'],
-  //     password: this.signInForm.value['password'],
-  //   };
+  onSubmit() {
+    if (!this.signInForm || !this.signInForm.valid) return;
+    var loginData: Login = {
+      username: this.signInForm.value['username'],
+      password: this.signInForm.value['password'],
+    };
 
-  //   this.store.dispatch(loginUser({ loginDTOsend: LoginDTO }));
+    this.store.dispatch(login({ loginData }));
 
-  //   this.LoginUser$.subscribe((loginUser) => {
-  //     this.LoginUserSubscriber = loginUser;
+    this.LoginUser$.subscribe((loginUser: any) => {
+      this.LoginUserSubscriber = loginUser;
 
-  //     console.log(this.LoginUserSubscriber);
-  //     if (loginUser) {
-  //       this.successMessage = 'Login successful, redirect to homepage';
-  //       this.storeCurrentUser.dispatch(
-  //         loadCurrentUser({ username: loginUser.username })
-  //       );
-  //       alert(this.successMessage);
-  //       this.router.navigate(['/']);
-  //     }
-  //   });
-     this.isSignInVisible();
-   }
+      if (loginUser) {
+        this.successMessage = 'Login Success';
+        // this.storeCurrentUser.dispatch(
+        //   loadCurrentUser({ username: loginUser.username })
+        // );
+        alert(this.successMessage);
+      }
+    });
+    this.isSignInVisible();
+  }
 
   isSignInVisible() {
-    console.log("sign in clicked");
-    
     this.parent.isSignInVisible = !this.parent.isSignInVisible;
   }
 }

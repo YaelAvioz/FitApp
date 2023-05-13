@@ -35,6 +35,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MentorFlipCardComponent } from '../components/mentor-flip-card/mentor-flip-card.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChatComponent } from '../components/chat/chat.component';
+import { chatEffects } from '../effects/chatEffect';
+import { chatReducer } from '../store/chat/chatReducer';
+import { userReducer } from '../store/user/userReducer';
+import { userEffects } from '../effects/userEffect';
 
 @NgModule({
   declarations: [
@@ -54,7 +58,7 @@ import { ChatComponent } from '../components/chat/chat.component';
     SingleRecipePageComponent,
     RecipeCardComponent,
     MentorFlipCardComponent,
-    ChatComponent
+    ChatComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,8 +66,8 @@ import { ChatComponent } from '../components/chat/chat.component';
     BrowserAnimationsModule,
     MatCardModule,
     MatPaginatorModule,
-    EffectsModule.forRoot([HomePageEffects, FoodDictionaryEffects, RecipesEffects, MentorsPageEffects]),
-    StoreModule.forRoot({homePageReducer, foodDictionaryPageReducer, recipesPageReducer, mentorPageReducer, singleRecipePageReducer}),
+    EffectsModule.forRoot([HomePageEffects, FoodDictionaryEffects, RecipesEffects, MentorsPageEffects, chatEffects, userEffects, ]),
+    StoreModule.forRoot({homePageReducer, foodDictionaryPageReducer, recipesPageReducer, mentorPageReducer, singleRecipePageReducer, chatReducer, userReducer}),
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,

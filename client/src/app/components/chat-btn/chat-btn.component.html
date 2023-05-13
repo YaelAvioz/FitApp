@@ -1,0 +1,5 @@
+<button (click)="showChat =! showChat">Chat</button>
+<div *ngIf="showChat" class="chat">
+    <p class="close-btn" (click)="showChat =! showChat">X</p>
+    <app-chat></app-chat>
+</div>

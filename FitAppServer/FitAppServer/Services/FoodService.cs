@@ -24,6 +24,14 @@ namespace FitAppServer.Services
             return foods.FirstOrDefault().calories;
         }
 
+        public List<FoodDTO> GetFoodByQuery(string query, int skip)
+        {
+            var filter = Builders<Food>.Filter.Regex(x => x.name, new BsonRegularExpression(query, "i"));
+
+            return _mapper.Map<List<FoodDTO>>(_collection.Find(filter)
+                .Skip(skip).Limit(20).ToList());
+        }
+
         public async Task<FoodDTO> GetFoodInfoByServing(string id, string amount, string serving)
         {
             var food = await _collection.Find(x => x.Id.Equals(id)).FirstOrDefaultAsync();

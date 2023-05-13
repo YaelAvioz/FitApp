@@ -14,13 +14,14 @@ namespace FitAppServer.Controllers
 
         public RecipeController(IMapper mapper) : base(mapper) 
         {
-            _recipeService = new RecipeService(mapper);        }
+            _recipeService = new RecipeService(mapper);
+        }
 
         [HttpGet]
-        [Route("search/{query}")]
-        public ActionResult<List<RecipeCardDTO>> GetRecipesByQuery([FromRoute] string query)
+        [Route("search/{query}/{next}")]
+        public ActionResult<List<RecipeCardDTO>> GetRecipesByQuery([FromRoute] string query, [FromRoute] string next)
         {
-            var recipes = _recipeService.GetRecipesByQuery(query);
+            var recipes = _recipeService.GetRecipesByQuery(query, int.Parse(next));
 
             if (recipes == null)
             {

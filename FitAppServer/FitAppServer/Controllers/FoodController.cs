@@ -33,6 +33,22 @@ namespace FitAppServer.Controllers
         }
 
         [HttpGet]
+        [Route("search/{query}/{next}")]
+        public ActionResult<List<FoodDTO>> GetFoodByQuery([FromRoute] string query, [FromRoute] string next)
+        {
+            var food = _foodService.GetFoodByQuery(query, int.Parse(next));
+
+            if (food == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(food);
+            }
+        }
+
+        [HttpGet]
         [Route("{id}/protein")]
         public async Task<ActionResult<string>> GetFoodProtein(string id)
         {

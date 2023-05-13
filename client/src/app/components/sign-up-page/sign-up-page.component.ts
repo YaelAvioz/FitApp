@@ -18,9 +18,9 @@ export class SignUpPageComponent {
   RegisterUser$: Observable<Register| null>;
   RegisterUserSubscriber: Register | null = null
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private store: Store<{ usersReducer: UserState }>) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private store: Store<{ userReducer: UserState }>) {
     this.RegisterUser$ = this.store.select((state) => {
-      return state.usersReducer.newUser;
+      return state.userReducer.newUser;
     })
 
     this.signUpForm = this.formBuilder.group({

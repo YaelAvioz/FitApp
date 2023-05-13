@@ -24,7 +24,7 @@ namespace FitAppServer.Helper
             if (response != null)
             {
                 var answer = response.Completions[0].Text;
-                return answer;
+                return answer.ToString();
             }
             return "There was an error generating a response. Sorry for the inconveniece.";
         }

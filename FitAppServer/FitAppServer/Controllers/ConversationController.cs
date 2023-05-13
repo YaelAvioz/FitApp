@@ -62,6 +62,11 @@ namespace FitAppServer.Controllers
             Mentor mentor = await _mentorService.GetMentorInfo(user.mentor);
             string answer = await ChatGPT.GetAnswer(user, mentor, msg);
 
+            if (answer == null)
+            {
+                return "Sorry, There is a problem. Please try again later";
+            }
+
             // add the mentor's respons to the conversation
             Message mentorMessage = new Message()
             {

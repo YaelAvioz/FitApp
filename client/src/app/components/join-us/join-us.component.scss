@@ -1,0 +1,36 @@
+.join-us-container {
+    display: flex;
+    justify-content: center;
+
+    .join-us {
+        height: 650px;
+        width: 84%;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: url("../../../assets/images/join-us.jpeg");
+        background-size: cover;
+        position: relative;
+        margin: 2%;
+    }
+
+    .text {
+        position: absolute;
+        top: 35%;
+        left: 3%;
+        font-size: 36px;
+    }
+
+    .join-btn {
+        position: absolute;
+        top: 42%;
+        left: 18%;
+        background-color: black;
+        border-radius: 40px;
+        color: white;
+        padding: 20px;
+        border: none;
+        font-size: 20px;
+    }
+}

@@ -1,0 +1,45 @@
+.features-box-container {
+
+    display: flex;
+    justify-content: center;
+
+    .features-box {
+        border: 10px solid rgba(248, 221, 67, 0.97);
+        width: 82%;
+        padding: 25px 0px;
+        gap: 50px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+
+        .single-feature {
+            width: 300px;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: -webkit-center;
+
+            h1 {
+                margin: 0px 0px;
+            }
+
+            img {
+                width: 150px;
+                height: auto;
+                margin: 10px;
+            }
+
+            button {
+                background-color: black;
+                border-radius: 40px;
+                color: white;
+                padding: 12px;
+                border: none;
+                font-size: 16px;
+            }
+        }
+    }
+}

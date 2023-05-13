@@ -39,6 +39,8 @@ import { userReducer } from '../store/user/userReducer';
 import { userEffects } from '../effects/userEffect';
 import { SignUpPageComponent } from '../components/sign-up-page/sign-up-page.component';
 import { ChatBtnComponent } from '../components/chat-btn/chat-btn.component';
+import { FeaturesBoxComponent } from '../components/features-box/features-box.component';
+import { JoinUsComponent } from '../components/join-us/join-us.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,8 @@ import { ChatBtnComponent } from '../components/chat-btn/chat-btn.component';
     ChatComponent,
     SignUpPageComponent,
     ChatBtnComponent,
+    FeaturesBoxComponent,
+    JoinUsComponent,
   ],
   imports: [
     BrowserModule,

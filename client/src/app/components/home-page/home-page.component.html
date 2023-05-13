@@ -51,39 +51,10 @@
                 lives, and start your journey towards a healthier, happier you today!</p>
         </div>
     </div>
-    <div class="features-box-container">
-        <div class="features-box">
-            <div class="single-feature">
-                <img src="../../../assets/images/food-db.jpeg" alt="food-db-icon">
-                <h1>Huge food database</h1>
-                <p>Millions of food items containing detailed nutritional information, such as calories, fat, carbs and
-                    protein content means we’ll calculate everything correctly for you.</p>
-                <button type="button" routerLink="/food-dictionary-page">to all food items</button>
-            </div>
-            <div class="single-feature">
-                <img src="../../../assets/images/pan-icon.jpeg" alt="recipes-icon">
-                <h1>Hundreds of tasty and nutritious recipes</h1>
-                <p>Enjoy hundreds of easy-to-cook recipes filled with nutritious and tasty food.</p>
-                <button type="button" routerLink="/recipes-page">to all recipes</button>
-            </div>
-            <div class="single-feature">
-                <img src="../../../assets/images/track-goals.jpeg" alt="track-goals-icon">
-                <h1>Track your way to success</h1>
-                <p>Track what you eat with the help of our food and water trackers to maintain a balanced everyday life.</p>
-                <button type="button" routerLink="/profile-page">to your profile</button>
-            </div>
-        </div>
-    </div>
+ <app-features-box></app-features-box>
     <div class="mentors">
         <app-our-mentors *ngIf="mentors$ | async as mentors" [mentors]="mentors"></app-our-mentors>
         <p class="all-mentors" routerLink="/mentors-page">All Mentors >></p>
     </div>
-    <div class="join-us-container">
-        <div class="join-us">
-            <p class="text">
-                Let's start the journey together
-            </p>
-            <button class="join-btn" type="button" routerLink="/sign-up-page">Join Us!</button>
-        </div>
-    </div>
+    <app-join-us></app-join-us>
 </div>

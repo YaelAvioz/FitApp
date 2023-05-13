@@ -16,12 +16,13 @@ interface Message {
 })
 
 export class ChatComponent {
-  msg$: Observable<string | null>;
+  response$: Observable<string>;
   messages: Message[] = [];
+  response: string = '';
   userInput: string = '';
 
   constructor(private store: Store<{ chatReducer: ChatState }>) {
-    this.msg$ = this.store.select((state) => {
+    this.response$ = this.store.select((state) => {
       return state.chatReducer.response;
     })
   }
@@ -43,8 +44,13 @@ export class ChatComponent {
   }
 
   getMentorAnswer(userMessage: string): string {
-    this.store.dispatch(sendMessage({ username: "dana", msg: this.userInput }));
+    this.store.dispatch(sendMessage({ username: "dor", msg: this.userInput }));
+    this.response$.subscribe(response => {
+      return this.response = response;
+    })   
     //TODO: subscribe and return the value as mentor answere
-    return 'Mentor: the message i got is: ' + this.userInput;
+
+    //return 'Mentor: the message i got is: ' + this.userInput;
+    return this.response;
   }
 }

@@ -2,12 +2,12 @@ import { createReducer, on } from '@ngrx/store';
 import { sendMessage, sendMessageFailure, sendMessageSuccess } from './chatAction';
 
 export interface ChatState {
-  response: string | null;
+  response: string;
   error: Error;
 }
 
 export const initialState: ChatState = {
-  response : null,
+  response : '',
   error: {} as Error,
 };
 

@@ -44,11 +44,10 @@ export class SignInComponent {
       this.LoginUserSubscriber = loginUser;
 
       if (loginUser) {
-        this.successMessage = 'Login Success';
         // this.storeCurrentUser.dispatch(
         //   loadCurrentUser({ username: loginUser.username })
         // );
-        alert(this.successMessage);
+        alert('Login Success\nWelcome ' + loginUser.username);
       }
     });
     this.isSignInVisible();

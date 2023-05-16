@@ -15,8 +15,10 @@ import { register } from 'src/app/store/user/userAction';
 export class SignUpPageComponent {
 
   signUpForm: FormGroup;
-  RegisterUser$: Observable<Register| null>;
-  RegisterUserSubscriber: Register | null = null
+  RegisterUser$: Observable<Register | null>;
+  RegisterUserSubscriber: Register | null = null;
+  tags : string[] = ["Plant-based nutrition", "Meal plans", "Build muscle", "Lose weight", "Veganism", "Calorie-counting", "Guidance",  "Women's health", "Personal trainer",  "Sport", "Workout routine",  "Men's health", "Gluten-free", "Dairy-Free", "Exercise", "Vegetarianism", "HIIT", "High-intensity", "Build strength", "Tabata", "Fitness", "Eating habits",  "Yoga", "Lifestyle",  "Inner peace",  "Mindfulness", "Intermittent fasting", "Feel healthy","Meditation",  "Coaching", "Bodyweight"];
+  selectedTags: string[] = [];
 
   constructor(private formBuilder: FormBuilder, private router: Router, private store: Store<{ userReducer: UserState }>) {
     this.RegisterUser$ = this.store.select((state) => {
@@ -32,14 +34,25 @@ export class SignUpPageComponent {
       height: ['', Validators.required],
       weight: ['', Validators.required],
       gender: ['', Validators.required],
-      //email: ['', [Validators.required, Validators.email]],
     });
-
-
   }
 
-  onSubmit() {
+  toggleSelection(str: string): void {
+    const index = this.selectedTags.indexOf(str);
+    if (index > -1) {
+      this.selectedTags.splice(index, 1); // Deselect the button if already selected
+    } else {
+      this.selectedTags.push(str); // Select the button if not already selected
+    }
+  }
   
+  isSelected(str: string): boolean {
+    return this.selectedTags.includes(str);
+  }
+  
+
+  onSubmit() {
+
     if (!this.signUpForm || !this.signUpForm.valid) return;
     var registerData: Register = {
       username: this.signUpForm.value['username'],
@@ -56,9 +69,9 @@ export class SignUpPageComponent {
     }
 
     this.store.dispatch(register({ registerData }));
-     this.RegisterUser$.subscribe(() => {
-       this.signInComplete()
-     })
+    this.RegisterUser$.subscribe(() => {
+      this.signInComplete()
+    })
   }
 
   signInComplete() {

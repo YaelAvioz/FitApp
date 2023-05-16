@@ -65,7 +65,7 @@ export class SignUpPageComponent {
       gender: this.signUpForm.value['gender'],
       goal: '',
       mentor: '',
-      tags: []
+      tags: this.selectedTags
     }
 
     this.store.dispatch(register({ registerData }));

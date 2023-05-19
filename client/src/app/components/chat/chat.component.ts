@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { SessionService } from 'src/app/service/sessionService';
 import { sendMessage } from 'src/app/store/chat/chatAction';
 import { ChatState } from 'src/app/store/chat/chatReducer';
+import { User } from 'src/interfaces/user';
 
 interface Message {
   content: string;
@@ -20,11 +22,14 @@ export class ChatComponent {
   messages: Message[] = [];
   response: string = '';
   userInput: string = '';
+  currentUser !: User;
 
-  constructor(private store: Store<{ chatReducer: ChatState }>) {
+
+  constructor(private sessionService: SessionService, private store: Store<{ chatReducer: ChatState }>) {
     this.response$ = this.store.select((state) => {
       return state.chatReducer.response;
     })
+    this.currentUser = this.sessionService.getUserFromSession();
   }
 
   sendMessage() {
@@ -44,7 +49,7 @@ export class ChatComponent {
   }
 
   getMentorAnswer(userMessage: string): string {
-    this.store.dispatch(sendMessage({ username: "dor", msg: this.userInput }));
+    this.store.dispatch(sendMessage({ username: this.currentUser.username, msg: this.userInput }));
     this.response$.subscribe(response => {
       return this.response = response;
     })   

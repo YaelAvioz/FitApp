@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { SessionService } from 'src/app/service/sessionService';
+import { User } from 'src/interfaces/user';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'client';
+  user !: User;
+
+  constructor(private sessionService: SessionService) { 
+    this.user = this.sessionService.getUserFromSession();
+  }
 }

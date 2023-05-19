@@ -8,7 +8,8 @@
         <a routerLink="/mentors-page">Mentors</a>
     </div>
     <div class="nav-bar-right">
-        <img (click)="isSignInVisible=!isSignInVisible" src="../../../assets/images/sign-in.svg" alt="sign-in">
+        <button *ngIf="user" class="user-btn" routerLink="/profile-page">{{user.firstname}}</button>
+        <img *ngIf="!user"(click)="isSignInVisible=!isSignInVisible" src="../../../assets/images/sign-in.svg" alt="sign-in">
         <app-sign-in *ngIf="isSignInVisible"></app-sign-in>
     </div>
 </div>

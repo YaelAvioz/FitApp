@@ -41,6 +41,7 @@ import { SignUpPageComponent } from '../components/sign-up-page/sign-up-page.com
 import { ChatBtnComponent } from '../components/chat-btn/chat-btn.component';
 import { FeaturesBoxComponent } from '../components/features-box/features-box.component';
 import { JoinUsComponent } from '../components/join-us/join-us.component';
+import { SessionService } from '../service/sessionService';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,7 @@ import { JoinUsComponent } from '../components/join-us/join-us.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [SessionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

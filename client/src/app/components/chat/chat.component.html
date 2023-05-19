@@ -1,4 +1,5 @@
 <div class="chat-container">
+    <p class="close-btn" (click)="isChatVisible()">X</p>
     <div class="messages-container">
         <div *ngFor="let message of messages" class="message">
             <div class="user-message" *ngIf="message.isUser">{{ message.content }}</div>

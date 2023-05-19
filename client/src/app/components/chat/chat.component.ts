@@ -5,6 +5,7 @@ import { SessionService } from 'src/app/service/sessionService';
 import { sendMessage } from 'src/app/store/chat/chatAction';
 import { ChatState } from 'src/app/store/chat/chatReducer';
 import { User } from 'src/interfaces/user';
+import { ChatBtnComponent } from '../chat-btn/chat-btn.component';
 
 interface Message {
   content: string;
@@ -25,7 +26,7 @@ export class ChatComponent {
   currentUser !: User;
 
 
-  constructor(private sessionService: SessionService, private store: Store<{ chatReducer: ChatState }>) {
+  constructor(private parent: ChatBtnComponent, private sessionService: SessionService, private store: Store<{ chatReducer: ChatState }>) {
     this.response$ = this.store.select((state) => {
       return state.chatReducer.response;
     })
@@ -57,5 +58,8 @@ export class ChatComponent {
 
     //return 'Mentor: the message i got is: ' + this.userInput;
     return this.response;
+  }
+  isChatVisible() {
+    this.parent.showChat = !this.parent.showChat;
   }
 }

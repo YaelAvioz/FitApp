@@ -17,4 +17,19 @@
             text-decoration: none;
         }
     }
+
+    .nav-bar-right{
+        .user-btn{
+            align-items: center;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 24px;
+            cursor: pointer;
+            height: 36px;
+            justify-content: center;
+            letter-spacing: 0.25px;
+            padding: 5px;
+            width: 150px;
+        }
+    }
 }

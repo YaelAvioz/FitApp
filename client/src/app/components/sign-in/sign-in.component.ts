@@ -44,13 +44,15 @@ export class SignInComponent {
       this.LoginUserSubscriber = loginUser;
 
       if (loginUser) {
-        // this.storeCurrentUser.dispatch(
-        //   loadCurrentUser({ username: loginUser.username })
-        // );
+        this.saveUserInSession(loginUser);
         alert('Login Success\nWelcome ' + loginUser.username);
       }
     });
     this.isSignInVisible();
+  }
+
+  saveUserInSession(user: any) {
+    sessionStorage.setItem('currentUser', JSON.stringify(user));
   }
 
   isSignInVisible() {

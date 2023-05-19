@@ -16,3 +16,15 @@ export interface Register {
     mentor: string,
     tags: string[],
 }
+
+export interface User {
+    username: string,
+    firstname: string,
+    lastname: string,
+    age: number,
+    height: number,
+    weight: number,
+    gender: string,
+    goal: string,
+    mentor: string,
+}

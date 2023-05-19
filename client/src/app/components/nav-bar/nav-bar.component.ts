@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { SessionService } from 'src/app/service/sessionService';
+import { User } from 'src/interfaces/user';
 
 @Component({
   selector: 'app-navbar',
@@ -7,4 +9,11 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
   isSignInVisible : boolean = false;
+  user !: User;
+
+  constructor(private sessionService: SessionService) { }
+
+  ngOnInit(){
+    this.user = this.sessionService.getUserFromSession();
+  }
 }

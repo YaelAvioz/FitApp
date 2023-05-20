@@ -15,6 +15,7 @@ namespace FitAppServer.Controllers
         private static MessageService _messageService;
         private static AccountService _accountService;
         private static MentorService _mentorService;
+        private static string defaultMsg = " and I will be your mentor. Feel free to talk to me every time";
 
         public ConversationController(IMapper mapper) : base(mapper)
         {
@@ -39,20 +40,46 @@ namespace FitAppServer.Controllers
                 return NotFound();
             }
 
+            // check if there's history before we add the new msg
+            List<MessageDTO> lastMsgs = await _messageService.GetConvMsgs(conv.Id);
+            string history = "";
+
+            if ((lastMsgs.Count > 0) && (!lastMsgs[lastMsgs.Count - 1].Content.Contains(defaultMsg)))
+            {
+                history += "\nnotice the context of this conversation:\n";
+                foreach (MessageDTO msgDto in lastMsgs)
+                {
+                    if (msgDto.Content.Contains(defaultMsg)) continue;
+
+                    if (msgDto.IsFromUser)
+                    {
+                        history += "user: ";
+                        history += msgDto.Content;
+                    }
+                    else
+                    {
+                        history += "me: ";
+                        history += msgDto.Content;
+                    }
+                    history += "\n";
+                }
+            }
+
             // add new message from the client to the conversation
             Message userMessage = new Message()
             {
                 ConversationId = conv.Id,
                 Content = msg,
-                IsUser = true,
+                IsFromUser = true,
                 Timestamp = DateTime.UtcNow
             };
             conv.Messages.Add(userMessage.Id);
             _messageService.Create(userMessage);
 
+
             // send the message to chatGPT to get an answer
             Mentor mentor = await _mentorService.GetMentorInfo(user.mentor);
-            string answer = await ChatGPT.GetAnswer(user, mentor, msg);
+            string answer = await ChatGPT.GetAnswer(user, mentor, msg, history);
 
             if (answer == null)
             {
@@ -66,7 +93,7 @@ namespace FitAppServer.Controllers
             {
                 ConversationId = conv.Id,
                 Content = answer,
-                IsUser = false,
+                IsFromUser = false,
                 Timestamp = DateTime.UtcNow
             };
 

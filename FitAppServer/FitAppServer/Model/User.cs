@@ -39,20 +39,20 @@ namespace FitAppServer.Model
         public string getChat()
         {
             string tag = "";
-            foreach (string t in tags) { tag += t; }
+            foreach (string t in tags) { tag += t; tag += " "; }
             string food = "";
-            foreach (string f in foods) { food += f; }
+            foreach (string f in foods) { food += f; food += " "; }
 
             return "the client (" + firstname + ") is a " + gender + " at the age of " + age.ToString() +
-                    ". Height (cm): " + height.ToString() + ". Curren weight (kg): " + weight[weight.Count - 1].Item1.ToString() +
-                    ". His goal: " + goal + ". His interests are: " + tag + ". The client ate recently: " + food + ".";
+                    ". Height (cm):" + height.ToString() + ". Curren weight(kg):" + weight[weight.Count - 1].Item1.ToString() +
+                    ". His goal:" + goal + ". His interests are:" + tag + ".The client ate recently:" + food + ".";
         }
 
         public string FirstMsg()
         {
             return "Hi " + firstname + "! I am so happy that you joined us. My name is "
                 + mentor + " and I will be your mentor. Feel free to talk to me every time" +
-                " you have a doubt. I am here for you";
+                " you have a doubt. I am here for you !";
         }
 
         // BMI = kg/m2

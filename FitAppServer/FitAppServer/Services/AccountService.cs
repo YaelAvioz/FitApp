@@ -98,7 +98,7 @@ namespace FitAppServer.Services
             Message message = new Message
             {
                 Content = newUser.FirstMsg(),
-                IsUser = false,
+                IsFromUser = false,
                 Timestamp = DateTime.Now,
                 ConversationId = fakeId
             };

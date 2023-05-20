@@ -2,8 +2,8 @@
     <p class="close-btn" (click)="isChatVisible()">X</p>
     <div class="messages-container">
         <div *ngFor="let message of messages" class="message">
-            <div class="user-message" *ngIf="message.isUser">{{ message.content }}</div>
-            <div class="mentor-message" *ngIf="!message.isUser">{{ message.content }}</div>
+            <div class="user-message" *ngIf="message.isFromUser">{{ message.content }}</div>
+            <div class="mentor-message" *ngIf="!message.isFromUser">{{ message.content }}</div>
         </div>
     </div>
     <div class="input-container">

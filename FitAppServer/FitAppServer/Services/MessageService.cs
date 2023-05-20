@@ -11,7 +11,7 @@ namespace FitAppServer.Services
 
         public async Task<List<MessageDTO>> GetConvMsgs(string convId)
         {
-            var fiveMinutesAgo = DateTime.UtcNow.AddMinutes(-10);
+            var fiveMinutesAgo = DateTime.UtcNow.AddMinutes(-5);
 
             var messages = await _collection.Find(x => x.ConversationId.Equals(convId) && x.Timestamp >= fiveMinutesAgo)
                                            .ToListAsync();

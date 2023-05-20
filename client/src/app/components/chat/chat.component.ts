@@ -9,7 +9,7 @@ import { ChatBtnComponent } from '../chat-btn/chat-btn.component';
 
 interface Message {
   content: string;
-  isUser: boolean;
+  isFromUser: boolean;
 }
 
 @Component({
@@ -45,17 +45,15 @@ export class ChatComponent {
         setTimeout(() => {
           resolve(this.response.message);
           subscription.unsubscribe();
-        }, 2000);
+        }, 3000);
       });
     });
   }
 
   async sendMessage() {
-    let userText = this.userInput;
-    this.userInput = '';
     const userMessage: Message = {
-      content:userText,
-      isUser: true
+      content:this.userInput,
+      isFromUser: true
     };
 
     this.messages.push(userMessage);
@@ -65,7 +63,7 @@ export class ChatComponent {
     if (mentorAnswerContent) {
       const mentorAnswer: Message = {
         content: mentorAnswerContent,
-        isUser: false
+        isFromUser: false
       };
 
       this.messages.push(mentorAnswer);

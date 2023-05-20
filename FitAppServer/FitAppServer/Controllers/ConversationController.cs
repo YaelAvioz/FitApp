@@ -25,7 +25,7 @@ namespace FitAppServer.Controllers
         }
 
         [HttpPost("chat/{username}")]
-        public async Task<ActionResult<string>> SendMessage(string username, [FromBody] string msg)
+        public async Task<ActionResult<object>> SendMessage(string username, [FromBody] string msg)
         {
             User user = await _accountService.GetUserByUsername(username);
             if (user == null) 
@@ -55,7 +55,8 @@ namespace FitAppServer.Controllers
 
             if (answer == null)
             {
-                return "Sorry, There is a problem. Please try again later";
+                //return "Sorry, There is a problem. Please try again later";
+                return BadRequest(new { error = "Sorry, there is a problem. Please try again later" });
             }
 
             // add the mentor's respons to the conversation
@@ -67,7 +68,8 @@ namespace FitAppServer.Controllers
                 Timestamp = DateTime.UtcNow
             };
             conv.Messages.Add(mentorMessage.Id);
-            return answer.Trim();
+            //return answer.Trim();
+            return new { message = answer.Trim() };
         }
 
 

@@ -73,21 +73,19 @@ namespace FitAppServer.Services
             // get the user from the db to get its Id
             var user = await UserExists(userDTO.username);
 
-            // The client wanted us to choose mentor for him
-            if ((newUser.mentor == null) || (newUser.mentor == ""))
+            // choose mentor
+            var newUserTags = new Dictionary<string, List<string>>
             {
-                var newUserTags = new Dictionary<string, List<string>>
-                {
-                    { newUser.Id, newUser.tags }
-                };
-                var mentors = await _mentorService.GetMappingInfo();
-                MapClientMentor map = new MapClientMentor(newUserTags, mentors);
-                newUser.mentor = map.AssignMentor(newUser.Id);
+                { newUser.Id, newUser.tags }
+            };
+            var mentors = await _mentorService.GetMappingInfo();
+            MapClientMentor map = new MapClientMentor(newUserTags, mentors);
+            newUser.mentor = map.AssignMentor(newUser.Id);
 
-                // update the user in the db (mentor added)
-                await _collection.UpdateOneAsync(Builders<User>.Filter.Eq(u => u.Id, newUser.Id),
-                    Builders<User>.Update.Set(u => u.mentor, newUser.mentor));
-            }
+            // update the user in the db (mentor added)
+            await _collection.UpdateOneAsync(Builders<User>.Filter.Eq(u => u.Id, newUser.Id),
+                Builders<User>.Update.Set(u => u.mentor, newUser.mentor));
+
 
             // when registering a new user: create a conversation + send him the first msg.
             Conversation conversation = new Conversation
@@ -99,7 +97,7 @@ namespace FitAppServer.Services
             // create the first message and add it to the db
             Message message = new Message
             {
-                Content = user.FirstMsg(),
+                Content = newUser.FirstMsg(),
                 IsUser = false,
                 Timestamp = DateTime.Now,
                 ConversationId = fakeId
@@ -191,6 +189,18 @@ namespace FitAppServer.Services
             Builders<User>.Update.Set(u => u.water, user.water));
             return user.water;
         }
+
+        public async Task<List<Tuple<double, DateTime>>> UpdateWeight(string id, double newWeight)
+        {
+            User user = await GetUserById(id);
+            user.weight.Add(new Tuple<double, DateTime>(newWeight, DateTime.Now));
+
+            // update the user in the db
+            await _collection.UpdateOneAsync(Builders<User>.Filter.Eq(u => u.Id, user.Id),
+            Builders<User>.Update.Set(u => u.weight, user.weight));
+            return user.weight;
+        }
+
     }
 }
 

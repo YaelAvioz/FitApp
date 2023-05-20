@@ -48,6 +48,7 @@ namespace FitAppServer.Controllers
                 Timestamp = DateTime.UtcNow
             };
             conv.Messages.Add(userMessage.Id);
+            _messageService.Create(userMessage);
 
             // send the message to chatGPT to get an answer
             Mentor mentor = await _mentorService.GetMentorInfo(user.mentor);
@@ -55,9 +56,10 @@ namespace FitAppServer.Controllers
 
             if (answer == null)
             {
-                //return "Sorry, There is a problem. Please try again later";
                 return BadRequest(new { error = "Sorry, there is a problem. Please try again later" });
             }
+
+            answer = answer.Replace("\n", "");
 
             // add the mentor's respons to the conversation
             Message mentorMessage = new Message()
@@ -67,8 +69,9 @@ namespace FitAppServer.Controllers
                 IsUser = false,
                 Timestamp = DateTime.UtcNow
             };
+
             conv.Messages.Add(mentorMessage.Id);
-            //return answer.Trim();
+            _messageService.Create(mentorMessage);
             return new { message = answer.Trim() };
         }
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 
 
 @Injectable({
@@ -8,13 +8,16 @@ import { HttpClient} from '@angular/common/http';
 })
 
 export class chatService {
-  baseUrl : string = "https://localhost:7248/api/Conversation"
+  baseUrl : string = "https://localhost:7248/api/Conversation/chat"
 
   constructor(private store: Store, private http: HttpClient) { }
 
   sendMessage(username: string, msg: string) {
     const url = `${this.baseUrl}/${username}`;
-    const body = msg;
-    return this.http.post<string>(url, body);
+    const body = JSON.stringify(msg);
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Accept', 'text/plain');
+    return this.http.post<string>(url, body, { headers });
   }
 }

@@ -9,16 +9,14 @@ namespace FitAppServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ConversationController : ControllerBase
+    public class ConversationController : GenericController<Conversation, ConversationDTO>
     {
         private static ConversationService _conversationService;
         private static MessageService _messageService;
         private static AccountService _accountService;
         private static MentorService _mentorService;
 
-
-
-        public ConversationController(IMapper mapper)
+        public ConversationController(IMapper mapper) : base(mapper)
         {
             _conversationService = new ConversationService(mapper);
             _messageService = new MessageService(mapper);
@@ -26,14 +24,7 @@ namespace FitAppServer.Controllers
             _mentorService = new MentorService(mapper);
         }
 
-        [HttpPost]
-        public async Task<ActionResult<ConversationDTO>> Create([FromBody] Conversation entity)
-        {
-            ConversationDTO newEntity = await _conversationService.Create(entity);
-            return CreatedAtAction(nameof(Get), new { id = entity.Id }, newEntity);
-        }
-
-        [HttpPost("{username}")]
+        [HttpPost("chat/{username}")]
         public async Task<ActionResult<string>> SendMessage(string username, [FromBody] string msg)
         {
             User user = await _accountService.GetUserByUsername(username);
@@ -79,30 +70,6 @@ namespace FitAppServer.Controllers
             return answer.Trim();
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ConversationDTO>> Get(string id)
-        {
-            ConversationDTO entity = await _conversationService.Get(id);
-
-            if (entity == null)
-            {
-                return NotFound();
-            }
-            return Ok(entity);
-        }
-
-        [HttpDelete("{id:length(24)}")]
-        public async Task<ActionResult> Delete(string id)
-        {
-            ConversationDTO entity = await _conversationService.Get(id);
-
-            if (entity == null)
-            {
-                return NotFound();
-            }
-            _ = _conversationService.Delete(id);
-            return NoContent();
-        }
 
         [HttpGet]
         [Route("{id}/last")]

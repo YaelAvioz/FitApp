@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { SessionService } from 'src/app/service/sessionService';
 import { sendMessage } from 'src/app/store/chat/chatAction';
 import { ChatState } from 'src/app/store/chat/chatReducer';
@@ -21,9 +21,10 @@ interface Message {
 export class ChatComponent {
   response$: Observable<string>;
   messages: Message[] = [];
-  response: string = '';
+  response: any;
   userInput: string = '';
   currentUser !: User;
+  placeholderText: string = 'Enter text';
 
 
   constructor(private parent: ChatBtnComponent, private sessionService: SessionService, private store: Store<{ chatReducer: ChatState }>) {
@@ -33,32 +34,45 @@ export class ChatComponent {
     this.currentUser = this.sessionService.getUserFromSession();
   }
 
-  sendMessage() {
+  async getMentorAnswer(userMessage: string): Promise<string> {
+    this.store.dispatch(sendMessage({ username: this.currentUser.username, msg: this.userInput }));
+
+    return new Promise<string>((resolve) => {
+      const subscription = this.response$.subscribe(response => {
+        this.response = response;
+        console.log("response", this.response.message);
+
+        setTimeout(() => {
+          resolve(this.response.message);
+          subscription.unsubscribe();
+        }, 2000);
+      });
+    });
+  }
+
+  async sendMessage() {
+    let userText = this.userInput;
+    this.userInput = '';
     const userMessage: Message = {
-      content: this.userInput,
+      content:userText,
       isUser: true
-    };
-    const mentorAnswer: Message = {
-      content: this.getMentorAnswer(this.userInput),
-      isUser: false
     };
 
     this.messages.push(userMessage);
-    this.messages.push(mentorAnswer);
 
-    this.userInput = '';
+    const mentorAnswerContent = await this.getMentorAnswer(this.userInput);
+
+    if (mentorAnswerContent) {
+      const mentorAnswer: Message = {
+        content: mentorAnswerContent,
+        isUser: false
+      };
+
+      this.messages.push(mentorAnswer);
+    }
   }
 
-  getMentorAnswer(userMessage: string): string {
-    this.store.dispatch(sendMessage({ username: this.currentUser.username, msg: this.userInput }));
-    this.response$.subscribe(response => {
-      return this.response = response;
-    })   
-    //TODO: subscribe and return the value as mentor answere
-    console.log(this.response)
-    //return 'Mentor: the message i got is: ' + this.userInput;
-    return this.response;
-  }
+
   isChatVisible() {
     this.parent.showChat = !this.parent.showChat;
   }

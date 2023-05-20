@@ -55,7 +55,7 @@ export class ChatComponent {
       return this.response = response;
     })   
     //TODO: subscribe and return the value as mentor answere
-
+    console.log(this.response)
     //return 'Mentor: the message i got is: ' + this.userInput;
     return this.response;
   }

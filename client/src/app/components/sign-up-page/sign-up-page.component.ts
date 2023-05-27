@@ -20,6 +20,17 @@ export class SignUpPageComponent {
   tags : string[] = ["Plant-based nutrition", "Meal plans", "Build muscle", "Lose weight", "Veganism", "Calorie-counting", "Guidance",  "Women's health", "Personal trainer",  "Sport", "Workout routine",  "Men's health", "Gluten-free", "Dairy-Free", "Exercise", "Vegetarianism", "HIIT", "High-intensity", "Build strength", "Tabata", "Fitness", "Eating habits",  "Yoga", "Lifestyle",  "Inner peace",  "Mindfulness", "Intermittent fasting", "Feel healthy","Meditation",  "Coaching", "Bodyweight"];
   selectedTags: string[] = [];
 
+  firstFormGroup = this.formBuilder.group({
+    username: ['', Validators.required],
+    password: ['', Validators.required],
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
+    age: ['', Validators.required],
+    gender: ['', Validators.required],
+    height: ['', Validators.required],
+    weight: ['', Validators.required],
+  });
+
   constructor(private formBuilder: FormBuilder, private router: Router, private store: Store<{ userReducer: UserState }>) {
     this.RegisterUser$ = this.store.select((state) => {
       return state.userReducer.newUser;

@@ -1,4 +1,4 @@
-button {
+.chat-btn {
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -7,13 +7,13 @@ button {
     color: #fff;
     border: none;
     border-radius: 50%;
-    padding: 15px;
+    padding: 10px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-    height: 55px;
+    height: 45px;
     cursor: pointer;
 }
 
-button:hover {
+.chat-btn:hover {
     background-color: gray;
     transform: translateY(-5px);
 }

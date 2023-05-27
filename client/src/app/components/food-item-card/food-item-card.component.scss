@@ -6,44 +6,46 @@
     padding: 0px;
 
     .food-item-card {
-        width: 300px;
-        height: 200px;
+        width: 380px;
+        height: 380px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 
-        .mat-mdc-card-header {
+        .card-header {
             display: flex;
             padding: 16px 16px 0;
             align-items: center;
-        }
+            justify-content: space-between;
 
-        .btn-container {
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            align-items: center;
-
-            .btn {
-                background-color: black;
-                border-radius: 40px;
-                color: white;
-                padding: 12px;
-                border: none;
-                font-size: 16px;
-                margin: 10px;
+            .card-title {
+                font-size: 28px;
+                margin-bottom: 5px;
             }
 
             .add-btn {
-                width: 40px;
-                height: 40px;
-                background-color: none;
-                border-radius: 50%;
-                color: black;
-                padding: 12px;
+                border-radius: 15px;
                 border: none;
-                font-size: 16px;
                 font-weight: bold;
-                margin: 10px;
             }
         }
+    }
 
+    .serving-size {
+        border-bottom: black 1px solid;
+        color: darkgrey;
+    }
+
+    .nutritional-values-container {
+        .nutritional-values {
+            display: flex;
+            justify-content: space-between;
+
+            .nutritional-label {
+                font-weight: bold;
+            }
+
+            .nutritional-value {
+                color: darkgrey;
+            }
+        }
     }
 }

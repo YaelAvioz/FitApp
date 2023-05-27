@@ -42,6 +42,11 @@ import { ChatBtnComponent } from '../components/chat-btn/chat-btn.component';
 import { FeaturesBoxComponent } from '../components/features-box/features-box.component';
 import { JoinUsComponent } from '../components/join-us/join-us.component';
 import { SessionService } from '../service/sessionService';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -76,6 +81,11 @@ import { SessionService } from '../service/sessionService';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
   ],
   providers: [SessionService],
   bootstrap: [AppComponent]

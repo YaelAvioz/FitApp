@@ -29,16 +29,10 @@ namespace FitAppServer.Controllers
         public async Task<ActionResult<object>> SendMessage(string username, [FromBody] string msg)
         {
             User user = await _accountService.GetUserByUsername(username);
-            if (user == null) 
-            {
-                return NotFound();
-            }
+            if (user == null)  return NotFound();            
 
             Conversation conv = await _conversationService.GetConversation(user.Id);
-            if (conv == null)
-            {
-                return NotFound();
-            }
+            if (conv == null) return NotFound();
 
             // check if there's history before we add the new msg
             List<MessageDTO> lastMsgs = await _messageService.GetConvMsgs(conv.Id);
@@ -109,17 +103,11 @@ namespace FitAppServer.Controllers
         {
             var conv = await _conversationService.Get(id);
 
-            if (conv == null)
-            {
-                return NotFound();
-            }
-
+            if (conv == null) return NotFound();
+           
             var msgList = conv.Messages;
 
-            if ((msgList == null) || (msgList.Count == 0))
-            {
-                return BadRequest();
-            }
+            if ((msgList == null) || (msgList.Count == 0)) return BadRequest();
             
             return Ok(msgList[-1]);
         }

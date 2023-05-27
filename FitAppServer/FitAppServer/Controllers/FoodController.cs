@@ -22,15 +22,10 @@ namespace FitAppServer.Controllers
         {
             double doubleAmount = Double.Parse(amount);
             FoodDTO food = await _foodService.GetFoodInfoByAmount(id, doubleAmount);
-            
-            if (food == null)
-            {
-                return NotFound();
-            } 
-            else
-            {
-                return Ok(food);
-            }
+
+            if (food == null) return NotFound();
+
+            return Ok(food);
         }
 
         [HttpGet]
@@ -39,14 +34,9 @@ namespace FitAppServer.Controllers
         {
             var food = _foodService.GetFoodByQuery(query, int.Parse(next));
 
-            if (food == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Ok(food);
-            }
+            if (food == null) return NotFound();
+            
+            return Ok(food);
         }
 
         [HttpGet]
@@ -55,14 +45,9 @@ namespace FitAppServer.Controllers
         {
             FoodDTO food = await _foodService.Get(id);
 
-            if (food == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Ok(food.protein);
-            }
+            if (food == null) return NotFound();
+
+            return Ok(food.protein);
         }
 
         [HttpGet]
@@ -71,14 +56,9 @@ namespace FitAppServer.Controllers
         {
             FoodDTO food = await _foodService.Get(id);
 
-            if (food == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Ok(food.fat);
-            }
+            if (food == null) return NotFound();
+
+            return Ok(food.fat);
         }
 
         [HttpGet]
@@ -87,14 +67,9 @@ namespace FitAppServer.Controllers
         {
             FoodDTO food = await _foodService.Get(id);
 
-            if (food == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Ok(food.carbohydrate);
-            }
+            if (food == null) return NotFound();
+            
+            return Ok(food.carbohydrate);
         }
     }
 }

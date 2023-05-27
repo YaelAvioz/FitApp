@@ -1,14 +1,45 @@
 <div class="food-item-card-container">
     <mat-card class="food-item-card">
-        <mat-card-header>
-            <mat-card-title>{{foodItem.name}}</mat-card-title>
+        <mat-card-header class="card-header">
+            <mat-card-title class="card-title">{{foodItem.name}}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <p>{{ foodItem.calories }} calories per serving ({{ foodItem.serving_size }})</p>
-            <div class="btn-container">
-                <button type="button" class="btn" (click)="isModalVisible=!isModalVisible">More Nutritional Values</button>
-                <button type="button" class="add-btn" (click)="addItem(foodItem.id)">+</button>
+            <p class="serving-size">serving size: {{ foodItem.serving_size }}</p>
+            <div class="nutritional-values-container">
+                <div class="nutritional-values">
+                    <p class="nutritional-label">calories</p>
+                    <p class="nutritional-value"> {{foodItem.calories}}</p>
+                </div>
+                <div class="nutritional-values">
+                    <p class="nutritional-label">total fat</p>
+                    <p class="nutritional-value"> {{foodItem.total_fat}}</p>
+                </div>
+                <div class="nutritional-values">
+                    <p class="nutritional-label">calcium</p>
+                    <p class="nutritional-value"> {{foodItem.calcium}}</p>
+                </div>
+                <div class="nutritional-values">
+                    <p class="nutritional-label">protein</p>
+                    <p class="nutritional-value"> {{foodItem.protein}} </p>
+                </div>
+                <div class="nutritional-values">
+                    <p class="nutritional-label">carbohydrate</p>
+                    <p class="nutritional-value"> {{foodItem.carbohydrate}} </p>
+                </div>
+                <div class="nutritional-values">
+                    <p class="nutritional-label">fiber</p>
+                    <p class="nutritional-value"> {{foodItem.fiber}}</p>
+                </div>
+                <div class="nutritional-values">
+                    <p class="nutritional-label">sugars</p>
+                    <p class="nutritional-value"> {{foodItem.sugars}}</p>
+                </div>
+                <div class="nutritional-values">
+                    <p class="nutritional-label">fat</p>
+                    <p class="nutritional-value"> {{foodItem.fat}}</p>
+                </div>
             </div>
+            <button type="button" class="add-btn" (click)="addItem(foodItem.id)">+</button>
         </mat-card-content>
     </mat-card>
 </div>

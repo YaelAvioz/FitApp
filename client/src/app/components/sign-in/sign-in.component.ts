@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Login } from 'src/interfaces/user';
 import { login } from 'src/app/store/user/userAction';
+import { AppComponent } from '../app/app.component';
 
 @Component({
   selector: 'app-sign-in',
@@ -18,7 +19,7 @@ export class SignInComponent {
   LoginUserSubscriber: any;
   successMessage: string = '';
 
-  constructor(private parent: NavbarComponent,
+  constructor(private navBarParent: NavbarComponent, private appComponentParent:AppComponent,
     private formBuilder: FormBuilder, private store: Store<{ userReducer: UserState }>,) {
 
     this.LoginUser$ = this.store.select((state) => {
@@ -45,7 +46,8 @@ export class SignInComponent {
 
       if (loginUser) {
         this.saveUserInSession(loginUser);
-        alert('Login Success\nWelcome ' + loginUser.username);
+        this.navBarParent.user = loginUser;
+        this.appComponentParent.user = loginUser;
       }
     });
     this.isSignInVisible();
@@ -56,6 +58,6 @@ export class SignInComponent {
   }
 
   isSignInVisible() {
-    this.parent.isSignInVisible = !this.parent.isSignInVisible;
+    this.navBarParent.isSignInVisible = !this.navBarParent.isSignInVisible;
   }
 }

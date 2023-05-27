@@ -17,10 +17,11 @@ namespace FitAppServer.Controllers
         }
 
         [HttpGet]
-        [Route("{id}/serving/{amount}/{serving}")]
-        public async Task<ActionResult<FoodDTO>> GetFoodByServing(string id, string amount, string serving)
+        [Route("{id}/serving/{amount}")]
+        public async Task<ActionResult<FoodDTO>> GetFoodByAmount(string id, string amount)
         {
-            FoodDTO food = await _foodService.GetFoodInfoByServing(id, amount, serving);
+            double doubleAmount = Double.Parse(amount);
+            FoodDTO food = await _foodService.GetFoodInfoByAmount(id, doubleAmount);
             
             if (food == null)
             {

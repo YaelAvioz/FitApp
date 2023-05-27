@@ -29,29 +29,21 @@ namespace FitAppServer.Services
             var filter = Builders<Food>.Filter.Regex(x => x.name, new BsonRegularExpression(query, "i"));
 
             return _mapper.Map<List<FoodDTO>>(_collection.Find(filter)
-                .Skip(skip).Limit(20).ToList());
+                .Skip(skip).Limit(15).ToList());
         }
 
-        public async Task<FoodDTO> GetFoodInfoByServing(string id, string amount, string serving)
+        public async Task<FoodDTO> GetFoodInfoByAmount(string id, double amount)
         {
             var food = await _collection.Find(x => x.Id.Equals(id)).FirstOrDefaultAsync();
 
             if (food != null)
             {
-                if (food.serving_size.Equals(serving))
+                if (food.serving_size.Equals(amount))
                 {
                     return _mapper.Map<FoodDTO>(food);
                 }
-                else
-                {
-                    switch (serving)
-                    {
-                        case "g":
-                            return _mapper.Map<FoodDTO>(food.FoodByGrams(amount));
-                        case "kg":
-                            return _mapper.Map<FoodDTO>(food.FoodBy100Grams(amount));
-                    }
-                }
+                
+                return _mapper.Map<FoodDTO>(food.FoodByGrams(amount));
             }
             return null;
         }

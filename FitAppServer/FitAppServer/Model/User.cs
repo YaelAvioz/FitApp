@@ -34,14 +34,14 @@ namespace FitAppServer.Model
         public List<bool> water { get; set; }
 
         [BsonRepresentation(BsonType.ObjectId)]
-        public List<string> foods { get; set; }
+        public List<Tuple<string, double>> foods { get; set; }
 
         public string getChat()
         {
             string tag = "";
             foreach (string t in tags) { tag += t; tag += " "; }
             string food = "";
-            foreach (string f in foods) { food += f; food += " "; }
+            foreach (Tuple<string, double> f in foods) { food += f.Item1; food += " "; }
 
             return "the client (" + firstname + ") is a " + gender + " at the age of " + age.ToString() +
                     ". Height (cm):" + height.ToString() + ". Curren weight(kg):" + weight[weight.Count - 1].Item1.ToString() +

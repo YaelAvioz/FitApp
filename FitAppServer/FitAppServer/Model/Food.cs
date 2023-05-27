@@ -20,15 +20,13 @@ namespace FitAppServer.Model
         public virtual string fat { get; set; }
         
         // we have 100g. user asks for 15 grams. calculate - 15*values/100
-        public virtual Food FoodByGrams(string g)
+        public virtual Food FoodByGrams(double grams)
         {
-            var grams = int.Parse(g);
-
             Food newFood = new Food
             {
                 Id = null,
                 name = this.name,
-                serving_size = g + " g",
+                serving_size = grams + " g",
                 calories = ConvertByGram(grams, this.calories),
                 total_fat = ConvertByGram(grams, this.total_fat),
                 calcium = ConvertByGram(grams, this.calcium),
@@ -42,27 +40,6 @@ namespace FitAppServer.Model
             return newFood;
         }
 
-        // we have 100g. user asks for 3 100 grams. calculate - 3*values
-        public virtual Food FoodBy100Grams(string g100)
-        {
-            var grams = int.Parse(g100);
-
-            Food newFood = new Food
-            {
-                name = this.name,
-                serving_size = g100 + " kg",
-                calories = ConvertByKg(grams, this.calories),
-                total_fat = ConvertByKg(grams, this.total_fat),
-                calcium = ConvertByKg(grams, this.calcium),
-                protein = ConvertByKg(grams, this.protein),
-                carbohydrate = ConvertByKg(grams, this.carbohydrate),
-                fiber = ConvertByKg(grams, this.fiber),
-                sugars = ConvertByKg(grams, this.sugars),
-                fat = ConvertByKg(grams, this.fat)
-            };
-
-            return newFood;
-        }
 
         private float ExtractFloatValue(string input)
         {
@@ -88,9 +65,7 @@ namespace FitAppServer.Model
             return "";
         }
 
-
-
-        private string ConvertByGram(int grams, string per100grams)
+        private string ConvertByGram(double grams, string per100grams)
         {
             var per100grams_clean = ExtractFloatValue(per100grams);
 
@@ -101,19 +76,6 @@ namespace FitAppServer.Model
             var res = (grams / 100.0) * per100grams_clean;
             return Math.Round(res, 3) + ExtractUnit(per100grams);
         }
-
-        private string ConvertByKg(int kilograms, string per100grams)
-        {
-            var per100grams_clean = ExtractFloatValue(per100grams);
-
-            if(per100grams_clean == 0.0)
-            {
-                return "0.0".ToString();
-            }
-            return Math.Round(kilograms * per100grams_clean, 3) + ExtractUnit(per100grams);
-        }
-
-
 
     }
 }

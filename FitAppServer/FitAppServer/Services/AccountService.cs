@@ -3,6 +3,7 @@ using FitAppServer.DTO;
 using FitAppServer.Helper;
 using FitAppServer.Interfaces;
 using FitAppServer.Model;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
@@ -17,6 +18,7 @@ namespace FitAppServer.Services
         protected readonly ConversationService _conversationService;
         protected readonly MessageService _messageService;
         protected readonly MentorService _mentorService;
+        protected readonly FoodService _foodService;
         protected readonly IMongoDatabase _db;
         protected readonly IMapper _mapper;
         protected readonly string connectionString = "mongodb+srv://FitApp:FitAppYaelCoral@cluster0.hsylfut.mongodb.net/?retryWrites=true&w=majority";
@@ -33,15 +35,14 @@ namespace FitAppServer.Services
             _conversationService = new ConversationService(_mapper);
             _messageService = new MessageService(_mapper);
             _mentorService = new MentorService(_mapper);
+            _foodService = new FoodService(_mapper);
         }
 
         public async Task<User> RegisterUser(RegisterDTO userDTO)
         {
             var isUserExist = await UserExists(userDTO.username);
-            if (isUserExist != null)
-            {
-                throw new Exception("User exists!");
-            }
+            if (isUserExist != null) return null;
+
             using var hmac = new HMACSHA512();
             var newUser = new User
             {
@@ -54,7 +55,7 @@ namespace FitAppServer.Services
                 lastname = userDTO.lastname,
                 gender = userDTO.gender,
                 height = userDTO.height,
-                foods = new List<string>(),
+                foods = new List<Tuple<string, double>>(),
                 weight = new List<Tuple<double, DateTime>>(),
                 tags = userDTO.tags,
                 goal = userDTO.goal,
@@ -118,7 +119,8 @@ namespace FitAppServer.Services
         public async Task<User> Login(LoginDTO userDTO)
         {
             var userExists = await UserExists(userDTO.username);
-            if (userExists == null) throw new Exception("Unauthorized newUser!");
+            if (userExists == null) return null;
+
             using var hmac = new HMACSHA512(userExists.passwordSalt);
             var computeHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userDTO.password));
             for (int i = 0; i < computeHash.Length; i++)
@@ -193,14 +195,40 @@ namespace FitAppServer.Services
         public async Task<List<Tuple<double, DateTime>>> UpdateWeight(string id, double newWeight)
         {
             User user = await GetUserById(id);
-            user.weight.Add(new Tuple<double, DateTime>(newWeight, DateTime.Now));
+            if (user != null)
+            {
+                user.weight.Add(new Tuple<double, DateTime>(newWeight, DateTime.Now));
 
-            // update the user in the db
-            await _collection.UpdateOneAsync(Builders<User>.Filter.Eq(u => u.Id, user.Id),
-            Builders<User>.Update.Set(u => u.weight, user.weight));
-            return user.weight;
+                // update the user in the db
+                await _collection.UpdateOneAsync(Builders<User>.Filter.Eq(u => u.Id, user.Id),
+                Builders<User>.Update.Set(u => u.weight, user.weight));
+                return user.weight;
+            }
+            return null;
+
         }
 
+        public async Task<Food> AddFood(string id, string foodId, double amount)
+        {
+            User user = await GetUserById(id);
+            if (user != null)
+            {
+                FoodDTO foodDto = await _foodService.GetFoodInfoByAmount(foodId, amount);
+                if (foodDto != null)
+                {
+                    Food food = _mapper.Map<Food>(foodDto);
+                    Tuple<string, double> foodToAdd = Tuple.Create(foodDto.Id, amount);
+                    user.foods.Add(foodToAdd);
+
+                    // update the user in the db
+                    await _collection.UpdateOneAsync(Builders<User>.Filter.Eq(u => u.Id, user.Id),
+                    Builders<User>.Update.Set(u => u.foods, user.foods));
+
+                    return food;
+                }
+            }
+            return null;
+        }
     }
 }
 

@@ -2,6 +2,7 @@
     <mat-card class="food-item-card">
         <mat-card-header class="card-header">
             <mat-card-title class="card-title">{{foodItem.name}}</mat-card-title>
+            <button type="button" class="add-btn" (click)="addItem(foodItem.id)">+</button>
         </mat-card-header>
         <mat-card-content>
             <p class="serving-size">serving size: {{ foodItem.serving_size }}</p>
@@ -39,7 +40,6 @@
                     <p class="nutritional-value"> {{foodItem.fat}}</p>
                 </div>
             </div>
-            <button type="button" class="add-btn" (click)="addItem(foodItem.id)">+</button>
         </mat-card-content>
     </mat-card>
 </div>

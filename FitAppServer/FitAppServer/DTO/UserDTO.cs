@@ -35,7 +35,6 @@ namespace FitAppServer.DTO
 
         public List<bool> water { get; set; }
 
-        [BsonRepresentation(BsonType.ObjectId)]
         public List<Tuple<string, double>> foods { get; set; }
 
         public string firstMsg { get; set; }

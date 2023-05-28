@@ -31,5 +31,19 @@ namespace FitAppServer.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+        [HttpGet("getMentorByName/{name}")]
+        public async Task<ActionResult<MentorDTO>> getMentorByName(string name)
+        {
+            try
+            {
+                var mentor = await _mentorService.GetMentorByName(name);
+                return Ok(mentor);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
     }
 }

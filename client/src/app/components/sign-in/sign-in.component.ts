@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Login } from 'src/interfaces/user';
 import { login } from 'src/app/store/user/userAction';
-import { AppComponent } from '../app/app.component';
+import { AppComponent } from '../../app.component';
 
 @Component({
   selector: 'app-sign-in',

@@ -23,6 +23,13 @@ namespace FitAppServer.Services
             return _mapper.Map<List<MentorDTO>>(mentors);
         }
 
+        public async Task<MentorDTO> GetMentorByName(string name)
+        {
+            var filter = Builders<Mentor>.Filter.Eq(m => m.name, name);
+            var mentor = await _collection.Find(filter).FirstOrDefaultAsync();
+            return _mapper.Map<MentorDTO>(mentor);
+        }
+
         public async Task<Dictionary<string, List<string>>> GetMappingInfo()
         {
             var mentors = await base.GetAll();

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -24,17 +24,32 @@ export class SignUpPageComponent {
   response!: any;
   gender!: string;
   firstMsg!: string;
+  hide = true;
+  heights: number[] = [];
+  weights: number[] = [];
+  ages: number[] = [];
 
 
   constructor(private formBuilder: FormBuilder, private appComponentParent: AppComponent, private router: Router, private store: Store<{ userReducer: UserState }>) {
     this.appComponentParent.displayNavbar = false;
+
+    for (let i = 0; i <= 200; i++) {
+      this.heights.push(i);
+    }
+    for (let i = 0; i <= 200; i++) {
+      this.weights.push(i);
+    }
+    for (let i = 0; i <= 99; i++) {
+      this.ages.push(i);
+    }
+
     this.RegisterUser$ = this.store.select((state) => {
       return state.userReducer.newUser;
     })
 
     this.signUpForm = this.formBuilder.group({
       username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.pattern('.{6,}')]],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       age: ['', Validators.required],
@@ -55,7 +70,6 @@ export class SignUpPageComponent {
   isSelected(str: string): boolean {
     return this.selectedTags.includes(str);
   }
-
 
   onSubmit() {
 

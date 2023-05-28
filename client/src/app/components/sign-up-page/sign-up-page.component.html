@@ -1,74 +1,75 @@
 <mat-stepper #stepper>
     <mat-step>
+        <h2 class="title">Enter Your Details</h2>
         <ng-template matStepLabel>name</ng-template>
         <form *ngIf="signUpForm" [formGroup]="signUpForm" class="register-form">
+            <div>
+                <mat-form-field class="filed">
+                    <mat-label for="firstName">Fisrt Name</mat-label>
+                    <input matInput placeholder="Enter Your Fisrt Name" formControlName="firstName" required>
+                </mat-form-field>
 
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" formControlName="username" placeholder="Enter Username" class="form-control"
-                    id="username" />
-                <div *ngIf="signUpForm.get('username')?.hasError('required')" class="error-message">
-                    Username is required
-                </div>
+                <mat-form-field class="filed">
+                    <mat-label for="lastName">Last Name</mat-label>
+                    <input matInput placeholder="Enter Your Last Name" formControlName="lastName" required>
+                </mat-form-field>
             </div>
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" formControlName="password" placeholder="Enter Password" class="form-control"
-                    id="password" />
-                <div *ngIf="
-        signUpForm.get('password')?.hasError('required') ||
-        signUpForm.get('password')?.hasError('minlength')
-      " class="error-message">
-                    Password is required and must be at least 6 characters long.
-                </div>
+            <div>
+                <mat-form-field class="long-filed">
+                    <mat-label for="username">Username</mat-label>
+                    <input matInput placeholder="Enter Username" formControlName="username" required>
+                </mat-form-field>
             </div>
 
-            <div class="form-group">
-                <label for="firstName">Fisrt Name</label>
-                <input type="text" formControlName="firstName" placeholder="Enter first name" class="form-control"
-                    id="firstName" />
-                <div *ngIf="signUpForm.get('firstName')?.hasError('required')" class="error-message">
-                    First Name is required
-                </div>
+            <div>
+                <mat-form-field class="long-filed">
+                    <mat-label>Password</mat-label>
+                    <input [type]="hide ? 'password' : 'text'" matInput placeholder="Enter Password"
+                        formControlName="password" required>
+                    <mat-error *ngIf="signUpForm.get('password')?.hasError('pattern')">
+                        Password must contain at least 6 characters.
+                    </mat-error>
+                    <button mat-icon-button matSuffix (click)="hide = !hide"
+                        [attr.aria-label]="'Toggle password visibility'" [attr.aria-pressed]="hide">
+                        <mat-icon class="small-icon">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
             </div>
 
-            <div class="form-group">
-                <label for="lastName">Last Name</label>
-                <input type="text" formControlName="lastName" placeholder="Enter last name" class="form-control"
-                    id="lastName" />
-                <div *ngIf="signUpForm.get('lastName')?.hasError('required')" class="error-message">
-                    Last Name is required
-                </div>
+            <div>
+                <mat-form-field class="short-filed">
+                    <mat-label for="height">Height</mat-label>
+                    <mat-select placeholder="Select Your Height" formControlName="height" required>
+                        <mat-option *ngFor="let height of heights" [value]="height">
+                            {{height}}cm
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="short-filed">
+                    <mat-label for="weight">Weight</mat-label>
+                    <mat-select placeholder="Select Your Weight" formControlName="weight" required>
+                        <mat-option *ngFor="let weight of weights" [value]="weight">
+                            {{weight}}kg
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                
+                <mat-form-field class="short-filed">
+                    <mat-label for="age">Age</mat-label>
+                    <mat-select placeholder="Select Your Age" formControlName="age" required>
+                        <mat-option *ngFor="let age of ages" [value]="age">
+                            {{age}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
 
-            <div class="form-group">
-                <label for="age">Age</label>
-                <input type="number" formControlName="age" placeholder="Enter your age" class="form-control" id="age" />
-                <div *ngIf="signUpForm.get('age')?.hasError('required')" class="error-message">
-                    Age is required
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="height">Height</label>
-                <input type="number" formControlName="height" placeholder="Enter your height" class="form-control"
-                    id="height" />
-                <div *ngIf="signUpForm.get('height')?.hasError('required')" class="error-message">
-                    Height is required
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="weight">Weight</label>
-                <input type="number" formControlName="weight" placeholder="Enter your weight" class="form-control"
-                    id="weight" />
-                <div *ngIf="signUpForm.get('weight')?.hasError('required')" class="error-message">
-                    Weight is required
-                </div>
-            </div>
         </form>
-        <button mat-button matStepperNext>Next</button>
+        <div class="navigation-btn">
+            <button mat-button matStepperNext>Next</button>
+        </div>
     </mat-step>
 
     <mat-step>

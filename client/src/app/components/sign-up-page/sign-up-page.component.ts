@@ -29,7 +29,6 @@ export class SignUpPageComponent {
   weights: number[] = [];
   ages: number[] = [];
 
-
   constructor(private formBuilder: FormBuilder, private appComponentParent: AppComponent, private router: Router, private store: Store<{ userReducer: UserState }>) {
     this.appComponentParent.displayNavbar = false;
 

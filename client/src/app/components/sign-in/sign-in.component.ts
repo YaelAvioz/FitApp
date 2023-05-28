@@ -18,6 +18,7 @@ export class SignInComponent {
   LoginUser$: Observable<Login | null>;
   LoginUserSubscriber: any;
   successMessage: string = '';
+  hide = true;
 
   constructor(private navBarParent: NavbarComponent, private appComponentParent:AppComponent,
     private formBuilder: FormBuilder, private store: Store<{ userReducer: UserState }>,) {

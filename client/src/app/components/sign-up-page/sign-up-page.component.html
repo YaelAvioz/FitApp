@@ -67,41 +67,59 @@
                     Weight is required
                 </div>
             </div>
-
-            <div class="form-group">
-                <label for="gender">Gender</label>
-                <select class="form-control" formControlName="gender" class="form-control" id="gender">
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
-            </div>
         </form>
+        <button mat-button matStepperNext>Next</button>
     </mat-step>
 
+    <mat-step>
+        <ng-template matStepLabel>Gender</ng-template>
+        <h2 class="title">Select Your Gender</h2>
+        <div class="gender-icons-container">
+            <img src="../../../assets/images/male.jpeg" alt="male-icon" (click)="gender='male'"
+                [class.img-selected]="gender=='male'">
+            <img src="../../../assets/images/female.jpeg" alt="female-icon" (click)="gender='female'"
+                [class.img-selected]="gender=='female'">
+        </div>
+        <div class="navigation-btn">
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+        </div>
+    </mat-step>
 
     <mat-step>
-        <ng-template matStepLabel>Choose</ng-template>
+        <ng-template matStepLabel>Preferences</ng-template>
+        <h2 class="title">Select Your Health Preferences</h2>
         <div class="tags-container">
             <button *ngFor="let tag of tags" [ngClass]="{ 'selected': isSelected(tag) }"
                 (click)="toggleSelection(tag)">{{
                 tag }}</button>
         </div>
+        <div class="navigation-btn">
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+        </div>
     </mat-step>
-
 
     <mat-step>
         <ng-template matStepLabel>Submit</ng-template>
         <div>
-            <button type="submit" class="submit-button" class="btn btn-primar" (click)="onSubmit()">Register</button>
+            <h2 class="title">You are all done!</h2>
+            <h2 class="title">Let's start our journey together.</h2>
+            <div class="submit-button-container ">
+                <button type="submit" class="submit-button" (click)="onSubmit()">Create My Account</button>
+            </div>
+        </div>
+        <div class="navigation-btn">
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
         </div>
     </mat-step>
 
     <mat-step>
         <ng-template matStepLabel>Done</ng-template>
-        <p>You are now done.</p>
+        <p>{{firstMsg}}</p>
         <div>
             <button mat-button matStepperPrevious>Back</button>
-            <button mat-button (click)="stepper.reset()">Reset</button>
         </div>
     </mat-step>
 </mat-stepper>

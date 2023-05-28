@@ -4,8 +4,9 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { UserState } from 'src/app/store/user/userReducer';
-import { Register } from 'src/interfaces/user';
+import { Register, RegisterResponse } from 'src/interfaces/user';
 import { register } from 'src/app/store/user/userAction';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-sign-up-page',
@@ -17,21 +18,16 @@ export class SignUpPageComponent {
   signUpForm: FormGroup;
   RegisterUser$: Observable<Register | null>;
   RegisterUserSubscriber: Register | null = null;
-  tags : string[] = ["Plant-based nutrition", "Meal plans", "Build muscle", "Lose weight", "Veganism", "Calorie-counting", "Guidance",  "Women's health", "Personal trainer",  "Sport", "Workout routine",  "Men's health", "Gluten-free", "Dairy-Free", "Exercise", "Vegetarianism", "HIIT", "High-intensity", "Build strength", "Tabata", "Fitness", "Eating habits",  "Yoga", "Lifestyle",  "Inner peace",  "Mindfulness", "Intermittent fasting", "Feel healthy","Meditation",  "Coaching", "Bodyweight"];
+  tags: string[] = ["Plant-based nutrition", "Meal plans", "Build muscle", "Lose weight", "Veganism", "Calorie-counting", "Guidance", "Women's health", "Personal trainer", "Sport", "Workout routine", "Men's health", "Gluten-free", "Dairy-Free", "Exercise", "Vegetarianism", "HIIT", "High-intensity", "Build strength", "Tabata", "Fitness", "Eating habits", "Yoga", "Lifestyle", "Inner peace", "Mindfulness", "Intermittent fasting", "Feel healthy", "Meditation", "Coaching", "Keto diet", "Pilates", "Holistic nutrition", "Bodyweight", "Running"];
   selectedTags: string[] = [];
+  registerResponse!: RegisterResponse;
+  response!: any;
+  gender!: string;
+  firstMsg!: string;
 
-  firstFormGroup = this.formBuilder.group({
-    username: ['', Validators.required],
-    password: ['', Validators.required],
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
-    age: ['', Validators.required],
-    gender: ['', Validators.required],
-    height: ['', Validators.required],
-    weight: ['', Validators.required],
-  });
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private store: Store<{ userReducer: UserState }>) {
+  constructor(private formBuilder: FormBuilder, private appComponentParent: AppComponent, private router: Router, private store: Store<{ userReducer: UserState }>) {
+    this.appComponentParent.displayNavbar = false;
     this.RegisterUser$ = this.store.select((state) => {
       return state.userReducer.newUser;
     })
@@ -44,7 +40,6 @@ export class SignUpPageComponent {
       age: ['', Validators.required],
       height: ['', Validators.required],
       weight: ['', Validators.required],
-      gender: ['', Validators.required],
     });
   }
 
@@ -56,11 +51,11 @@ export class SignUpPageComponent {
       this.selectedTags.push(str); // Select the button if not already selected
     }
   }
-  
+
   isSelected(str: string): boolean {
     return this.selectedTags.includes(str);
   }
-  
+
 
   onSubmit() {
 
@@ -73,23 +68,22 @@ export class SignUpPageComponent {
       age: this.signUpForm.value['age'],
       height: this.signUpForm.value['height'],
       weight: this.signUpForm.value['weight'],
-      gender: this.signUpForm.value['gender'],
+      gender: this.gender,
       goal: '',
       mentor: '',
       tags: this.selectedTags
     }
 
     this.store.dispatch(register({ registerData }));
-    this.RegisterUser$.subscribe(() => {
-      this.signInComplete()
+    this.RegisterUser$.subscribe((response) => {
+      this.response = response;
+      this.firstMsg = this.response['firstMsg'];
     })
   }
 
   signInComplete() {
-    const message = 'Sign in complete. Redirecting to home page in 2 seconds...';
-    alert(message);
     setTimeout(() => {
       this.router.navigate(['/']);
-    }, 2000);
+    }, 3000);
   }
 }

@@ -20,4 +20,8 @@ export class mentorService {
   getThreeMentors() {
     return this.http.get<Mentor[]>(this.baseUrl + `/getThreeMentors`);
   }
+
+  getMentorByName(name : string){
+    return this.http.get<Mentor>(this.baseUrl + `/getMentorByName/${name}`);
+  }
 }

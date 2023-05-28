@@ -28,3 +28,19 @@ export interface User {
     goal: string,
     mentor: string,
 }
+
+export interface RegisterResponse {
+    age: number,
+    bmi: number,
+    firstMsg: string,
+    firstname: string,
+    gender: string,
+    goal: string,
+    height: number,
+    lastname: string,
+    mentor: string,
+    tags: string[],
+    token: string,
+    username: string
+}
+

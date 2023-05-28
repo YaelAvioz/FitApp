@@ -32,13 +32,18 @@ namespace FitAppServer.Controllers
             }
         }
 
-        [HttpGet("{name}")]
-        public async Task<ActionResult<MentorDTO>> GetMentorInfo(string name)
+        [HttpGet("getMentorByName/{name}")]
+        public async Task<ActionResult<MentorDTO>> getMentorByName(string name)
         {
-            var mentor = await _mentorService.GetMentorInfo(name);
-            if (mentor == null) return BadRequest();
-            return Ok(mentor);
-
+            try
+            {
+                var mentor = await _mentorService.GetMentorByName(name);
+                return Ok(mentor);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
     }
 }

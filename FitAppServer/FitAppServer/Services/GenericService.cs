@@ -25,6 +25,15 @@ namespace FitAppServer.Services
             _mapper = mapper;
         }
 
+        public GenericService(IMapper mapper, IMongoCollection<T> collection)
+        {
+            var client = new MongoClient(connectionString);
+            _db = client.GetDatabase(databaseName);
+            string s = typeof(T).ToString();
+            _collection = collection;
+            _mapper = mapper;
+        }
+
         public GenericService(IMapper mapper, string connectionString, string databaseName, string collectionName)
         {
             var client = new MongoClient(connectionString);

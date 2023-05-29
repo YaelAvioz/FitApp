@@ -8,9 +8,10 @@
         display: flex;
         justify-content: center;
 
-        .short-filed{
+        .short-filed {
             width: 190px;
         }
+
         .filed {
             width: 300px;
         }
@@ -48,21 +49,22 @@
 }
 
 .tags-container {
-    gap: 10px;
+    gap: 15px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 5% 6% 3%;
+    padding: 4% 6% 3%;
 
     button {
         align-items: center;
         background-color: #fff;
         border: 1px solid #ccc;
-        border-radius: 24px;
+        border-radius: 20px;
         cursor: pointer;
         height: 50px;
         justify-content: center;
         letter-spacing: 0.25px;
+        font-weight: bold;
         padding: 5px;
         width: 150px;
         font-size: 16px;

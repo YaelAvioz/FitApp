@@ -48,6 +48,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { SignUpCompleteComponent } from '../components/sign-up-complete/sign-up-complete.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { MatSelectModule } from '@angular/material/select';
     ChatBtnComponent,
     FeaturesBoxComponent,
     JoinUsComponent,
+    SignUpCompleteComponent
   ],
   imports: [
     BrowserModule,

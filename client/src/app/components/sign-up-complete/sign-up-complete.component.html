@@ -1,0 +1,12 @@
+<div class="modal">
+    <div class="modal-content">
+        <h1 class="title">Welcome</h1>
+        <div class="message">
+            <div *ngIf="mentor$ | async as mentor">
+                <img src="{{mentor.picture}}" alt="mentor-img">
+            </div>
+            <div class="text" [innerHTML]="text"></div>
+        </div>
+        <button type="submit" class="btn" routerLink="/home-page">Back To Home Page</button>
+    </div>
+</div>

@@ -7,6 +7,9 @@ import { UserState } from 'src/app/store/user/userReducer';
 import { Register, RegisterResponse } from 'src/interfaces/user';
 import { register } from 'src/app/store/user/userAction';
 import { AppComponent } from 'src/app/app.component';
+import { Mentor } from 'src/interfaces/mentor';
+import { MentorsPageState } from 'src/app/store/mentors-page/mentorPageReducer';
+import { loadMentorByName } from 'src/app/store/mentors-page/mentorsPageAction';
 
 @Component({
   selector: 'app-sign-up-page',
@@ -28,6 +31,7 @@ export class SignUpPageComponent {
   heights: number[] = [];
   weights: number[] = [];
   ages: number[] = [];
+  mentor!: string;
 
   constructor(private formBuilder: FormBuilder, private appComponentParent: AppComponent, private router: Router, private store: Store<{ userReducer: UserState }>) {
     this.appComponentParent.displayNavbar = false;
@@ -90,13 +94,20 @@ export class SignUpPageComponent {
     this.store.dispatch(register({ registerData }));
     this.RegisterUser$.subscribe((response) => {
       this.response = response;
-      this.firstMsg = this.response['firstMsg'];
     })
+
+    setTimeout(() => {
+      this.firstMsg = this.response['firstMsg'];
+      this.mentor = this.response['mentor'];
+      console.log(this.firstMsg);
+      console.log(this.mentor);
+    }, 3000);
+
   }
 
-  signInComplete() {
+  signUpComplete() {
     setTimeout(() => {
-      this.router.navigate(['/']);
-    }, 3000);
+      //this.router.navigate(['/']);
+    }, 5000);
   }
 }

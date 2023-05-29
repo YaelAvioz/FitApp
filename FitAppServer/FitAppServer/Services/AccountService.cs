@@ -15,9 +15,9 @@ namespace FitAppServer.Services
     public class AccountService
     {
         protected readonly IMongoCollection<User> _collection;
-        protected readonly ConversationService _conversationService;
-        protected readonly MessageService _messageService;
-        protected readonly MentorService _mentorService;
+        public readonly ConversationService _conversationService;
+        public readonly MessageService _messageService;
+        public readonly MentorService _mentorService;
         protected readonly FoodService _foodService;
         protected readonly IMongoDatabase _db;
         protected readonly IMapper _mapper;
@@ -32,6 +32,18 @@ namespace FitAppServer.Services
             var client = new MongoClient(connectionString);
             _db = client.GetDatabase(databaseName);
             _collection = _db.GetCollection<User>(collectionName);
+            _conversationService = new ConversationService(_mapper);
+            _messageService = new MessageService(_mapper);
+            _mentorService = new MentorService(_mapper);
+            _foodService = new FoodService(_mapper);
+        }
+
+        public AccountService(IMapper mapper, IMongoCollection<User> collection)
+        {
+            _mapper = mapper;
+            var client = new MongoClient(connectionString);
+            _db = client.GetDatabase(databaseName);
+            _collection = collection;
             _conversationService = new ConversationService(_mapper);
             _messageService = new MessageService(_mapper);
             _mentorService = new MentorService(_mapper);

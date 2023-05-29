@@ -68,7 +68,7 @@ namespace FitAppServer.Controllers
                 Timestamp = DateTime.UtcNow
             };
             conv.Messages.Add(userMessage.Id);
-            _messageService.Create(userMessage);
+            await _messageService.Create(userMessage);
 
 
             // send the message to chatGPT to get an answer
@@ -92,7 +92,7 @@ namespace FitAppServer.Controllers
             };
 
             conv.Messages.Add(mentorMessage.Id);
-            _messageService.Create(mentorMessage);
+            await _messageService.Create(mentorMessage);
             return new { message = answer.Trim() };
         }
 

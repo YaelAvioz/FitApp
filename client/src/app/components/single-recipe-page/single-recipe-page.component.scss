@@ -1,6 +1,35 @@
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 35px;
+    margin-bottom: 0px;
+    justify-content: center;
+    display: flex;
+    margin: 2%;
+}
+
 .recipe-img {
-    background-repeat: no-repeat;
-    object-fit: cover;
-    width: 100%;
-    height: 425px;
+    margin: 5px;
+}
+
+.btn-container {
+    .btn {
+        align-items: center;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        cursor: pointer;
+        height: 50px;
+        justify-content: center;
+        letter-spacing: 0.25px;
+        font-weight: bold;
+        padding: 5px;
+        width: 200px;
+        font-size: 16px;
+        margin: 2%;
+    }
+
+    .btn:hover {
+        background-color: lightgray;
+    }
 }

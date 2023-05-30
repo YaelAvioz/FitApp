@@ -1,9 +1,11 @@
-<img class="recipe-img" [src]="recipe.url" alt="{{ recipe.title }}">
-<h1>{{ recipe.title }}</h1>
-<ul>
+<h1 class="title">{{ recipe.title }}</h1>
+<!-- <ul>
     <li *ngFor="let ingredient of recipe.ingredients">{{ ingredient }}</li>
-</ul>
-  
+</ul> -->
+ <!-- <div *ngFor="let ingredient of recipe.ingredients">{{ ingredient }}</div> --> 
 <p>{{ recipe.instructions }}</p>
-<!-- <div *ngFor="let ingredient of recipe.ingredients">{{ ingredient }}</div> -->
-<button routerLink="/recipes-page">To All Recipes</button>
+
+<img class="recipe-img" [src]="recipe.url" alt="{{ recipe.title }}">
+<div class="btn-container">
+    <button routerLink="/recipes-page" class="btn">To All Recipes</button>
+</div>

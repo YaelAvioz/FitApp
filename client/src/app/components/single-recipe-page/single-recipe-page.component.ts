@@ -17,6 +17,8 @@ export class SingleRecipePageComponent {
   recipeToShow: Recipe | undefined;
   id !: string | null;
   recipe!: Recipe;
+  // instructions !: string;
+  
 
   public constructor(private _activatedRoute: ActivatedRoute, private store: Store<{ singleRecipePageReducer: singleRecipePageState }>) {
     this.id = this._activatedRoute.snapshot.paramMap.get("id");
@@ -32,5 +34,9 @@ export class SingleRecipePageComponent {
         return this.recipe = recipeToShow[0];
       })    
     }
+  console.log(this.recipe);
+    
+
+    // this.instructions= this.recipe.instructions.replace(/\. /g, '.<br/>');
   }
 }

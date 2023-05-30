@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { SessionService } from 'src/app/service/sessionService';
 import { FoodItem } from 'src/interfaces/foodItem';
+import { User } from 'src/interfaces/user';
 
 @Component({
   selector: 'app-food-item-card',
@@ -8,9 +10,18 @@ import { FoodItem } from 'src/interfaces/foodItem';
 })
 export class FoodItemCardComponent {
   @Input() foodItem !: FoodItem;
-  isModalVisible : boolean = false;
+  isModalVisible: boolean = false;
+  user !: User;
 
-  addItem(foodItem : string){
-    alert(foodItem);
+  constructor(private sessionService: SessionService) { }
+
+  ngOnInit() {
+    this.user = this.sessionService.getUserFromSession();
+  }
+
+  addItem(foodItem: string) {
+    // alert(foodItem);
+    this.user = this.sessionService.getUserFromSession();
+    alert(this.user.firstname);
   }
 }

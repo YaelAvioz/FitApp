@@ -8,6 +8,7 @@ import { Register, RegisterResponse } from 'src/interfaces/user';
 import { register } from 'src/app/store/user/userAction';
 import { AppComponent } from 'src/app/app.component';
 
+
 @Component({
   selector: 'app-sign-up-page',
   templateUrl: './sign-up-page.component.html',
@@ -28,17 +29,20 @@ export class SignUpPageComponent {
   heights: number[] = [];
   weights: number[] = [];
   ages: number[] = [];
+  mentor!: string;
+  btnClicked: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private appComponentParent: AppComponent, private router: Router, private store: Store<{ userReducer: UserState }>) {
     this.appComponentParent.displayNavbar = false;
 
-    for (let i = 0; i <= 200; i++) {
+    for (let i = 120; i <= 200; i++) {
       this.heights.push(i);
     }
-    for (let i = 0; i <= 200; i++) {
+    for (let i = 40; i <= 200; i++) {
       this.weights.push(i);
     }
-    for (let i = 0; i <= 99; i++) {
+    
+    for (let i = 18; i <= 99; i++) {
       this.ages.push(i);
     }
 
@@ -90,13 +94,14 @@ export class SignUpPageComponent {
     this.store.dispatch(register({ registerData }));
     this.RegisterUser$.subscribe((response) => {
       this.response = response;
-      this.firstMsg = this.response['firstMsg'];
     })
-  }
 
-  signInComplete() {
     setTimeout(() => {
-      this.router.navigate(['/']);
+      this.firstMsg = this.response['firstMsg'];
+      this.mentor = this.response['mentor'];
+      console.log(this.firstMsg);
+      console.log(this.mentor);
     }, 3000);
+
   }
 }

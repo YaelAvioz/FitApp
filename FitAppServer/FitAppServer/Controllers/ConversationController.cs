@@ -12,6 +12,7 @@ namespace FitAppServer.Controllers
     public class ConversationController : GenericController<Conversation, ConversationDTO>
     {
         private static ConversationService _conversationService;
+        private static FoodService _foodService;
         private static MessageService _messageService;
         private static AccountService _accountService;
         private static MentorService _mentorService;
@@ -23,6 +24,7 @@ namespace FitAppServer.Controllers
             _messageService = new MessageService(mapper);
             _accountService = new AccountService(mapper);
             _mentorService = new MentorService(mapper);
+            _foodService = new FoodService(mapper);
         }
 
         [HttpPost("chat/{username}")]
@@ -73,7 +75,16 @@ namespace FitAppServer.Controllers
 
             // send the message to chatGPT to get an answer
             Mentor mentor = await _mentorService.GetMentorInfo(user.mentor);
-            string answer = await ChatGPT.GetAnswer(user, mentor, msg, history);
+
+            List<Tuple<string, double>> recentFoods = user.foods
+                .Where(food => food.Item3.Date == DateTime.Today)
+                .Select(food => new Tuple<string, double>(food.Item1, food.Item2))
+                .ToList();
+
+            string foodStr = await _foodService.GetFoodForPrompt(recentFoods);
+
+            string prompt = ChatGPT.MessagePrompt(mentor.chat, user.GetChat() + foodStr, msg, history);
+            string answer = await ChatGPT.GetAnswer(prompt);
 
             if (answer == null)
             {

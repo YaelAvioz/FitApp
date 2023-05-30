@@ -3,6 +3,7 @@ using AutoMapper;
 using FitAppServer.DTO;
 using MongoDB.Driver;
 using MongoDB.Bson;
+using System.Text;
 
 namespace FitAppServer.Services
 {
@@ -47,6 +48,28 @@ namespace FitAppServer.Services
             }
             return null;
         }
+
+        public async Task<string> GetFoodForPrompt(List<Tuple<string, double>> foods)
+        {
+            StringBuilder promptBuilder = new StringBuilder();
+
+            foreach (var foodTuple in foods)
+            {
+                string foodId = foodTuple.Item1;
+                double amount = foodTuple.Item2;
+
+                var food = await GetFoodInfoByAmount(foodId, amount);
+
+                if (food != null)
+                {
+                    string foodInfo = $"Food: {food.name}, Amount: {amount} grams, Calories: {food.calories} kcal\n";
+                    promptBuilder.Append(foodInfo);
+                }
+            }
+
+            return promptBuilder.ToString();
+        }
+
 
     }
 }

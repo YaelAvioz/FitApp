@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
+using FitAppServer.Services;
 
 namespace FitAppServer.Model
 {
@@ -33,18 +34,17 @@ namespace FitAppServer.Model
 
         public List<bool> water { get; set; }
 
-        public List<Tuple<string, double>> foods { get; set; }
+        // foods = [(food_id, 50g, "2.4.23"), (food_id, 147g, "30.3.23")]
+        public List<Tuple<string, double, DateTime>> foods { get; set; }
 
-        public string getChat()
+        public string GetChat()
         {
             string tag = "";
             foreach (string t in tags) { tag += t; tag += " "; }
-            string food = "";
-            foreach (Tuple<string, double> f in foods) { food += f.Item1; food += " "; }
 
             return "the client (" + firstname + ") is a " + gender + " at the age of " + age.ToString() +
                     ". Height (cm):" + height.ToString() + ". Curren weight(kg):" + weight[weight.Count - 1].Item1.ToString() +
-                    ". His goal:" + goal + ". His interests are:" + tag + ".The client ate recently:" + food + ".";
+                    ". His goal:" + goal + ". His interests are:" + tag + ".The client ate recently:";
         }
 
         public string FirstMsg()

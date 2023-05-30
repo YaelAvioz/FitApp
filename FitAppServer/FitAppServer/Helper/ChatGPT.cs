@@ -6,12 +6,11 @@ namespace FitAppServer.Helper
 {
     public static class ChatGPT
     {
-        public static async Task<string> GetAnswer(User user, Mentor mentor, string userMsg, string history)
+        public static async Task<string> GetAnswer(string prompt)
         {
             var openAIApiKey = ApiKey.key;
             var openAI = new OpenAIAPI(openAIApiKey);
 
-            var prompt = GetPrompt(mentor.chat, user.getChat(), userMsg, history) + "what should I answer?";
             var completionRequest = new CompletionRequest()
             {
                 Prompt = prompt,
@@ -29,9 +28,16 @@ namespace FitAppServer.Helper
             return "There was an error generating a response. Sorry for the inconveniece.";
         }
 
-        private static string GetPrompt(string mc, string uc, string msg, string history)
+        public static string MessagePrompt(string mc, string uc, string msg, string history)
+        {
+            return mc + "Info about the client: " + uc + history + ". The message I was sent now: " + msg + "\n" +"what should I answer?";
+        }
+
+        private static string InsightsPrompt(string mc, string uc, string msg, string history)
         {
             return mc + "Info about the client: " + uc + history + ". The message I was sent now: " + msg + "\n";
         }
+
+
     }
 }

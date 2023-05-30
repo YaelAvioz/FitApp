@@ -35,7 +35,8 @@ namespace FitAppServer.DTO
 
         public List<bool> water { get; set; }
 
-        public List<Tuple<string, double>> foods { get; set; }
+        // foods = [(food_id, 50g, "2.4.23"), (food_id, 147g, "30.3.23")]
+        public List<Tuple<string, double, DateTime>> foods { get; set; }
 
         public string firstMsg { get; set; }
     }

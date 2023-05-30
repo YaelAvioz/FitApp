@@ -67,7 +67,7 @@ namespace FitAppServer.Services
                 lastname = userDTO.lastname,
                 gender = userDTO.gender,
                 height = userDTO.height,
-                foods = new List<Tuple<string, double>>(),
+                foods = new List<Tuple<string, double, DateTime>>(),
                 weight = new List<Tuple<double, DateTime>>(),
                 tags = userDTO.tags,
                 goal = userDTO.goal,
@@ -229,7 +229,7 @@ namespace FitAppServer.Services
                 if (foodDto != null)
                 {
                     Food food = _mapper.Map<Food>(foodDto);
-                    Tuple<string, double> foodToAdd = Tuple.Create(foodId, amount);
+                    Tuple<string, double, DateTime> foodToAdd = Tuple.Create(foodId, amount, DateTime.Now);
                     user.foods.Add(foodToAdd);
 
                     // update the user in the db

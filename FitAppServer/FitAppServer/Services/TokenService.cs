@@ -12,9 +12,9 @@ namespace FitAppServer.Services
         private readonly SymmetricSecurityKey _key;
         public TokenService(IConfiguration config)
         {
-            _key = new
-            SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"])
-            );
+            var keyString = config["Jwt:Key"];
+            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(keyString.PadRight(64)));
+            // PadRight to ensure the key is at least 64 bytes (512 bits)
         }
         public string CreateToken(User user)
         {

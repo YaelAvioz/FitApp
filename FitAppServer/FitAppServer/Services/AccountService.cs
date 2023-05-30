@@ -229,7 +229,7 @@ namespace FitAppServer.Services
                 if (foodDto != null)
                 {
                     Food food = _mapper.Map<Food>(foodDto);
-                    Tuple<string, double> foodToAdd = Tuple.Create(foodDto.Id, amount);
+                    Tuple<string, double> foodToAdd = Tuple.Create(foodId, amount);
                     user.foods.Add(foodToAdd);
 
                     // update the user in the db

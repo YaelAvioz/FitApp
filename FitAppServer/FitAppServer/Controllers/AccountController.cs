@@ -112,10 +112,10 @@ namespace FitAppServer.Controllers
         }
 
         [HttpPost("{id}/food")]
-        public async Task<ActionResult<object>> AddFood(string id, [FromBody] dynamic requestData)
+        public async Task<ActionResult<object>> AddFood(string id, [FromBody] AddFoodDTO addFoodDto)
         {
-            string foodId = requestData.foodId;
-            double amount = requestData.amount;
+            string foodId = addFoodDto.FoodId;
+            double amount = addFoodDto.Amount;
             var res = await _accountService.AddFood(id, foodId, amount);
             if (res != null) return Ok();
  

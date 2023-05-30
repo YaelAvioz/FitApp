@@ -9,6 +9,7 @@
     </div>
     <div class="nav-bar-right">
         <button *ngIf="user" class="user-btn" routerLink="/profile-page">{{user.firstname}}</button>
+        <button *ngIf="user" class="logout-btn" routerLink="/home-page" (click)="logout()">logout</button>
         <img *ngIf="!user"(click)="isSignInVisible=!isSignInVisible" src="../../../assets/images/sign-in.svg" alt="sign-in">
         <app-sign-in *ngIf="isSignInVisible"></app-sign-in>
     </div>

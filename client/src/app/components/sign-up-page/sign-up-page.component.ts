@@ -7,9 +7,7 @@ import { UserState } from 'src/app/store/user/userReducer';
 import { Register, RegisterResponse } from 'src/interfaces/user';
 import { register } from 'src/app/store/user/userAction';
 import { AppComponent } from 'src/app/app.component';
-import { Mentor } from 'src/interfaces/mentor';
-import { MentorsPageState } from 'src/app/store/mentors-page/mentorPageReducer';
-import { loadMentorByName } from 'src/app/store/mentors-page/mentorsPageAction';
+
 
 @Component({
   selector: 'app-sign-up-page',
@@ -32,17 +30,19 @@ export class SignUpPageComponent {
   weights: number[] = [];
   ages: number[] = [];
   mentor!: string;
+  btnClicked: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private appComponentParent: AppComponent, private router: Router, private store: Store<{ userReducer: UserState }>) {
     this.appComponentParent.displayNavbar = false;
 
-    for (let i = 0; i <= 200; i++) {
+    for (let i = 120; i <= 200; i++) {
       this.heights.push(i);
     }
-    for (let i = 0; i <= 200; i++) {
+    for (let i = 40; i <= 200; i++) {
       this.weights.push(i);
     }
-    for (let i = 0; i <= 99; i++) {
+    
+    for (let i = 18; i <= 99; i++) {
       this.ages.push(i);
     }
 
@@ -103,11 +103,5 @@ export class SignUpPageComponent {
       console.log(this.mentor);
     }, 3000);
 
-  }
-
-  signUpComplete() {
-    setTimeout(() => {
-      //this.router.navigate(['/']);
-    }, 5000);
   }
 }

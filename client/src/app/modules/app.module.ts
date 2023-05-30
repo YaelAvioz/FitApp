@@ -49,6 +49,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { SignUpCompleteComponent } from '../components/sign-up-complete/sign-up-complete.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { SignUpCompleteComponent } from '../components/sign-up-complete/sign-up-
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
+    MatProgressSpinnerModule,
   ],
   providers: [SessionService],
   bootstrap: [AppComponent]

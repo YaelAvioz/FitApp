@@ -102,26 +102,16 @@
     </mat-step>
 
     <mat-step>
-        <ng-template matStepLabel>Submit</ng-template>
+        <ng-template matStepLabel>Done</ng-template>
         <div>
-            <h2 class="title">You are all done!</h2>
-            <h2 class="title">Let's start our journey together.</h2>
-            <div class="submit-button-container ">
-                <button type="submit" class="submit-button" (click)="onSubmit()" (click)="signUpComplete()">Create My
-                    Account</button>
+            <h2 class="title">Click Here To Start Our Journey Together.</h2>
+            <div class="submit-button-container">
+                <button type="submit" class="submit-button" *ngIf="!btnClicked" (click)="onSubmit()" (click)="btnClicked=true">Start</button>
+                <mat-spinner class="spinner" *ngIf="btnClicked"></mat-spinner>
                 <app-sign-up-complete *ngIf="mentor" [mentor]="mentor" [welcomeMsg]="firstMsg"></app-sign-up-complete>
             </div>
         </div>
         <div class="navigation-btn">
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
-        </div>
-    </mat-step>
-
-    <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-        <!-- <p>{{firstMsg}}</p> -->
-        <div>
             <button mat-button matStepperPrevious>Back</button>
         </div>
     </mat-step>

@@ -10,11 +10,13 @@ public class MappingProfiles : Profile
     public MappingProfiles()
     {
         CreateMap<Food, FoodDTO>();
+        CreateMap<FoodDTO, Food>();
         CreateMap<User, UserDTO>();
         CreateMap<UserDTO, User>();
         CreateMap<UserLoginInfo, UserDTO>();
         CreateMap<RegisterDTO, UserDTO>();
         CreateMap<Mentor, MentorDTO>();
+        CreateMap<MentorDTO, Mentor>();
         CreateMap<Recipe, RecipeDTO>();
         CreateMap<Recipe, RecipeCardDTO>();
         CreateMap<Conversation, ConversationDTO>();

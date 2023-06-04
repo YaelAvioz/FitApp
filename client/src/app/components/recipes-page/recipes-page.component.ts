@@ -43,12 +43,12 @@ export class RecipesPageComponent {
   }
 
   nextPage() {
-    this.limit += 20;
+    this.limit += 12;
     this.store.dispatch(loadRecipesByLimit({ limit: this.limit }));
   }
 
   prevPage() {
-    this.limit -= 20;
+    this.limit -= 12;
     this.store.dispatch(loadRecipesByLimit({ limit: this.limit }));
   }
 }

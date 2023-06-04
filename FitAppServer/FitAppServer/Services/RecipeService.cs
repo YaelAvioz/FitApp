@@ -20,7 +20,7 @@ namespace FitAppServer.Services
             var filter = Builders<Recipe>.Filter.Regex(x => x.Title, new BsonRegularExpression(query, "i"));
             
             return _mapper.Map<List<RecipeCardDTO>>(_collection.Find(filter)
-                .Skip(skip).Limit(15).ToList());
+                .Skip(skip).Limit(12).ToList());
         }
 
         public List<RecipeDTO> GetSingleRecipe(string query)

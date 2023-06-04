@@ -60,7 +60,7 @@ namespace FitAppServer.Services
         {
             var entities = await _collection.Find(_ => true)
                                              .Skip(skip)
-                                             .Limit(15)
+                                             .Limit(12)
                                              .ToListAsync();
             return _mapper.Map<List<TDTO>>(entities);
         }

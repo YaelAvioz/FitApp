@@ -39,12 +39,12 @@ export class FoodDictionaryPageComponent {
   }
 
   nextPage() {
-    this.limit += 15;
+    this.limit += 12;
     this.store.dispatch(loadFoodItemsByLimit({ limit: this.limit }));
   }
 
   prevPage() {
-    this.limit -= 15;
+    this.limit -= 12;
     this.store.dispatch(loadFoodItemsByLimit({ limit: this.limit }));
   }
 }

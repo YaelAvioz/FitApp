@@ -50,7 +50,7 @@ export class RecipesPageComponent {
           this.recipesCount = value;
         });
       }
-    }, 3000);
+    }, 2000);
   }
 
   onPageChange(event: PageEvent) {

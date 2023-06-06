@@ -35,11 +35,15 @@
     </div>
     <div class="nav-bar-right">
         <div class="buttons-container">
-            <button *ngIf="user" class="user-btn" routerLink="/profile-page">{{user.firstname}}</button>
+            <div *ngIf="user" class="profile-btn" routerLink="/profile-page">
+                <!-- <img *ngIf="user" src="../../../assets/images/sign-in.svg" alt="sign-in"> -->
+               <img *ngIf="user.gender == 'female'" src="../../../assets/images/female.jpeg" alt="sign-in">
+               <img *ngIf="user.gender == 'male'" src="../../../assets/images/male.jpeg" alt="sign-in">
+                <button class="user-btn">{{user.firstname}}</button>
+            </div>
             <mat-icon *ngIf="user" class="logout-btn" routerLink="/home-page" (click)="logout()">logout</mat-icon>
         </div>
-        <img *ngIf="!user" (click)="isSignInVisible=!isSignInVisible" src="../../../assets/images/sign-in.svg"
-            alt="sign-in">
+        <button *ngIf="!user" class="sign-in-btn" (click)="isSignInVisible=!isSignInVisible">Sign In</button>
         <app-sign-in *ngIf="isSignInVisible"></app-sign-in>
     </div>
 </div>

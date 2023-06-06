@@ -23,6 +23,13 @@ namespace FitAppServer.Services
                 .Skip(skip).Limit(12).ToList());
         }
 
+        public int? GetRecipesCountByQuery(string query)
+        {
+            var filter = Builders<Recipe>.Filter.Regex(x => x.Title, new BsonRegularExpression(query, "i"));
+
+            return Convert.ToInt32(_collection.Find(filter).CountDocuments());
+        }
+
         public List<RecipeDTO> GetSingleRecipe(string query)
         {
             var filter = Builders<Recipe>.Filter.Regex(x => x.Title, new BsonRegularExpression(query, "i"));

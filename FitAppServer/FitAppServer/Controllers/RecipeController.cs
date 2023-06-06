@@ -34,6 +34,22 @@ namespace FitAppServer.Controllers
         }
 
         [HttpGet]
+        [Route("search/{query}/count")]
+        public ActionResult<int> GetRecipesCountByQuery([FromRoute] string query)
+        {
+            var length = _recipeService.GetRecipesCountByQuery(query);
+
+            if (length == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(length.Value);
+            }
+        }
+
+        [HttpGet]
         [Route("singleRecipe/{query}")]
         public ActionResult<RecipeDTO> GetSingleRecipe([FromRoute] string query)
         {

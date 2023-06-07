@@ -50,6 +50,7 @@ import {MatInputModule} from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { SignUpCompleteComponent } from '../components/sign-up-complete/sign-up-complete.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ProfilePageComponent } from '../components/profile-page/profile-page.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ChatBtnComponent,
     FeaturesBoxComponent,
     JoinUsComponent,
-    SignUpCompleteComponent
+    SignUpCompleteComponent,
+    ProfilePageComponent,
   ],
   imports: [
     BrowserModule,

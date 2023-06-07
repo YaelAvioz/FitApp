@@ -3,14 +3,15 @@
         <h1>{{user.firstname}} {{user.lastname}}</h1>
         <p>gender: {{user.gender}} </p>
         <p>age: {{user.age}} </p>
-        <p>weight: {{user.weight}} </p>
+        <p>weight:{{currentWeight}} </p>
         <p>height: {{user.height}}</p>
-        <p>bmi: </p>
-        <p>goal: {{user.goal}}</p>
+        <p>bmi: {{user.bmi}} </p>
         <p>mentor: {{user.mentor}}</p>
+        <p *ngIf="user.goal">Goal: {{user.goal}}</p>
     </div>
 </div>
 
 <div class="user-process">
-
+    <p>enter your goal</p>
+    <p>update your weight</p>
 </div>

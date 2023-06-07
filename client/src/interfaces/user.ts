@@ -17,13 +17,20 @@ export interface Register {
     tags: string[],
 }
 
+//TODO: chnage in the server to weight and date
+export interface Weight{
+item1: number,
+item2: Date,
+}
+
 export interface User {
     username: string,
     firstname: string,
     lastname: string,
     age: number,
     height: number,
-    weight: number,
+    weight: Weight[],
+    bmi: number,
     gender: string,
     goal: string,
     mentor: string,

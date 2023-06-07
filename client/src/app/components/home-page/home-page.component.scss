@@ -1,3 +1,17 @@
+.cover-photo {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        margin:5%;
+        width: 83%;
+        height: 600px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    }
+}
+
 .logo-container {
     display: flex;
     justify-content: center;

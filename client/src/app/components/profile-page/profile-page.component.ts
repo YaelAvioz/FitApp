@@ -9,11 +9,12 @@ import { User } from 'src/interfaces/user';
 })
 export class ProfilePageComponent {
   user !: User;
+  currentWeight!: number;
 
-  constructor(private sessionService: SessionService) { }
-
-  ngOnInit(){
+  constructor(private sessionService: SessionService) {
     this.user = this.sessionService.getUserFromSession();
+    this.currentWeight = this.user.weight[this.user.weight.length - 1].item1;
   }
-  
 }
+
+

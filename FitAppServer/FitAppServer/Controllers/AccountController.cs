@@ -146,6 +146,8 @@ namespace FitAppServer.Controllers
             };
 
             return Ok(userDTO);
+        }
+
         [HttpPost("{id}/recipe")]
         public async Task<ActionResult<object>> AddRecipe(string id, [FromBody] string recipeId)
         {

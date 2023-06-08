@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { map, catchError, switchMap } from 'rxjs/operators';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { login, loginFailure, loginSuccess, register, registerFailure, registerSuccess } from '../store/user/userAction';
+import { addFoodItem, addFoodItemFailure, addFoodItemSuccess, login, loginFailure, loginSuccess, register, registerFailure, registerSuccess } from '../store/user/userAction';
 import { userService } from '../service/userService';
 
 @Injectable()
@@ -31,6 +31,18 @@ export class userEffects {
                 this.userService.register(registerData).pipe(
                     map((newUser) => registerSuccess({ newUser })),
                     catchError((error) => of(registerFailure({ error })))
+                )
+            )
+        )
+    );
+
+    addFoodItem = createEffect(() =>
+        this.actions$.pipe(
+            ofType(addFoodItem),
+            switchMap(({ userId, foodItemId, amount }) =>
+                this.userService.addFoodItem(userId, foodItemId, amount).pipe(
+                    map(() => addFoodItemSuccess()),
+                    catchError((error) => of(addFoodItemFailure({ error })))
                 )
             )
         )

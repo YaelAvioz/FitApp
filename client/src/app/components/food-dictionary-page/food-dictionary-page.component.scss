@@ -18,11 +18,12 @@
     margin-top: 3%;
 
     .search {
-        width: 450px;
+        width: 82%;
         height: 50px;
         display: flex;
         flex-direction: row;
         align-items: center;
+        font-weight: bold;
         padding: 6px 12px;
         gap: 16px;
         border-bottom: 2px solid #ccc;
@@ -34,7 +35,7 @@
             left: 10px;
             top: 4.5px;
             font-size: 20px;
-            letter-spacing: 1.29px;
+            letter-spacing: 1.30px;
             color: #000000;
             background: none;
             border: none;

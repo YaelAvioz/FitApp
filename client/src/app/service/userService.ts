@@ -21,4 +21,12 @@ export class userService {
   register(registerInfo: Register): Observable<any> {
     return this.http.post(`${this.baseUrl}/register`, registerInfo);
   }
+
+  addFoodItem(userId: string, foodItemId: string, amount:number){
+    const payload = {
+      foodId: foodItemId,
+      amount: amount
+    };
+    return this.http.post<any>(this.baseUrl + `/${userId}/food`, payload);
+  }
 }

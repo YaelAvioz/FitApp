@@ -20,12 +20,6 @@
                 font-size: 28px;
                 margin-bottom: 5px;
             }
-
-            .add-btn {
-                border-radius: 15px;
-                border: none;
-                font-weight: bold;
-            }
         }
     }
 
@@ -46,6 +40,28 @@
             .nutritional-value {
                 color: darkgrey;
             }
+        }
+    }
+
+    .amount-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .add-btn {
+            border-radius: 15px;
+            border: none;
+            font-weight: bold;
+            height: 100%;
+            width: 7%;
+        }
+
+        .amount {
+            width: 35%;
+            margin: 1%;
+            height: 80%;
+            border: 1px solid darkgray;
+            border-radius: 10px;
         }
     }
 }

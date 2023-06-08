@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { login, loginFailure, loginSuccess, register, registerFailure, registerSuccess } from './userAction';
+import { addFoodItem, addFoodItemFailure, addFoodItemSuccess, login, loginFailure, loginSuccess, register, registerFailure, registerSuccess } from './userAction';
 import { Login, Register } from 'src/interfaces/user';
 
 export interface UserState {
@@ -21,5 +21,8 @@ export const userReducer = createReducer(
   on(loginFailure, (state, { error }) => ({ ...state, error, })),
   on(register, (state) => ({ ...state })),
   on(registerSuccess, (state, { newUser }) => ({ ...state, newUser, })),
-  on(registerFailure, (state, { error }) => ({ ...state, error, }))
+  on(registerFailure, (state, { error }) => ({ ...state, error, })),
+  on(addFoodItem, (state) => ({ ...state })),
+  on(addFoodItemSuccess, (state) => ({ ...state })),
+  on(addFoodItemFailure, (state, { error }) => ({ ...state, error, }))
 );

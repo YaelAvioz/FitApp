@@ -36,14 +36,35 @@ export class ProfilePageComponent {
       y: item.y
     }));
 
-    console.log("output", this.output);
-
     this.initializeChart();
+
+    
   }
 
-  initializeChart() {
+  chartOptions2= {
+	  animationEnabled: true,
+	  theme: "light2",
+	  exportEnabled: false,
+	  title: {
+		text: "Developer Work Week"
+	  },
+	  subtitles: [{
+		text: "Median hours/week"
+	  }],
+	  data: [{
+		type: "pie", //change type to column, line, area, doughnut, etc
+		indexLabel: "{name}: {y}%",
+		dataPoints: [
+			{ name: "Carbs", y: 9.1 },
+			{ name: "Problem Solving", y: 3.7 },
+			{ name: "Debugging", y: 36.4 },
+			{ name: "Writing Code", y: 30.7 },
+			{ name: "Firefighting", y: 20.1 }
+		]
+	  }]
+	}
 
-    console.log("in", this.dataPoints);
+  initializeChart() {
     this.chartOptions = {
       animationEnabled: true,
       theme: "light2",

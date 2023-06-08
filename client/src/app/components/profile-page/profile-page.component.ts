@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { SessionService } from 'src/app/service/sessionService';
 import { User } from 'src/interfaces/user';
 import * as moment from 'moment';
+import { Mentor } from 'src/interfaces/mentor';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { loadMentorByName } from 'src/app/store/mentors-page/mentorsPageAction';
+import { MentorsPageState } from 'src/app/store/mentors-page/mentorPageReducer';
 
 @Component({
   selector: 'app-profile-page',
@@ -9,14 +14,21 @@ import * as moment from 'moment';
   styleUrls: ['./profile-page.component.scss']
 })
 export class ProfilePageComponent {
+  mentor$: Observable<Mentor | null>;
   user!: User;
   currentWeight!: number;
   chart: any;
   dataPoints!: any[];
   chartOptions: any; // Declare the chartOptions property
   output!: any;
+  mentor !: Mentor;
+  
 
-  constructor(private sessionService: SessionService) {
+  constructor(private sessionService: SessionService,private store: Store<{mentorPageReducer: MentorsPageState}>) {
+    this.mentor$ = this.store.select((state) => {    
+      return state.mentorPageReducer.mentor;
+    })
+    
     this.user = this.sessionService.getUserFromSession();
     this.currentWeight = this.user.weight[this.user.weight.length - 1].item1;
     console.log(this.user);
@@ -36,9 +48,11 @@ export class ProfilePageComponent {
       y: item.y
     }));
 
-    this.initializeChart();
+    this.initializeWeightChart();
+  }
 
-    
+  ngOnInit(){
+    this.store.dispatch(loadMentorByName({name: this.user.mentor}));
   }
 
   chartOptions2= {
@@ -64,7 +78,7 @@ export class ProfilePageComponent {
 	  }]
 	}
 
-  initializeChart() {
+  initializeWeightChart() {
     this.chartOptions = {
       animationEnabled: true,
       theme: "light2",

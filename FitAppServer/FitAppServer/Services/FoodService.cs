@@ -4,6 +4,7 @@ using FitAppServer.DTO;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using System.Text;
+using System.Collections.Generic;
 
 namespace FitAppServer.Services
 {
@@ -78,5 +79,24 @@ namespace FitAppServer.Services
         }
 
 
+        public async Task<List<FoodDTO>> GetFoods(List<Tuple<string, double>> ingredients)
+        {
+            var ingredientsFoods = new List<FoodDTO>();
+
+            foreach (Tuple<string, double> ingredient in ingredients)
+            {
+                var filter = Builders<Food>.Filter.Regex(x => x.name, new MongoDB.Bson.BsonRegularExpression(ingredient.Item1, "i"));
+                var foods = await _collection.Find(filter).ToListAsync();
+                var food = foods.FirstOrDefault(f => f.name.Contains(ingredient.Item1, StringComparison.OrdinalIgnoreCase));
+
+
+                if (food != null)
+                {
+                    FoodDTO foodByAmount = await GetFoodInfoByAmount(food.Id, ingredient.Item2);
+                    ingredientsFoods.Add(foodByAmount);
+                }
+            }
+            return ingredientsFoods;
+        }
     }
 }

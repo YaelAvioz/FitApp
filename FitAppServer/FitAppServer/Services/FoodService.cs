@@ -33,6 +33,13 @@ namespace FitAppServer.Services
                 .Skip(skip).Limit(15).ToList());
         }
 
+        public int? GetFoodCountByQuery(string query)
+        {
+            var filter = Builders<Food>.Filter.Regex(x => x.name, new BsonRegularExpression(query, "i"));
+
+            return Convert.ToInt32(_collection.Find(filter).CountDocuments());
+        }
+
         public async Task<FoodDTO> GetFoodInfoByAmount(string id, double amount)
         {
             var food = await _collection.Find(x => x.Id.Equals(id)).FirstOrDefaultAsync();

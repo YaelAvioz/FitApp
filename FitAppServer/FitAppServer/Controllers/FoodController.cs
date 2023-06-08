@@ -40,6 +40,22 @@ namespace FitAppServer.Controllers
         }
 
         [HttpGet]
+        [Route("search/{query}/count")]
+        public ActionResult<int> GetFoodCountByQuery([FromRoute] string query)
+        {
+            var length = _foodService.GetFoodCountByQuery(query);
+
+            if (length == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(length.Value);
+            }
+        }
+
+        [HttpGet]
         [Route("{id}/protein")]
         public async Task<ActionResult<string>> GetFoodProtein(string id)
         {

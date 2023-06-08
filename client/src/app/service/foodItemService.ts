@@ -20,4 +20,12 @@ export class foodItemService {
   getFoodItemsByLimit(limit : number){
     return this.http.get<FoodItem[]>(this.baseUrl + `/next/${limit}`);
   }
+
+  getFoodItemsByQuery(query: string, limit: number) {
+    return this.http.get<FoodItem[]>(this.baseUrl + `/search/${query}/${limit}`);
+  }
+
+  getFoodItemsCountByQuery(query: string) {
+    return this.http.get<number>(this.baseUrl + `/search/${query}/count`);
+  }
 }

@@ -9,5 +9,5 @@
     <app-food-item-card *ngFor="let foodItem of foodItems" [foodItem]="foodItem"></app-food-item-card>
 </div>
 
-<mat-paginator class="btn" [length]="8789" [pageSize]="12" aria-label="Select page"
+<mat-paginator class="btn" [length]="foodItemsCount" [pageSize]="12" aria-label="Select page"
     (page)="onPageChange($event)"></mat-paginator>

@@ -40,9 +40,10 @@
                 </div>
             </div>
         </mat-card-content>
-        <div class="amount-container">
-            <input class="amount" [id]="'amountInput_' + foodItem.id" type="number" placeholder="Enter amount (g)" min="0" [(ngModel)]="input">
-            <button *ngIf="user" type="button" class="add-btn" (click)=" addItem(foodItem.id)">+</button>
+        <div *ngIf="user" class="amount-container">
+            <input class="amount" [id]="'amountInput_' + foodItem.id" type="number" placeholder="Enter amount (g)"
+                min="0" [(ngModel)]="input">
+            <button type="button" class="add-btn" (click)=" addItem(foodItem.id)">+</button>
         </div>
     </mat-card>
 </div>

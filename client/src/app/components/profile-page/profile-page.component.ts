@@ -52,6 +52,9 @@ export class ProfilePageComponent {
   }
 
   ngOnInit(){
+    //dispatch(user)
+    console.log("ngOnInit");
+    this.user = this.sessionService.getUserFromSession();
     this.store.dispatch(loadMentorByName({name: this.user.mentor}));
   }
 

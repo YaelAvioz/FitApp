@@ -121,5 +121,31 @@ namespace FitAppServer.Controllers
  
             return BadRequest();
         }
+
+        [HttpGet("username/{username}")]
+        public async Task<ActionResult<UserDTO>> GetUserByUsername(string username)
+        {
+            var user = await _accountService.GetUserByUsername(username);
+
+            if (user == null) return NotFound();
+
+            var userDTO = new UserDTO
+            {
+                username = user.username,
+                firstname = user.firstname,
+                lastname = user.lastname,
+                age = user.age,
+                height = user.height,
+                weight = user.weight,
+                gender = user.gender,
+                bmi = user.bmi,
+                goal = user.goal,
+                mentor = user.mentor,
+                tags = user.tags,
+                foods = user.foods
+            };
+
+            return Ok(userDTO);
+        }
     }
 }

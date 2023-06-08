@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Login, Register } from 'src/interfaces/user';
+import { Login, Register, User } from 'src/interfaces/user';
 
 
 @Injectable({
@@ -28,5 +28,9 @@ export class userService {
       amount: amount
     };
     return this.http.post<any>(this.baseUrl + `/${userId}/food`, payload);
+  }
+
+  getCurrentUser(username: string){
+    return this.http.get<User>(this.baseUrl + `username/${username}`);
   }
 }

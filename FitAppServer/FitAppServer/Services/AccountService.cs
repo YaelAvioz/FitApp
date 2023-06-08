@@ -19,6 +19,7 @@ namespace FitAppServer.Services
         public readonly MessageService _messageService;
         public readonly MentorService _mentorService;
         protected readonly FoodService _foodService;
+        protected readonly RecipeService _recipeService;
         protected readonly IMongoDatabase _db;
         protected readonly IMapper _mapper;
         protected readonly string connectionString = "mongodb+srv://FitApp:FitAppYaelCoral@cluster0.hsylfut.mongodb.net/?retryWrites=true&w=majority";
@@ -36,6 +37,7 @@ namespace FitAppServer.Services
             _messageService = new MessageService(_mapper);
             _mentorService = new MentorService(_mapper);
             _foodService = new FoodService(_mapper);
+            _recipeService = new RecipeService(_mapper);
         }
 
         public AccountService(IMapper mapper, IMongoCollection<User> collection)
@@ -48,6 +50,7 @@ namespace FitAppServer.Services
             _messageService = new MessageService(_mapper);
             _mentorService = new MentorService(_mapper);
             _foodService = new FoodService(_mapper);
+            _recipeService = new RecipeService(mapper);
         }
 
         public async Task<User> RegisterUser(RegisterDTO userDTO)
@@ -238,6 +241,46 @@ namespace FitAppServer.Services
 
                     return food;
                 }
+            }
+            return null;
+        }
+
+        public async Task<Food> AddFoods(string id, string foodId, double amount)
+        {
+            User user = await GetUserById(id);
+            if (user != null)
+            {
+                FoodDTO foodDto = await _foodService.GetFoodInfoByAmount(foodId, amount);
+                if (foodDto != null)
+                {
+                    Food food = _mapper.Map<Food>(foodDto);
+                    Tuple<string, double, DateTime> foodToAdd = Tuple.Create(foodId, amount, DateTime.Now);
+                    user.foods.Add(foodToAdd);
+
+                    // update the user in the db
+                    await _collection.UpdateOneAsync(Builders<User>.Filter.Eq(u => u.Id, user.Id),
+                    Builders<User>.Update.Set(u => u.foods, user.foods));
+
+                    return food;
+                }
+            }
+            return null;
+        }
+
+
+        public async Task<List<FoodDTO>> AddRecipe(string id, string recipeId)
+        {
+            User user = await GetUserById(id);
+            if (user != null)
+            {
+                List<Tuple<string, double>> ingredients = await _recipeService.GetIngredients(recipeId);
+                List<FoodDTO> foods = await _foodService.GetFoods(ingredients);
+
+                foreach (FoodDTO food in foods)
+                {
+                    await AddFood(id, food.Id, 50.0);
+                }
+                return foods;
             }
             return null;
         }

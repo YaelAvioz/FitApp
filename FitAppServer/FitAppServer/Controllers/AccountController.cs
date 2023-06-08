@@ -121,5 +121,14 @@ namespace FitAppServer.Controllers
  
             return BadRequest();
         }
+
+        [HttpPost("{id}/recipe")]
+        public async Task<ActionResult<object>> AddRecipe(string id, [FromBody] string recipeId)
+        {
+            var res = await _accountService.AddRecipe(id, recipeId);
+            if (res != null) return Ok();
+
+            return BadRequest();
+        }
     }
 }

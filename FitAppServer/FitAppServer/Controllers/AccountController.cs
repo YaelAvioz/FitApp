@@ -111,12 +111,12 @@ namespace FitAppServer.Controllers
             return BadRequest();
         }
 
-        [HttpPost("{id}/food")]
-        public async Task<ActionResult<object>> AddFood(string id, [FromBody] AddFoodDTO addFoodDto)
+        [HttpPost("{username}/food")]
+        public async Task<ActionResult<object>> AddFood(string username, [FromBody] AddFoodDTO addFoodDto)
         {
             string foodId = addFoodDto.FoodId;
             double amount = addFoodDto.Amount;
-            var res = await _accountService.AddFood(id, foodId, amount);
+            var res = await _accountService.AddFood(username, foodId, amount);
             if (res != null) return Ok();
  
             return BadRequest();

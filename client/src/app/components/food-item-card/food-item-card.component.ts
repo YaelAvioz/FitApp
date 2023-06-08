@@ -30,13 +30,10 @@ export class FoodItemCardComponent {
   }
 
   addItem(foodItem: string) {
-    // const amountInput = (<HTMLInputElement>document.getElementById("amountInput")).value;
-    // this.amount = parseFloat(amountInput);
     let amountInput = (document.getElementById('amountInput_' + this.foodItem.id) as HTMLInputElement).value;
     this.amount = parseFloat(amountInput);
     this.input = '';
     this.user = this.sessionService.getUserFromSession();
-    console.log(this.amount);
-    this.store.dispatch(addFoodItem({ userId: "647f83fb2f0139eb06605840", foodItemId: this.foodItem.id, amount: this.amount }));
+    this.store.dispatch(addFoodItem({ userId: this.user.username, foodItemId: this.foodItem.id, amount: this.amount }));
   }
 }

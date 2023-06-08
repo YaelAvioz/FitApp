@@ -220,9 +220,9 @@ namespace FitAppServer.Services
 
         }
 
-        public async Task<Food> AddFood(string id, string foodId, double amount)
+        public async Task<Food> AddFood(string username, string foodId, double amount)
         {
-            User user = await GetUserById(id);
+            User user = await GetUserByUsername(username);
             if (user != null)
             {
                 FoodDTO foodDto = await _foodService.GetFoodInfoByAmount(foodId, amount);
@@ -233,7 +233,7 @@ namespace FitAppServer.Services
                     user.foods.Add(foodToAdd);
 
                     // update the user in the db
-                    await _collection.UpdateOneAsync(Builders<User>.Filter.Eq(u => u.Id, user.Id),
+                    await _collection.UpdateOneAsync(Builders<User>.Filter.Eq(u => u.username, user.username),
                     Builders<User>.Update.Set(u => u.foods, user.foods));
 
                     return food;

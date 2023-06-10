@@ -75,7 +75,7 @@ export class ProfilePageComponent {
   ngOnInit() {
     this.user = this.sessionService.getUserFromSession();
     this.store.dispatch(loadMentorByName({ name: this.user.mentor }));
-    this.store.dispatch(loadNutritionalValues({ userId: this.user.username }));   
+    this.store.dispatch(loadNutritionalValues({ userId: this.user.username }));
     this.nutritionalValues$.subscribe(nutritionalValues => {
       this.nutritionalValues = nutritionalValues;
       this.nutritionalValuesChart = {
@@ -91,12 +91,12 @@ export class ProfilePageComponent {
           text: `Daily Nutritional Intake - Total Calories ${nutritionalValues.calories}`,
         }],
         data: [{
-          type: "pie", //change type to column, line, area, doughnut, etc
+          type: "pie",
           indexLabel: "{name}: {y}%",
           dataPoints: [
             { name: "Carbs", y: nutritionalValues.carbohydrate },
-            { name: "Fat", y:  nutritionalValues.fat },
-            { name: "Proteins", y:  nutritionalValues.protein },
+            { name: "Fat", y: nutritionalValues.fat },
+            { name: "Proteins", y: nutritionalValues.protein },
           ]
         }]
       }
@@ -105,9 +105,18 @@ export class ProfilePageComponent {
     this.store.dispatch(loadUserByUsername({ username: this.user.username }));
     this.user$.subscribe(currentUser => {
       this.user = currentUser;
+      console.log(this.user.id);
+
     });
   }
 
+  // updateData() {
+  //   if (this.selectedGoal && this.selectedWeight) {
+  //     console.log("Data updated successfully!");
+  //   } else {
+  //     console.log("Please fill in all required fields!");
+  //   }
+  // }
 
   initializeWeightChart() {
     this.chartOptions = {

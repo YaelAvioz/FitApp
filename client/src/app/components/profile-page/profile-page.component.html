@@ -1,47 +1,77 @@
 <div class="profile-page">
-    <div class="user-data">
-        <h1>{{user.firstname}} {{user.lastname}}</h1>
-        <h3>gender: {{user.gender}} </h3>
-        <h3>age: {{user.age}} </h3>
-        <h3>weight:{{currentWeight}} </h3>
-        <h3>height: {{user.height}}</h3>
-        <h3>bmi: {{user.bmi}} </h3>
-        <div *ngIf="mentor$ | async as mentor">
-            <h3>mentor: {{user.mentor}}</h3>
+    <div>
+        <h1 class="title">{{user.firstname}} {{user.lastname}}, {{user.age}}</h1>
+    </div>
+
+    <div class="data-box-container">
+        <div class="data-box">
+            <div class="data">
+                <img src="../../../assets/images/weight-scale.png" alt="food-db-icon">
+                <h1>Height</h1>
+                <h3>{{user.height}}c</h3>
+            </div>
+            <div class="data">
+                <img src="../../../assets/images/height.png" alt="recipes-icon">
+                <h1>Weight</h1>
+                <h3>{{currentWeight}}kg</h3>
+            </div>
+            <div class="data">
+                <img src="../../../assets/images/bmi.png" alt="track-goals-icon">
+                <h1>Bmi</h1>
+                <h3>{{user.bmi}} </h3>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="mentor-title">My Mentor: </h3>
+    <div class="mentor-container" *ngIf="mentor$ | async as mentor">
+        <div class="mentor-left-side">
             <img class="mentor-img" src="{{mentor.picture}}" alt="mentor-img">
         </div>
-        <h3 *ngIf="user.goal">Goal: {{user.goal}}</h3>
+        <div class="mentor-right-side">
+            <p class="text">{{mentor.description}}</p>
+        </div>
     </div>
-</div>
 
-<div>
-    {{user.foods}}
-</div>
+    <div class="chart-container">
+        <canvasjs-chart class="chart" [options]="chartOptions"
+            [styles]="{width: '1000%', height:'360px'}"></canvasjs-chart>
+    </div>
 
-<div class="user-process">
-    <mat-form-field class="short-filed">
-        <mat-label for="weight">Goal</mat-label>
-        <mat-select placeholder="Select Your Goal" required [(ngModel)]="selectedGoal">
-          <mat-option *ngFor="let weight of weights" [value]="weight">
-            {{weight}}kg
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      
-      <mat-form-field class="short-filed">
-        <mat-label for="weight">Weight</mat-label>
-        <mat-select placeholder="Current Weight" required [(ngModel)]="selectedWeight">
-          <mat-option *ngFor="let weight of weights" [value]="weight">
-            {{weight}}kg
-          </mat-option>
-        </mat-select>
-      </mat-form-field>      
-</div>
+    <h3 *ngIf="user.goal">Goal: {{user.goal}}</h3>
 
-<div class="chart-container">
-    <canvasjs-chart [options]="chartOptions" [styles]="{width: '1000%', height:'360px'}"></canvasjs-chart>
-</div>
+    <!-- <div class="user-process">
+        <mat-form-field class="short-filed">
+            <mat-label for="weight">Goal</mat-label>
+            <mat-select placeholder="Select Your Goal" required [(ngModel)]="selectedGoal">
+                <mat-option *ngFor="let weight of weights" [value]="weight">
+                    {{weight}}kg
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
 
-<div class="chart-container">
-    <canvasjs-chart [options]="nutritionalValuesChart" [styles]="{width: '100%', height:'360px'}"></canvasjs-chart>
+        <mat-form-field class="short-filed">
+            <mat-label for="weight">Weight</mat-label>
+            <mat-select placeholder="Current Weight" required [(ngModel)]="selectedWeight">
+                <mat-option *ngFor="let weight of weights" [value]="weight">
+                    {{weight}}kg
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <button onclick="updateData()">Update</button>
+    </div> -->
+
+    <div class="food-table">
+
+    </div>
+
+
+
+    <div class="chart-container">
+        <canvasjs-chart class="chart" [options]="nutritionalValuesChart"
+            [styles]="{width: '100%', height:'360px'}"></canvasjs-chart>
+    </div>
+
+
 </div>

@@ -27,7 +27,7 @@ export class ProfilePageComponent {
   currentWeight!: number;
   chart: any;
   dataPoints!: any[];
-  chartOptions: any; // Declare the chartOptions property
+  chartOptions: any;
   nutritionalValuesChart: any;
   output!: any;
 
@@ -98,7 +98,6 @@ export class ProfilePageComponent {
     this.store.dispatch(loadUserByUsername({ username: this.user.username }));
     this.user$.subscribe(currentUser => {
       this.user = currentUser;
-    
     });
   }
 

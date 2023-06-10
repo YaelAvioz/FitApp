@@ -19,8 +19,23 @@
 </div>
 
 <div class="user-process">
-    <p>enter your goal</p>
-    <p>update your weight</p>
+    <mat-form-field class="short-filed">
+        <mat-label for="weight">Goal</mat-label>
+        <mat-select placeholder="Select Your Goal" required [(ngModel)]="selectedGoal">
+          <mat-option *ngFor="let weight of weights" [value]="weight">
+            {{weight}}kg
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+      <mat-form-field class="short-filed">
+        <mat-label for="weight">Weight</mat-label>
+        <mat-select placeholder="Current Weight" required [(ngModel)]="selectedWeight">
+          <mat-option *ngFor="let weight of weights" [value]="weight">
+            {{weight}}kg
+          </mat-option>
+        </mat-select>
+      </mat-form-field>      
 </div>
 
 <div class="chart-container">

@@ -38,6 +38,7 @@ export class SignUpPageComponent {
     for (let i = 120; i <= 200; i++) {
       this.heights.push(i);
     }
+    
     for (let i = 40; i <= 200; i++) {
       this.weights.push(i);
     }

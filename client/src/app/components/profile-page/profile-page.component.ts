@@ -30,6 +30,9 @@ export class ProfilePageComponent {
   chartOptions: any;
   nutritionalValuesChart: any;
   output!: any;
+  weights: number[] = [];
+  selectedGoal!: number;
+  selectedWeight!: number;
 
   constructor(private sessionService: SessionService, private store: Store<{ mentorPageReducer: MentorsPageState, userReducer: UserState }>) {
     this.mentor$ = this.store.select((state) => {
@@ -61,6 +64,10 @@ export class ProfilePageComponent {
       x: new Date(moment(item.x, 'MMM DD, YYYY').format()),
       y: item.y
     }));
+
+    for (let i = 40; i <= 200; i++) {
+      this.weights.push(i);
+    }
 
     this.initializeWeightChart();
   }

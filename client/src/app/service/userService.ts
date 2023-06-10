@@ -30,7 +30,7 @@ export class userService {
     return this.http.post<any>(this.baseUrl + `/${userId}/food`, payload);
   }
 
-  getCurrentUser(username: string){
-    return this.http.get<User>(this.baseUrl + `username/${username}`);
+  getUserByUsername(username: string){
+    return this.http.get<User>(this.baseUrl + `/username/${username}`);
   }
 }

@@ -23,9 +23,6 @@ export class FoodItemCardComponent {
     this.addFoodItem$ = this.store.select((state) => {
       return state.userReducer.currentUser;
     });
-  }
-
-  ngOnInit() {
     this.user = this.sessionService.getUserFromSession();
   }
 

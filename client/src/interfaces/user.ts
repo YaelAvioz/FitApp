@@ -23,6 +23,12 @@ item1: number,
 item2: Date,
 }
 
+export interface Food{
+    item1: string,
+    item2: number,
+    item3: Date
+    }
+
 export interface User {
     id:string,
     username: string,
@@ -35,6 +41,7 @@ export interface User {
     gender: string,
     goal: string,
     mentor: string,
+    foods: Food[],
 }
 
 export interface RegisterResponse {

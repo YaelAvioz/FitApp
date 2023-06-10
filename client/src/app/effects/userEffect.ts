@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { map, catchError, switchMap } from 'rxjs/operators';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { addFoodItem, addFoodItemFailure, addFoodItemSuccess, login, loginFailure, loginSuccess, register, registerFailure, registerSuccess } from '../store/user/userAction';
+import { addFoodItem, addFoodItemFailure, addFoodItemSuccess, loadUserByUsername, loadUserByUsernameFailure, loadUserByUsernameSuccess, login, loginFailure, loginSuccess, register, registerFailure, registerSuccess } from '../store/user/userAction';
 import { userService } from '../service/userService';
 
 @Injectable()
@@ -47,4 +47,17 @@ export class userEffects {
             )
         )
     );
+
+    loadUserByUsername = createEffect(() =>
+        this.actions$.pipe(
+            ofType(loadUserByUsername),
+            switchMap(({ username }) =>
+                this.userService.getUserByUsername(username).pipe(
+                    map((user) => loadUserByUsernameSuccess({ user })),
+                    catchError((error) => of(loadUserByUsernameFailure({ error })))
+                )
+            )
+        )
+    );
+
 }

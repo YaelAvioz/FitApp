@@ -7,6 +7,9 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { loadMentorByName } from 'src/app/store/mentors-page/mentorsPageAction';
 import { MentorsPageState } from 'src/app/store/mentors-page/mentorPageReducer';
+import { UserState } from 'src/app/store/user/userReducer';
+import { state } from '@angular/animations';
+import { loadUserByUsername } from 'src/app/store/user/userAction';
 
 @Component({
   selector: 'app-profile-page',
@@ -15,7 +18,8 @@ import { MentorsPageState } from 'src/app/store/mentors-page/mentorPageReducer';
 })
 export class ProfilePageComponent {
   mentor$: Observable<Mentor | null>;
-  user!: User;
+  user$: Observable<User>;
+  user: User;
   currentWeight!: number;
   chart: any;
   dataPoints!: any[];
@@ -23,15 +27,17 @@ export class ProfilePageComponent {
   output!: any;
   mentor !: Mentor;
   
-
-  constructor(private sessionService: SessionService,private store: Store<{mentorPageReducer: MentorsPageState}>) {
+  constructor(private sessionService: SessionService,private store: Store<{mentorPageReducer: MentorsPageState,  userReducer: UserState }>) {
     this.mentor$ = this.store.select((state) => {    
       return state.mentorPageReducer.mentor;
+    })
+
+    this.user$ = this.store.select((state)=>{
+      return state.userReducer.user;
     })
     
     this.user = this.sessionService.getUserFromSession();
     this.currentWeight = this.user.weight[this.user.weight.length - 1].item1;
-    console.log(this.user);
 
     this.dataPoints = this.user.weight.map((item) => ({
       x: new Date(item.item2),
@@ -52,10 +58,12 @@ export class ProfilePageComponent {
   }
 
   ngOnInit(){
-    //dispatch(user)
-    console.log("ngOnInit");
-    this.user = this.sessionService.getUserFromSession();
+    this.user = this.sessionService.getUserFromSession();  
     this.store.dispatch(loadMentorByName({name: this.user.mentor}));
+    this.store.dispatch(loadUserByUsername({username: this.user.username}));
+    this.user$.subscribe(currentUser => {
+      this.user = currentUser;
+    });    
   }
 
   chartOptions2= {

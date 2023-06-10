@@ -157,14 +157,13 @@ namespace FitAppServer.Controllers
             return BadRequest();
         }
 
-        [HttpGet("{id}/recent-food")]
-        public async Task<ActionResult<FoodDTO>> GetRecentFoodData(string id)
+        [HttpGet("{username}/recent-food")]
+        public async Task<ActionResult<FoodDTO>> GetRecentFoodData(string username)
         {
-            FoodDTO fakeFoodDTO = await _accountService.GetRecentFoodData(id);
+            FoodDTO fakeFoodDTO = await _accountService.GetRecentFoodData(username);
             if (fakeFoodDTO != null) return Ok(fakeFoodDTO);
 
             return BadRequest();
         }
-
     }
 }

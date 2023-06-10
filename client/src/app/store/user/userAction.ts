@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { Login, Register, User } from 'src/interfaces/user';
+import { FoodItem } from 'src/interfaces/foodItem';
+import { Food, Login, Register, User } from 'src/interfaces/user';
 
 export const login = createAction('[user] login',  props<{ loginData: Login }>());
 export const loginSuccess = createAction('[user] login success', props<{ currentUser: Login }>());
@@ -16,3 +17,7 @@ export const addFoodItemFailure = createAction('[User] add food item failure', p
 export const loadUserByUsername = createAction('[User] load current user',  props<{ username: string }>());
 export const loadUserByUsernameSuccess = createAction('[User] load current user success', props<{ user: User }>());
 export const loadUserByUsernameFailure = createAction('[User] load current user Failure', props<{ error: any }>());
+
+export const loadNutritionalValues = createAction('[User] load nutritional values',  props<{ userId: string }>());
+export const loadNutritionalValuesSuccess = createAction('[User] load nutritional values success', props<{ nutritionalValues: FoodItem }>());
+export const loadNutritionalValuesFailure = createAction('[User] load nutritional values Failure', props<{ error: any }>());

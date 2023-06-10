@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Login, Register, User } from 'src/interfaces/user';
+import { FoodItem } from 'src/interfaces/foodItem';
 
 
 @Injectable({
@@ -32,5 +33,9 @@ export class userService {
 
   getUserByUsername(username: string){
     return this.http.get<User>(this.baseUrl + `/username/${username}`);
+  }
+
+  getNnutritionalValues(userId: string){
+    return this.http.get<FoodItem>(this.baseUrl + `/${userId}/recent-food`);
   }
 }

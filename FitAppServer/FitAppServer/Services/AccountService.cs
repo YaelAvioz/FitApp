@@ -285,9 +285,9 @@ namespace FitAppServer.Services
             return null;
         }
 
-        public async Task<FoodDTO> GetRecentFoodData(string id)
+        public async Task<FoodDTO> GetRecentFoodData(string username)
         {
-            User user = await GetUserById(id);
+            User user = await GetUserByUsername(username);
             if ((user != null) && (user.foods != null))
             {
                 FoodDTO res = new FoodDTO();

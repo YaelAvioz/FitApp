@@ -78,7 +78,6 @@ namespace FitAppServer.Services
             return promptBuilder.ToString();
         }
 
-
         public async Task<List<FoodDTO>> GetFoods(List<Tuple<string, double>> ingredients)
         {
             var ingredientsFoods = new List<FoodDTO>();

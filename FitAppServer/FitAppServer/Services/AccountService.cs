@@ -148,12 +148,6 @@ namespace FitAppServer.Services
             return userExists;
         }
 
-        private async Task<User> UserExists(string username)
-        {
-            var user = await _collection.Find(x => x.username.ToLower().Equals(username.ToLower())).FirstOrDefaultAsync();
-            return user;
-        }
-
         public async Task<User> GetUserById(string id)
         {
             var user = await _collection.Find(x => x.Id.Equals(id)).FirstOrDefaultAsync();
@@ -339,27 +333,6 @@ namespace FitAppServer.Services
             return null;
         }
 
-        private string CleanString(string input)
-        {
-            return Regex.Match(input, @"[\d.]+").Value;
-        }
-
-        private DoubleFoodDTO GetDoubleFromFoodDTO(FoodDTO foodDTO)
-        {
-            DoubleFoodDTO res = new DoubleFoodDTO();
-
-            res.calories = double.Parse(CleanString(foodDTO.calories));
-            res.total_fat = double.Parse(CleanString(foodDTO.total_fat));
-            res.calcium = double.Parse(CleanString(foodDTO.calcium));
-            res.protein = double.Parse(CleanString(foodDTO.protein));
-            res.carbohydrate = double.Parse(CleanString(foodDTO.carbohydrate));
-            res.fiber = double.Parse(CleanString(foodDTO.fiber));
-            res.sugars = double.Parse(CleanString(foodDTO.sugars));
-            res.fat = double.Parse(CleanString(foodDTO.fat));
-
-            return res;
-        }
-
         public async Task<GradeDTO> GetGrade(string id)
         {
             User user = await GetUserById(id);
@@ -384,6 +357,13 @@ namespace FitAppServer.Services
         }
 
 
+
+        private async Task<User> UserExists(string username)
+        {
+            var user = await _collection.Find(x => x.username.ToLower().Equals(username.ToLower())).FirstOrDefaultAsync();
+            return user;
+        }
+
         private GradeDTO ParseAnswer(string answer)
         {
             GradeDTO gradeDTO = new GradeDTO();
@@ -403,6 +383,27 @@ namespace FitAppServer.Services
             gradeDTO.fat_diff = double.Parse(values[7]);
 
             return gradeDTO;
+        }
+
+        private string CleanString(string input)
+        {
+            return Regex.Match(input, @"[\d.]+").Value;
+        }
+
+        private DoubleFoodDTO GetDoubleFromFoodDTO(FoodDTO foodDTO)
+        {
+            DoubleFoodDTO res = new DoubleFoodDTO();
+
+            res.calories = double.Parse(CleanString(foodDTO.calories));
+            res.total_fat = double.Parse(CleanString(foodDTO.total_fat));
+            res.calcium = double.Parse(CleanString(foodDTO.calcium));
+            res.protein = double.Parse(CleanString(foodDTO.protein));
+            res.carbohydrate = double.Parse(CleanString(foodDTO.carbohydrate));
+            res.fiber = double.Parse(CleanString(foodDTO.fiber));
+            res.sugars = double.Parse(CleanString(foodDTO.sugars));
+            res.fat = double.Parse(CleanString(foodDTO.fat));
+
+            return res;
         }
     }
 }

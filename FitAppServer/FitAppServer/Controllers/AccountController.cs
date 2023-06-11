@@ -166,6 +166,15 @@ namespace FitAppServer.Controllers
             return BadRequest();
         }
 
+        [HttpGet("{username}/foods")]
+        public async Task<ActionResult<List<Tuple<FoodDTO, DateTime>>>> GetFoodData(string username)
+        {
+            List<Tuple<FoodDTO, DateTime>> foodData = await _accountService.GetFoodData(username);
+            if (foodData != null) return Ok(foodData);
+
+            return BadRequest();
+        }
+
         [HttpGet("{id}/grade")]
         public async Task<ActionResult<GradeDTO>> GetGrade(string id)
         {
@@ -174,5 +183,6 @@ namespace FitAppServer.Controllers
 
             return BadRequest();
         }
+
     }
 }

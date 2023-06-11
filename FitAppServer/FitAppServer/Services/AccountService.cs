@@ -356,6 +356,23 @@ namespace FitAppServer.Services
             return null;
         }
 
+        public async Task<List<Tuple<FoodDTO, DateTime>>> GetFoodData(string username)
+        {
+            List<Tuple<FoodDTO, DateTime>> foodData = new List<Tuple<FoodDTO, DateTime>>();
+
+            User user = await GetUserByUsername(username);
+            if ((user != null) && (user.foods != null))
+            {
+                foreach (Tuple<string, double, DateTime> tuple in user.foods)
+                {
+                    Tuple<FoodDTO, DateTime> singleFood = new Tuple<FoodDTO, DateTime>
+                        (await _foodService.GetFoodInfoByAmount(tuple.Item1, tuple.Item2), tuple.Item3);
+                    foodData.Add(singleFood);
+                }
+            }
+            
+            return foodData;
+        }
 
 
         private async Task<User> UserExists(string username)

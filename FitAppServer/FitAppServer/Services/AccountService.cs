@@ -5,7 +5,9 @@ using FitAppServer.Interfaces;
 using FitAppServer.Model;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using MongoDB.Driver;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -285,7 +287,7 @@ namespace FitAppServer.Services
             return null;
         }
 
-        public async Task<FoodDTO> GetRecentFoodData(string username)
+        public async Task<FoodDTO> GetTodaysFoodData(string username)
         {
             User user = await GetUserByUsername(username);
             if ((user != null) && (user.foods != null))
@@ -340,6 +342,67 @@ namespace FitAppServer.Services
         private string CleanString(string input)
         {
             return Regex.Match(input, @"[\d.]+").Value;
+        }
+
+        private DoubleFoodDTO GetDoubleFromFoodDTO(FoodDTO foodDTO)
+        {
+            DoubleFoodDTO res = new DoubleFoodDTO();
+
+            res.calories = double.Parse(CleanString(foodDTO.calories));
+            res.total_fat = double.Parse(CleanString(foodDTO.total_fat));
+            res.calcium = double.Parse(CleanString(foodDTO.calcium));
+            res.protein = double.Parse(CleanString(foodDTO.protein));
+            res.carbohydrate = double.Parse(CleanString(foodDTO.carbohydrate));
+            res.fiber = double.Parse(CleanString(foodDTO.fiber));
+            res.sugars = double.Parse(CleanString(foodDTO.sugars));
+            res.fat = double.Parse(CleanString(foodDTO.fat));
+
+            return res;
+        }
+
+        public async Task<GradeDTO> GetGrade(string id)
+        {
+            User user = await GetUserById(id);
+            if (user != null)
+            {
+                string prompt = ChatGPT.GradePrompt(user);
+                string answer = await ChatGPT.GetAnswer(prompt);
+
+                if ((answer != null) && (answer != ""))
+                {
+                    GradeDTO expected = ParseAnswer(answer);
+                    FoodDTO currentStrings = await GetTodaysFoodData(user.Id);
+                    DoubleFoodDTO currentDouble = GetDoubleFromFoodDTO(currentStrings);
+
+                    if ((expected != null) && (currentDouble != null))
+                    {
+                        return GradeCalculator.AnalyzeData(currentDouble, expected);
+                    }
+                }
+            }
+            return null;
+        }
+
+
+        private GradeDTO ParseAnswer(string answer)
+        {
+            GradeDTO gradeDTO = new GradeDTO();
+
+            answer = answer.Replace("\n", "");
+            string[] values = answer.Split(", ");
+
+            if (values.Length != 7) return null;
+
+            gradeDTO.calories = int.Parse(values[0]);
+            gradeDTO.total_fat_diff = double.Parse(values[1]);
+            gradeDTO.calcium_diff = double.Parse(values[2]);
+            gradeDTO.protein_diff = double.Parse(values[3]);
+            gradeDTO.carbohydrate_diff = double.Parse(values[4]);
+            gradeDTO.fiber_diff = double.Parse(values[5]);
+            gradeDTO.sugars_diff = double.Parse(values[6]);
+            gradeDTO.fat_diff = double.Parse(values[7]);
+
+            return gradeDTO;
         }
     }
 }

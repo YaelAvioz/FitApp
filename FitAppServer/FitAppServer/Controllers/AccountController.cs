@@ -165,5 +165,16 @@ namespace FitAppServer.Controllers
 
             return BadRequest();
         }
+
+        [HttpGet("{id}/grade")]
+        public async Task<ActionResult<GradeDTO>> GetGrade(string id)
+        {
+            GradeDTO grade = await _accountService.GetGrade(id);
+            if (grade != null) return Ok(grade);
+
+            return BadRequest();
+        }
+
+
     }
 }

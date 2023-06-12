@@ -87,7 +87,7 @@ namespace FitAppServer.Controllers
         [HttpPost("{id}/weight")]
         public async Task<ActionResult<object>> UpdateWeight(string id, [FromBody] double newWeight)
         {
-            List<Tuple<double, DateTime>> res = await _userService.UpdateWeight(id, newWeight);
+            UserDTO res = await _userService.UpdateWeight(id, newWeight);
             if (res != null)
             {
                 return Ok(res);
@@ -178,10 +178,10 @@ namespace FitAppServer.Controllers
             return BadRequest();
         }
 
-        [HttpGet("{id}/grade")]
-        public async Task<ActionResult<GradeDTO>> GetGrade(string id)
+        [HttpGet("{username}/grade")]
+        public async Task<ActionResult<GradeDTO>> GetGrade(string username)
         {
-            GradeDTO grade = await _userService.GetGrade(id);
+            GradeDTO grade = await _userService.GetGrade(username);
             if (grade != null) return Ok(grade);
 
             return BadRequest();

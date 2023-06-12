@@ -348,24 +348,69 @@ namespace FitAppServer.Services
             return null;
         }
 
-        public async Task<GradeDTO> GetGrade(string id)
+        public async Task<FoodDTO> GetTodaysFoodData(User user)
         {
-            User user = await GetUserById(id);
+            if ((user != null) && (user.foods != null))
+            {
+                FoodDTO res = new FoodDTO();
+
+                double calories = 0;
+                double total_fat = 0;
+                double calcium = 0;
+                double protein = 0;
+                double carbohydrate = 0;
+                double fiber = 0;
+                double sugars = 0;
+                double fat = 0;
+
+
+                foreach (Tuple<string, double, DateTime> unit in user.foods)
+                {
+                    DateTime date = unit.Item3;
+                    DateTime now = DateTime.Now;
+
+                    if (date >= now.AddHours(-24) && date <= now)
+                    {
+                        FoodDTO food = await _foodService.GetFoodInfoByAmount(unit.Item1, unit.Item2);
+
+                        calories += double.Parse(CleanString(food.calories));
+                        total_fat += double.Parse(CleanString(food.total_fat));
+                        calcium += double.Parse(CleanString(food.calcium));
+                        protein += double.Parse(CleanString(food.protein));
+                        carbohydrate += double.Parse(CleanString(food.carbohydrate));
+                        fiber += double.Parse(CleanString(food.fiber));
+                        sugars += double.Parse(CleanString(food.sugars));
+                        fat += double.Parse(CleanString(food.fat));
+                    }
+                }
+
+                res.calories = calories.ToString();
+                res.total_fat = total_fat.ToString();
+                res.protein = protein.ToString();
+                res.sugars = sugars.ToString();
+                res.calcium = calcium.ToString();
+                res.fat = fat.ToString();
+                res.fiber = fiber.ToString();
+                res.carbohydrate = carbohydrate.ToString();
+
+                return res;
+
+            }
+            return null;
+        }
+
+        public async Task<GradeDTO> GetGrade(string username)
+        {
+            User user = await GetUserByUsername(username);
             if (user != null)
             {
-                string prompt = ChatGPT.GradePrompt(user);
-                string answer = await ChatGPT.GetAnswer(prompt);
+                GradeDTO expected = GradeCalculator.CalculateDailyExpectedNutrition(user.gender, user.age, user.weight[user.weight.Count - 1].Item1, user.height);
+                FoodDTO currentStrings = await GetTodaysFoodData(user);
+                DoubleFoodDTO currentDouble = GetDoubleFromFoodDTO(currentStrings);
 
-                if ((answer != null) && (answer != ""))
+                if ((expected != null) && (currentDouble != null))
                 {
-                    GradeDTO expected = ParseAnswer(answer);
-                    FoodDTO currentStrings = await GetTodaysFoodData(user.Id);
-                    DoubleFoodDTO currentDouble = GetDoubleFromFoodDTO(currentStrings);
-
-                    if ((expected != null) && (currentDouble != null))
-                    {
-                        return GradeCalculator.AnalyzeData(currentDouble, expected);
-                    }
+                    return GradeCalculator.AnalyzeData(currentDouble, expected);
                 }
             }
             return null;

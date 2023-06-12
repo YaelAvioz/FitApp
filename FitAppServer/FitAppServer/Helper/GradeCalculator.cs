@@ -42,5 +42,36 @@ namespace FitAppServer.Helper
 
             return finalGrade;
         }
+
+        public static GradeDTO CalculateDailyExpectedNutrition(string gender, int age, double weight, int height)
+        {
+            GradeDTO nutrition = new GradeDTO();
+
+            // Calculate calories
+            if (gender.ToLower() == "male")
+            {
+                nutrition.calories_diff = 66 + (13.75 * weight) + (5 * height) - (6.75 * age);
+            }
+            else if (gender.ToLower() == "female")
+            {
+                nutrition.calories_diff = 655 + (9.56 * weight) + (1.85 * height) - (4.68 * age);
+            }
+            else
+            {
+                // Invalid gender, return empty nutrition object
+                return nutrition;
+            }
+
+            // Calculate other nutritional values based on calories
+            nutrition.total_fat_diff = nutrition.calories_diff * 0.3 / 9;
+            nutrition.calcium_diff = nutrition.calories_diff * 0.1 / 9;
+            nutrition.protein_diff = nutrition.calories_diff * 0.15 / 4;
+            nutrition.carbohydrate_diff = nutrition.calories_diff * 0.5 / 4;
+            nutrition.fiber_diff = nutrition.calories_diff * 0.25 / 4;
+            nutrition.sugars_diff = nutrition.calories_diff * 0.1 / 4;
+            nutrition.fat_diff = nutrition.total_fat_diff;
+
+            return nutrition;
+        }
     }
 }

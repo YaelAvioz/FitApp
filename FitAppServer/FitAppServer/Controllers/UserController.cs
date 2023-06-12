@@ -10,21 +10,21 @@ namespace FitAppServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountController : ControllerBase
+    public class UserController : ControllerBase
     {
-        private readonly AccountService _accountService;
+        private readonly UserService _userService;
         private readonly ITokenService _tokenService;
 
-        public AccountController(AccountService accountService, ITokenService tokenService, IMapper mapper)
+        public UserController(UserService userService, ITokenService tokenService, IMapper mapper)
         {
-            _accountService = accountService;
+            _userService = userService;
             _tokenService = tokenService;
         }
 
         [HttpPost("register")]
         public async Task<ActionResult> Register([FromBody] RegisterDTO registerUserDTO)
         {
-            var user = await _accountService.RegisterUser(registerUserDTO);
+            var user = await _userService.RegisterUser(registerUserDTO);
             if (user == null) return BadRequest("username taken");
 
             var userDTO = new UserDTO
@@ -45,14 +45,14 @@ namespace FitAppServer.Controllers
                 firstMsg = user.FirstMsg(),
             };
 
-            await _accountService.UpdateToken(userDTO);
+            await _userService.UpdateToken(userDTO);
             return Ok(userDTO);
         }
 
         [HttpPost("login")]
         public async Task<ActionResult<User>> Login(LoginDTO loginDTO)
         {
-            var user = await _accountService.Login(loginDTO);
+            var user = await _userService.Login(loginDTO);
 
             if (user == null) return BadRequest("unauothorized user");
 
@@ -78,7 +78,7 @@ namespace FitAppServer.Controllers
         [HttpGet("{id}/weight")]
         public async Task<ActionResult<List<Tuple<double, DateTime>>>> WeightCharts(string id)
         {
-            List<Tuple<double, DateTime>> res = await _accountService.WeightCharts(id);
+            List<Tuple<double, DateTime>> res = await _userService.WeightCharts(id);
             if (res != null && res.Count > 0) return Ok(res);
 
             return BadRequest();
@@ -87,7 +87,7 @@ namespace FitAppServer.Controllers
         [HttpPost("{id}/weight")]
         public async Task<ActionResult<object>> UpdateWeight(string id, [FromBody] double newWeight)
         {
-            UserDTO res = await _accountService.UpdateWeight(id, newWeight);
+            List<Tuple<double, DateTime>> res = await _userService.UpdateWeight(id, newWeight);
             if (res != null)
             {
                 return Ok(res);
@@ -98,7 +98,7 @@ namespace FitAppServer.Controllers
         [HttpGet("{id}/water")]
         public async Task<ActionResult<List<bool>>> GetWater(string id)
         {
-            List<bool> res = await _accountService.GetWater(id);
+            List<bool> res = await _userService.GetWater(id);
             if (res != null && res.Count > 0) return Ok(res);
 
             return BadRequest();
@@ -107,7 +107,7 @@ namespace FitAppServer.Controllers
         [HttpPost("{id}/water")]
         public async Task<ActionResult<List<bool>>> UpdateWater(string id, [FromBody] int cupsToAdd)
         {
-            List<bool> res = await _accountService.UpdateWater(id, cupsToAdd);
+            List<bool> res = await _userService.UpdateWater(id, cupsToAdd);
             if (res != null && res.Count > 0) return Ok(res);
 
             return BadRequest();
@@ -118,7 +118,7 @@ namespace FitAppServer.Controllers
         {
             string foodId = addFoodDto.FoodId;
             double amount = addFoodDto.Amount;
-            var res = await _accountService.AddFood(username, foodId, amount);
+            var res = await _userService.AddFood(username, foodId, amount);
             if (res != null) return Ok();
  
             return BadRequest();
@@ -127,7 +127,7 @@ namespace FitAppServer.Controllers
         [HttpGet("username/{username}")]
         public async Task<ActionResult<UserDTO>> GetUserByUsername(string username)
         {
-            var user = await _accountService.GetUserByUsername(username);
+            var user = await _userService.GetUserByUsername(username);
 
             if (user == null) return NotFound();
 
@@ -154,7 +154,7 @@ namespace FitAppServer.Controllers
         [HttpPost("{id}/recipe")]
         public async Task<ActionResult<object>> AddRecipe(string id, [FromBody] string recipeId)
         {
-            var res = await _accountService.AddRecipe(id, recipeId);
+            var res = await _userService.AddRecipe(id, recipeId);
             if (res != null) return Ok();
 
             return BadRequest();
@@ -163,7 +163,7 @@ namespace FitAppServer.Controllers
         [HttpGet("{username}/recent-food")]
         public async Task<ActionResult<FoodDTO>> GetTodaysFoodData(string username)
         {
-            FoodDTO fakeFoodDTO = await _accountService.GetTodaysFoodData(username);
+            FoodDTO fakeFoodDTO = await _userService.GetTodaysFoodData(username);
             if (fakeFoodDTO != null) return Ok(fakeFoodDTO);
 
             return BadRequest();
@@ -172,7 +172,7 @@ namespace FitAppServer.Controllers
         [HttpGet("{username}/foods")]
         public async Task<ActionResult<List<Tuple<FoodDTO, DateTime>>>> GetFoodData(string username)
         {
-            List<Tuple<FoodDTO, DateTime>> foodData = await _accountService.GetFoodData(username);
+            List<Tuple<FoodDTO, DateTime>> foodData = await _userService.GetFoodData(username);
             if (foodData != null) return Ok(foodData);
 
             return BadRequest();
@@ -181,7 +181,7 @@ namespace FitAppServer.Controllers
         [HttpGet("{id}/grade")]
         public async Task<ActionResult<GradeDTO>> GetGrade(string id)
         {
-            GradeDTO grade = await _accountService.GetGrade(id);
+            GradeDTO grade = await _userService.GetGrade(id);
             if (grade != null) return Ok(grade);
 
             return BadRequest();

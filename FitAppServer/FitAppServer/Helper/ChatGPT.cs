@@ -38,7 +38,7 @@ namespace FitAppServer.Helper
         {
 
             return "If I'm a " + user.gender + ", I'm " + user.age.ToString() + ", I weight " + user.weight[user.weight.Count - 1].Item1.ToString() +
-                " kg and my hieght is " + user.height.ToString() + " meters. \n" +
+                " kg and my height is " + user.height.ToString() + " meters. \n" +
                 "How many calories should I eat per day ? how much total_fat, calcium, protein, carbohydrate, fiber, sugars, and fat ? \n\n" +
                 "DO NOT explain. write me the answer based on your reasarch as a string in this format: \r\n" +
                 "1200, 40, 1000, 50, 180, 25, 30, 50";

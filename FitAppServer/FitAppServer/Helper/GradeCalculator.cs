@@ -9,7 +9,7 @@ namespace FitAppServer.Helper
             GradeDTO finalGrade = new GradeDTO();
 
             // Calculate the difference between expected and current values
-            double calorieDifference = Math.Abs(expected.calories - current.calories);
+            double calorieDifference = Math.Abs(expected.calories_diff - current.calories);
             double totalFatDifference = Math.Abs(expected.total_fat_diff - current.total_fat);
             double calciumDifference = Math.Abs(expected.calcium_diff - current.calcium);
             double proteinDifference = Math.Abs(expected.protein_diff - current.protein);
@@ -31,7 +31,7 @@ namespace FitAppServer.Helper
 
             // Write the results
             finalGrade.grade = grade;
-            finalGrade.calories = calorieDifference;
+            finalGrade.calories_diff = calorieDifference;
             finalGrade.total_fat_diff = totalFatDifference;
             finalGrade.calcium_diff = calciumDifference;
             finalGrade.protein_diff = proteinDifference;

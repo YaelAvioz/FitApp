@@ -1,21 +1,15 @@
 ﻿using AutoMapper;
 using FitAppServer.DTO;
 using FitAppServer.Helper;
-using FitAppServer.Interfaces;
 using FitAppServer.Model;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
 using MongoDB.Driver;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
 namespace FitAppServer.Services
 {
-    public class AccountService
+    public class UserService
     {
         protected readonly IMongoCollection<User> _collection;
         public readonly ConversationService _conversationService;
@@ -30,7 +24,7 @@ namespace FitAppServer.Services
         protected readonly string collectionName = "user";
         readonly string fakeId = "aaaaaaaaaaaaaaaaaaaaaaaa";
 
-        public AccountService(IMapper mapper)
+        public UserService(IMapper mapper)
         {
             _mapper = mapper;
             var client = new MongoClient(connectionString);
@@ -43,7 +37,7 @@ namespace FitAppServer.Services
             _recipeService = new RecipeService(_mapper);
         }
 
-        public AccountService(IMapper mapper, IMongoCollection<User> collection)
+        public UserService(IMapper mapper, IMongoCollection<User> collection)
         {
             _mapper = mapper;
             var client = new MongoClient(connectionString);
@@ -411,7 +405,7 @@ namespace FitAppServer.Services
 
             if (values.Length != 7) return null;
 
-            gradeDTO.calories = int.Parse(values[0]);
+            gradeDTO.calories_diff = int.Parse(values[0]);
             gradeDTO.total_fat_diff = double.Parse(values[1]);
             gradeDTO.calcium_diff = double.Parse(values[2]);
             gradeDTO.protein_diff = double.Parse(values[3]);

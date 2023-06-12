@@ -84,7 +84,7 @@ namespace FitAppServer.Model
             // Daily water intake (liters) = 0.033 x Body weight (kg)
             var liters = 0.033 * weight[weight.Count - 1].Item1;
             // Divide to get in cups
-            return (int)Math.Ceiling(liters / 4.2267528377);
+            return (int)Math.Ceiling(liters * 4.2267528377);
         }
 
         public void AddWater(int capsToAdd)
@@ -94,20 +94,23 @@ namespace FitAppServer.Model
 
             int days = water.Count;
 
-            if (water[days - 1].Item2 != DateTime.Today)
+            if (water[days - 1].Item2.Date != DateTime.Now.Date)
             {
                 Tuple<List<bool>, DateTime> newElement = new Tuple<List<bool>, DateTime>(new List<bool>(), DateTime.Today);
                 water.Add(newElement);
                 
                 days += 1;
             }
+            
+            int firstFalse = water[days - 1].Item1.FindLastIndex(b => b == true) + 1;
 
             // add water
             if (capsToAdd > 0)
             {
                 for (int i = 0; i < capsToAdd; i++)
                 {
-                    water[days - 1].Item1.Add(true);
+                    water[days - 1].Item1[firstFalse] = true;
+                    firstFalse += 1;
                 }
             }
 
@@ -119,7 +122,8 @@ namespace FitAppServer.Model
                     int todays = water[days - 1].Item1.Count;
                     if (todays > 0)
                     {
-                        water[days - 1].Item1.RemoveAt(todays - 1);
+                        firstFalse -= 1;
+                        water[days - 1].Item1[firstFalse] = false;
                     }
                 }
             }

@@ -71,14 +71,14 @@ namespace FitAppServer.Services
                 weight = new List<Tuple<double, DateTime>>(),
                 tags = userDTO.tags,
                 goal = userDTO.goal,
-                water = new List<bool>(),
+                water = new List<Tuple<List<bool>, DateTime>>(),
                 mentor = userDTO.mentor,
             };
 
             // Update weight, bmi and recommended water
             newUser.weight.Add(Tuple.Create(userDTO.weight, DateTime.Now));
             newUser.bmi = newUser.getBmi(userDTO.weight);
-            newUser.water = Enumerable.Repeat(false, newUser.GetWaterRecommendation()).ToList();
+            newUser.water.Add(new Tuple<List<bool>, DateTime>(Enumerable.Repeat(false, newUser.GetWaterRecommendation()).ToList(), DateTime.Now));
 
             // add the user to the db
             await _collection.InsertOneAsync(newUser);
@@ -184,7 +184,7 @@ namespace FitAppServer.Services
         public async Task<List<bool>> GetWater(string id)
         {
             User user = await GetUserById(id);
-            return user.water;
+            return user.water[user.water.Count - 1].Item1;
         }
 
         public async Task<List<bool>> UpdateWater(string id, int cupsToAdd)
@@ -195,7 +195,7 @@ namespace FitAppServer.Services
             // update the user in the db (water changed)
             await _collection.UpdateOneAsync(Builders<User>.Filter.Eq(u => u.Id, user.Id),
             Builders<User>.Update.Set(u => u.water, user.water));
-            return user.water;
+            return user.water[user.water.Count -1].Item1;
         }
 
         public async Task<UserDTO> UpdateWeight(string id, double newWeight)

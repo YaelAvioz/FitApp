@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { addFoodItem, addFoodItemFailure, addFoodItemSuccess, loadUserByUsername, login, loginFailure, loginSuccess, register, registerFailure, registerSuccess, loadUserByUsernameSuccess, loadUserByUsernameFailure, loadNutritionalValues, loadNutritionalValuesSuccess, loadNutritionalValuesFailure } from './userAction';
+import { addFoodItem, addFoodItemFailure, addFoodItemSuccess, loadUserByUsername, login, loginFailure, loginSuccess, register, registerFailure, registerSuccess, loadUserByUsernameSuccess, loadUserByUsernameFailure, loadNutritionalValues, loadNutritionalValuesSuccess, loadNutritionalValuesFailure, updateUserWeight, updateUserWeightFailure, updateUserWeightSuccess, updateUserGoal, updateUserGoalFailure, updateUserGoalSuccess } from './userAction';
 import { Login, Register, User } from 'src/interfaces/user';
 import { FoodItem } from 'src/interfaces/foodItem';
 
@@ -36,4 +36,10 @@ export const userReducer = createReducer(
   on(loadNutritionalValues, (state) => ({ ...state })),
   on(loadNutritionalValuesSuccess, (state, { nutritionalValues }) => ({ ...state, nutritionalValues, })),
   on(loadNutritionalValuesFailure, (state, { error }) => ({ ...state, error, })),
+  on(updateUserWeight, (state) => ({ ...state })),
+  on(updateUserWeightSuccess, (state, { user }) => ({ ...state, user, })),
+  on(updateUserWeightFailure, (state, { error }) => ({ ...state, error, })),
+  on(updateUserGoal, (state) => ({ ...state })),
+  on(updateUserGoalSuccess, (state, { user }) => ({ ...state, user, })),
+  on(updateUserGoalFailure, (state, { error }) => ({ ...state, error, })),
 );

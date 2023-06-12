@@ -204,20 +204,41 @@ namespace FitAppServer.Services
             return user.water;
         }
 
-        public async Task<List<Tuple<double, DateTime>>> UpdateWeight(string id, double newWeight)
+        public async Task<UserDTO> UpdateWeight(string id, double newWeight)
         {
             User user = await GetUserById(id);
             if (user != null)
             {
                 user.weight.Add(new Tuple<double, DateTime>(newWeight, DateTime.Now));
 
-                // update the user in the db
-                await _collection.UpdateOneAsync(Builders<User>.Filter.Eq(u => u.Id, user.Id),
-                Builders<User>.Update.Set(u => u.weight, user.weight));
-                return user.weight;
+                // Update the user in the db
+                await _collection.UpdateOneAsync(
+                    Builders<User>.Filter.Eq(u => u.Id, user.Id),
+                    Builders<User>.Update.Set(u => u.weight, user.weight));
+
+                // Create a UserDTO from the updated user
+                UserDTO userDto = new UserDTO
+                {
+                    id = user.Id,
+                    username = user.username,
+                    token = user.token,
+                    firstname = user.firstname,
+                    lastname = user.lastname,
+                    age = user.age,
+                    height = user.height,
+                    weight = user.weight,
+                    gender = user.gender,
+                    bmi = user.bmi,
+                    goal = user.goal,
+                    mentor = user.mentor,
+                    tags = user.tags,
+                    water = user.water,
+                    foods = user.foods,
+                };
+
+                return userDto;
             }
             return null;
-
         }
 
         public async Task<Food> AddFood(string username, string foodId, double amount)

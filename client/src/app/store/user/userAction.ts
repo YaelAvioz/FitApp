@@ -21,3 +21,11 @@ export const loadUserByUsernameFailure = createAction('[User] load current user 
 export const loadNutritionalValues = createAction('[User] load nutritional values',  props<{ userId: string }>());
 export const loadNutritionalValuesSuccess = createAction('[User] load nutritional values success', props<{ nutritionalValues: FoodItem }>());
 export const loadNutritionalValuesFailure = createAction('[User] load nutritional values Failure', props<{ error: any }>());
+
+export const updateUserWeight = createAction('[User] update user weight',  props<{ userId: string }>());
+export const updateUserWeightSuccess = createAction('[User] update user weight success', props<{ user: User }>());
+export const updateUserWeightFailure = createAction('[User] update user weight Failure', props<{ error: any }>());
+
+export const updateUserGoal = createAction('[User] update user goal',  props<{ userId: string }>());
+export const updateUserGoalSuccess = createAction('[User] update user goal success', props<{ user: User }>());
+export const updateUserGoalFailure = createAction('[User] update user goal Failure', props<{ error: any }>());

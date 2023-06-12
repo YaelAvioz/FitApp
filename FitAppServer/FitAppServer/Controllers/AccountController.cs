@@ -87,9 +87,11 @@ namespace FitAppServer.Controllers
         [HttpPost("{id}/weight")]
         public async Task<ActionResult<object>> UpdateWeight(string id, [FromBody] double newWeight)
         {
-            List<Tuple<double, DateTime>> res = await _accountService.UpdateWeight(id, newWeight);
-            if (res != null && res.Count > 0) return Ok(res);
-
+            UserDTO res = await _accountService.UpdateWeight(id, newWeight);
+            if (res != null)
+            {
+                return Ok(res);
+            }
             return BadRequest();
         }
 

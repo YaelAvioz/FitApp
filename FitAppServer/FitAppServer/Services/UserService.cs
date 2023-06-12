@@ -441,27 +441,6 @@ namespace FitAppServer.Services
             return user;
         }
 
-        private GradeDTO ParseAnswer(string answer)
-        {
-            GradeDTO gradeDTO = new GradeDTO();
-
-            answer = answer.Replace("\n", "");
-            string[] values = answer.Split(", ");
-
-            if (values.Length != 7) return null;
-
-            gradeDTO.calories_diff = int.Parse(values[0]);
-            gradeDTO.total_fat_diff = double.Parse(values[1]);
-            gradeDTO.calcium_diff = double.Parse(values[2]);
-            gradeDTO.protein_diff = double.Parse(values[3]);
-            gradeDTO.carbohydrate_diff = double.Parse(values[4]);
-            gradeDTO.fiber_diff = double.Parse(values[5]);
-            gradeDTO.sugars_diff = double.Parse(values[6]);
-            gradeDTO.fat_diff = double.Parse(values[7]);
-
-            return gradeDTO;
-        }
-
         private string CleanString(string input)
         {
             return Regex.Match(input, @"[\d.]+").Value;

@@ -9,14 +9,23 @@ namespace FitAppServer.Helper
             GradeDTO finalGrade = new GradeDTO();
 
             // Calculate the difference between expected and current values
-            double calorieDifference = Math.Abs(expected.calories_diff - current.calories);
-            double totalFatDifference = Math.Abs(expected.total_fat_diff - current.total_fat);
-            double calciumDifference = Math.Abs(expected.calcium_diff - current.calcium);
-            double proteinDifference = Math.Abs(expected.protein_diff - current.protein);
-            double carbohydrateDifference = Math.Abs(expected.carbohydrate_diff - current.carbohydrate);
-            double fiberDifference = Math.Abs(expected.fiber_diff - current.fiber);
-            double sugarsDifference = Math.Abs(expected.sugars_diff - current.sugars);
-            double fatDifference = Math.Abs(expected.fat_diff - current.fat);
+            finalGrade.calories_diff = expected.calories_diff - current.calories;
+            finalGrade.total_fat_diff = expected.total_fat_diff - current.total_fat;
+            finalGrade.calcium_diff = expected.calcium_diff - current.calcium;
+            finalGrade.protein_diff = expected.protein_diff - current.protein;
+            finalGrade.carbohydrate_diff = expected.carbohydrate_diff - current.carbohydrate;
+            finalGrade.fiber_diff = expected.fiber_diff - current.fiber;
+            finalGrade.sugars_diff = expected.sugars_diff - current.sugars;
+            finalGrade.fat_diff =  expected.fat_diff - current.fat;
+
+            double calorieDifference = Math.Abs(finalGrade.calories_diff);
+            double totalFatDifference = Math.Abs(finalGrade.total_fat_diff);
+            double calciumDifference = Math.Abs(finalGrade.calcium_diff);
+            double proteinDifference = Math.Abs(finalGrade.protein_diff);
+            double carbohydrateDifference = Math.Abs(finalGrade.carbohydrate_diff);
+            double fiberDifference = Math.Abs(finalGrade.fiber_diff);
+            double sugarsDifference = Math.Abs(finalGrade.sugars_diff);
+            double fatDifference = Math.Abs(finalGrade.fat_diff);
 
             // Calculate the total difference as a percentage
             double totalDifference = (calorieDifference + totalFatDifference + calciumDifference +
@@ -29,16 +38,8 @@ namespace FitAppServer.Helper
             // Ensure the grade is within the valid range
             grade = Math.Max(1, Math.Min(10, grade));
 
-            // Write the results
+            // Write the result
             finalGrade.grade = grade;
-            finalGrade.calories_diff = calorieDifference;
-            finalGrade.total_fat_diff = totalFatDifference;
-            finalGrade.calcium_diff = calciumDifference;
-            finalGrade.protein_diff = proteinDifference;
-            finalGrade.carbohydrate_diff = carbohydrateDifference;
-            finalGrade.fiber_diff = fiberDifference;
-            finalGrade.sugars_diff = sugarsDifference;
-            finalGrade.fat_diff = fatDifference;
 
             return finalGrade;
         }

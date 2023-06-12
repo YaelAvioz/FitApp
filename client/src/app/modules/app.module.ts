@@ -52,6 +52,7 @@ import { SignUpCompleteComponent } from '../components/sign-up-complete/sign-up-
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ProfilePageComponent } from '../components/profile-page/profile-page.component';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -96,6 +97,7 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
     MatSelectModule,
     MatProgressSpinnerModule,
     CanvasJSAngularChartsModule,
+    MatProgressBarModule,
   ],
   providers: [SessionService],
   bootstrap: [AppComponent]

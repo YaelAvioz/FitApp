@@ -40,7 +40,7 @@
 
     <h3 *ngIf="user.goal">Goal: {{user.goal}}</h3>
 
-    <!-- <div class="user-process">
+    <div class="user-process">
         <mat-form-field class="short-filed">
             <mat-label for="weight">Goal</mat-label>
             <mat-select placeholder="Select Your Goal" required [(ngModel)]="selectedGoal">
@@ -59,9 +59,16 @@
             </mat-select>
         </mat-form-field>
 
-        <button onclick="updateData()">Update</button>
-    </div> -->
+        <button (click)="updateData()">Update</button>
+    </div>
 
+    <div>
+        <h2>Goal: {{ user.goal }} kg</h2>
+        <h2>Current Weight: {{ currentWeight }} kg</h2>
+        <mat-progress-bar mode="determinate" [value]="calculateProgress()"></mat-progress-bar>
+      </div>
+
+      
     <div class="food-table">
 
     </div>

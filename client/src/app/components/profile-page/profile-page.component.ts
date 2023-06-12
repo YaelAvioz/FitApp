@@ -33,6 +33,7 @@ export class ProfilePageComponent {
   weights: number[] = [];
   selectedGoal!: number;
   selectedWeight!: number;
+  goal : number =40;
 
   constructor(private sessionService: SessionService, private store: Store<{ mentorPageReducer: MentorsPageState, userReducer: UserState }>) {
     this.mentor$ = this.store.select((state) => {
@@ -105,18 +106,20 @@ export class ProfilePageComponent {
     this.store.dispatch(loadUserByUsername({ username: this.user.username }));
     this.user$.subscribe(currentUser => {
       this.user = currentUser;
-      console.log(this.user.id);
-
     });
   }
 
-  // updateData() {
-  //   if (this.selectedGoal && this.selectedWeight) {
-  //     console.log("Data updated successfully!");
-  //   } else {
-  //     console.log("Please fill in all required fields!");
-  //   }
-  // }
+  updateData() {
+    if (this.selectedGoal && this.selectedWeight) {
+      console.log("Data updated successfully!");
+    } else {
+      console.log("Please fill in all required fields!");
+    }
+  }
+
+  calculateProgress(): number {
+    return (this.goal/this.currentWeight ) * 100;
+  }
 
   initializeWeightChart() {
     this.chartOptions = {

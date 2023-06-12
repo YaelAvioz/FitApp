@@ -131,6 +131,7 @@ namespace FitAppServer.Controllers
 
             var userDTO = new UserDTO
             {
+                id = user.Id,
                 username = user.username,
                 firstname = user.firstname,
                 lastname = user.lastname,

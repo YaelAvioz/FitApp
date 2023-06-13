@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { map, catchError, switchMap } from 'rxjs/operators';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { addFoodItem, addFoodItemFailure, addFoodItemSuccess, loadNutritionalValues, loadNutritionalValuesFailure, loadNutritionalValuesSuccess, loadUserByUsername, loadUserByUsernameFailure, loadUserByUsernameSuccess, login, loginFailure, loginSuccess, register, registerFailure, registerSuccess } from '../store/user/userAction';
+import { addFoodItem, addFoodItemFailure, addFoodItemSuccess, loadNutritionalValues, loadNutritionalValuesFailure, loadNutritionalValuesSuccess, loadUserByUsername, loadUserByUsernameFailure, loadUserByUsernameSuccess, login, loginFailure, loginSuccess, register, registerFailure, registerSuccess, updateUserGoal, updateUserGoalFailure, updateUserGoalSuccess, updateUserWeight, updateUserWeightFailure, updateUserWeightSuccess } from '../store/user/userAction';
 import { userService } from '../service/userService';
 
 @Injectable()
@@ -67,6 +67,30 @@ export class userEffects {
                 this.userService.getNnutritionalValues(userId).pipe(
                     map((nutritionalValues) => loadNutritionalValuesSuccess({ nutritionalValues })),
                     catchError((error) => of(loadNutritionalValuesFailure({ error })))
+                )
+            )
+        )
+    );
+
+    updateUserWeight = createEffect(() =>
+        this.actions$.pipe(
+            ofType(updateUserWeight),
+            switchMap(({ userId, newWeight }) =>
+                this.userService.updateWeight(userId, newWeight).pipe(
+                    map((user) => updateUserWeightSuccess({ user })),
+                    catchError((error) => of(updateUserWeightFailure({ error })))
+                )
+            )
+        )
+    );
+
+    updateUserGoal = createEffect(() =>
+        this.actions$.pipe(
+            ofType(updateUserGoal),
+            switchMap(({ userId, goal }) =>
+                this.userService.updateGoal(userId, goal).pipe(
+                    map((user) => updateUserGoalSuccess({ user })),
+                    catchError((error) => of(updateUserGoalFailure({ error })))
                 )
             )
         )

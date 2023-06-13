@@ -38,4 +38,12 @@ export class userService {
   getNnutritionalValues(userId: string){
     return this.http.get<FoodItem>(this.baseUrl + `/${userId}/recent-food`);
   }
+
+  updateWeight(userId: string, newWeight: number) {
+    return this.http.post<User>(`${this.baseUrl}/${userId}/weight`, { newWeight });
+  }
+
+  updateGoal(userId: string, goal: string) {
+    return this.http.post<User>(`${this.baseUrl}/${userId}/weight`, { goal });
+  }
 }

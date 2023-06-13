@@ -107,8 +107,13 @@
             gap: 5%;
             display: flex;
             justify-content: center;
+            flex-direction: column;
 
-            .filed {
+            .goal-filed {
+                width: 800px;
+            }
+
+            .weight-filed {
                 width: 250px;
             }
         }

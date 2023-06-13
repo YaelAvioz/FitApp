@@ -33,8 +33,10 @@ export class ProfilePageComponent {
   weights: number[] = [];
   selectedGoal!: number;
   selectedWeight!: number;
-error: boolean = false;
-success: boolean = false;
+  goalError: boolean = false;
+  goalSuccess: boolean = false;
+  weightError: boolean = false;
+  weightSuccess: boolean = false;
 
   constructor(private sessionService: SessionService, private store: Store<{ mentorPageReducer: MentorsPageState, userReducer: UserState }>) {
     this.mentor$ = this.store.select((state) => {
@@ -49,27 +51,12 @@ success: boolean = false;
       return state.userReducer.nutritionalValues;
     })
 
-    this.user = this.sessionService.getUserFromSession();
-    this.currentWeight = this.user.weight[this.user.weight.length - 1].item1;
-
-    this.dataPoints = this.user.weight.map((item) => ({
-      x: new Date(item.item2),
-      y: item.item1
-    }));
-
-    this.dataPoints.forEach((dataPoint: any) => {
-      const formattedDate = moment(dataPoint.x).format("MMM DD, YYYY");
-      dataPoint.x = formattedDate;
-    });
-
-    this.output = this.dataPoints.map(item => ({
-      x: new Date(moment(item.x, 'MMM DD, YYYY').format()),
-      y: item.y
-    }));
-
     for (let i = 40; i <= 200; i++) {
       this.weights.push(i);
     }
+
+    this.user = this.sessionService.getUserFromSession();
+    this.currentWeight = this.user.weight[this.user.weight.length - 1].item1;
 
     this.initializeWeightChart();
   }
@@ -110,19 +97,43 @@ success: boolean = false;
     });
   }
 
-  updateData() {
-    if (this.selectedGoal && this.selectedWeight) {
-      this.error=false;
-      this.success = true;
-      console.log("weight", this.selectedWeight);
+  updateGoal() {
+    if (this.selectedGoal) {
+      this.goalError = false;
+      this.goalSuccess = true;
       console.log("goal", this.selectedGoal);
-      
     } else {
-    this.error=true;
+      this.goalError = true;
+    }
+  }
+
+
+  updateWeight() {
+    if (this.selectedWeight) {
+      this.weightError = false;
+      this.weightSuccess = true;
+      console.log("goal", this.selectedWeight);
+    } else {
+      this.weightError = true;
     }
   }
 
   initializeWeightChart() {
+    this.dataPoints = this.user.weight.map((item) => ({
+      x: new Date(item.item2),
+      y: item.item1
+    }));
+
+    this.dataPoints.forEach((dataPoint: any) => {
+      const formattedDate = moment(dataPoint.x).format("MMM DD, YYYY");
+      dataPoint.x = formattedDate;
+    });
+
+    this.output = this.dataPoints.map(item => ({
+      x: new Date(moment(item.x, 'MMM DD, YYYY').format()),
+      y: item.y
+    }));
+
     this.chartOptions = {
       animationEnabled: true,
       creditText: "",

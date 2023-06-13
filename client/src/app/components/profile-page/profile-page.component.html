@@ -42,29 +42,30 @@
         <div class="update-form">
             <h3 class="update-data-title">Update Your Weight and Goal</h3>
             <div>
-                <mat-form-field class="filed">
-                    <mat-label for="weight">Goal</mat-label>
-                    <mat-select placeholder="Select Your Goal" required [(ngModel)]="selectedGoal">
-                        <mat-option *ngFor="let weight of weights" [value]="weight">
-                            {{weight}}kg
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+                <div>
+                    <mat-form-field class="goal-filed">
+                        <mat-label for="goal">Goal</mat-label>
+                        <input matInput placeholder="Write what is your Goal" [(ngModel)]="selectedGoal"
+                            maxlength="150">
+                    </mat-form-field>
+                </div>
 
-                <mat-form-field class="filed">
-                    <mat-label for="weight">Weight</mat-label>
-                    <mat-select placeholder="Current Weight" required [(ngModel)]="selectedWeight">
-                        <mat-option *ngFor="let weight of weights" [value]="weight">
-                            {{weight}}kg
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+                <div>
+                    <mat-form-field class="weight-filed">
+                        <mat-label for="weight">Weight</mat-label>
+                        <mat-select placeholder="Current Weight" required [(ngModel)]="selectedWeight">
+                            <mat-option *ngFor="let weight of weights" [value]="weight">
+                                {{weight}}kg
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
             </div>
-            <p *ngIf="error && (!selectedWeight || !selectedGoal)" class="error-message">Please fill in both the goal
+            <!-- <p *ngIf="error && (!selectedWeight || !selectedGoal)" class="error-message">Please fill in both the goal
                 and weight
                 fields.</p>
             <button class="btn" (click)="updateData()">Update</button>
-            <p *ngIf="success" class="success-message">Update Success</p>
+            <p *ngIf="success" class="success-message">Update Success</p> -->
         </div>
     </div>
 

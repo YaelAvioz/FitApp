@@ -4,7 +4,7 @@ namespace FitAppServer.DTO
     public class GradeDTO : GenericEntity
     {
         public virtual int    grade { get; set; }
-        public virtual double calories { get; set; }
+        public virtual double calories_diff { get; set; }
         public virtual double total_fat_diff { get; set; }
         public virtual double calcium_diff { get; set; }
         public virtual double protein_diff { get; set; }

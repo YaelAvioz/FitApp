@@ -14,7 +14,7 @@ namespace FitAppServer.Controllers
         private static ConversationService _conversationService;
         private static FoodService _foodService;
         private static MessageService _messageService;
-        private static AccountService _accountService;
+        private static UserService _userService;
         private static MentorService _mentorService;
         private static string defaultMsg = " and I will be your mentor. Feel free to talk to me every time";
 
@@ -22,7 +22,7 @@ namespace FitAppServer.Controllers
         {
             _conversationService = new ConversationService(mapper);
             _messageService = new MessageService(mapper);
-            _accountService = new AccountService(mapper);
+            _userService = new UserService(mapper);
             _mentorService = new MentorService(mapper);
             _foodService = new FoodService(mapper);
         }
@@ -30,7 +30,7 @@ namespace FitAppServer.Controllers
         [HttpPost("chat/{username}")]
         public async Task<ActionResult<object>> SendMessage(string username, [FromBody] string msg)
         {
-            User user = await _accountService.GetUserByUsername(username);
+            User user = await _userService.GetUserByUsername(username);
             if (user == null)  return NotFound();            
 
             Conversation conv = await _conversationService.GetConversation(user.Id);

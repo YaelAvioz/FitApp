@@ -32,7 +32,8 @@ namespace FitAppServer.Model
 
         public List<string> tags { get; set; }
 
-        public List<bool> water { get; set; }
+        // water = [([T, T, F, F, T], "2.4.23"), ([F, F, F, F, F], "3.4.23")]
+        public List<Tuple<List<bool>, DateTime>> water { get; set; }
 
         // foods = [(food_id, 50g, "2.4.23"), (food_id, 147g, "30.3.23")]
         public List<Tuple<string, double, DateTime>> foods { get; set; }
@@ -83,7 +84,7 @@ namespace FitAppServer.Model
             // Daily water intake (liters) = 0.033 x Body weight (kg)
             var liters = 0.033 * weight[weight.Count - 1].Item1;
             // Divide to get in cups
-            return (int)Math.Ceiling(liters / 4.2267528377);
+            return (int)Math.Ceiling(liters * 4.2267528377);
         }
 
         public void AddWater(int capsToAdd)
@@ -91,25 +92,42 @@ namespace FitAppServer.Model
             if (capsToAdd == 0)
                 return;
 
+            int days = water.Count;
+
+            if (water[days - 1].Item2.Date != DateTime.Now.Date)
+            {
+                Tuple<List<bool>, DateTime> newElement = new Tuple<List<bool>, DateTime>(new List<bool>(), DateTime.Today);
+                water.Add(newElement);
+                
+                days += 1;
+            }
+            
+            int firstFalse = water[days - 1].Item1.FindLastIndex(b => b == true) + 1;
+
+            // add water
             if (capsToAdd > 0)
             {
                 for (int i = 0; i < capsToAdd; i++)
                 {
-                    water.Add(true);
+                    water[days - 1].Item1[firstFalse] = true;
+                    firstFalse += 1;
                 }
             }
 
+            // remove water
             else
             {
                 for (int i = 0; i < Math.Abs(capsToAdd); i++)
                 {
-                    if (water.Count > 0)
+                    int todays = water[days - 1].Item1.Count;
+                    if (todays > 0)
                     {
-                        water.RemoveAt(water.Count - 1);
+                        firstFalse -= 1;
+                        water[days - 1].Item1[firstFalse] = false;
                     }
                 }
             }
-        }
 
+        }
     }
 }

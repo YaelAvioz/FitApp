@@ -9,9 +9,9 @@ using Xunit;
 
 namespace FitAppServer.Tests.Services
 {
-    public class AccountServiceTests
+    public class UserServiceTests
     {
-        private readonly AccountService _accountService;
+        private readonly UserService _userService;
         private readonly IMongoCollection<User> _userCollection;
         private readonly IMongoCollection<Conversation> _conversationCollection;
         private readonly IMongoCollection<Message> _messageCollection;
@@ -21,7 +21,7 @@ namespace FitAppServer.Tests.Services
         private readonly string _fakeWrongPassword = "abcdefghj";
 
 
-        public AccountServiceTests()
+        public UserServiceTests()
         {
             var mapperConfig = new MapperConfiguration(cfg =>
             {
@@ -47,7 +47,7 @@ namespace FitAppServer.Tests.Services
             _conversationCollection = database.GetCollection<Conversation>("conversation");
             _messageCollection = database.GetCollection<Message>("message");
 
-            _accountService = new AccountService(_mapper, _userCollection);
+            _userService = new UserService(_mapper, _userCollection);
 
             _registerDTO = new RegisterDTO
             {
@@ -77,7 +77,7 @@ namespace FitAppServer.Tests.Services
             try
             {
                 // Act
-                var result = await _accountService.RegisterUser(registerDTO);
+                var result = await _userService.RegisterUser(registerDTO);
 
                 // Assert
                 Assert.Null(result);
@@ -98,7 +98,7 @@ namespace FitAppServer.Tests.Services
             try
             {
                 // Act
-                var result = await _accountService.RegisterUser(registerDTO);
+                var result = await _userService.RegisterUser(registerDTO);
 
                 // Assert
                 Assert.NotNull(result);
@@ -122,7 +122,7 @@ namespace FitAppServer.Tests.Services
             try
             {
                 // Act
-                var result = await _accountService.RegisterUser(registerDTO);
+                var result = await _userService.RegisterUser(registerDTO);
 
                 // Assert
                 Assert.NotNull(result.mentor);
@@ -143,16 +143,16 @@ namespace FitAppServer.Tests.Services
             try
             {
                 // Act
-                User result = await _accountService.RegisterUser(registerDTO);
+                User result = await _userService.RegisterUser(registerDTO);
 
                 // Assert
                 Assert.NotNull(result);
 
-                Assert.NotNull(await _accountService._conversationService.GetConversation(result.Id));
-                var conversation = await _accountService._conversationService.GetConversation(result.Id);
+                Assert.NotNull(await _userService._conversationService.GetConversation(result.Id));
+                var conversation = await _userService._conversationService.GetConversation(result.Id);
 
-                Assert.NotNull(await _accountService._messageService.GetConvMsgs(conversation.Id));
-                var messages = await _accountService._messageService.GetConvMsgs(conversation.Id);
+                Assert.NotNull(await _userService._messageService.GetConvMsgs(conversation.Id));
+                var messages = await _userService._messageService.GetConvMsgs(conversation.Id);
 
                 Assert.NotNull(messages[0]);
             }
@@ -169,14 +169,14 @@ namespace FitAppServer.Tests.Services
             // Arrange
             var user = _registerDTO;
 
-            await _accountService.RegisterUser(user);
+            await _userService.RegisterUser(user);
 
             var loginDTO = new LoginDTO { username = _fakeUsername, password = _fakePassword };
 
             try
             {
                 // Act
-                var result = await _accountService.Login(loginDTO);
+                var result = await _userService.Login(loginDTO);
 
                 // Assert
                 Assert.NotNull(result);
@@ -197,7 +197,7 @@ namespace FitAppServer.Tests.Services
             var loginDTO = new LoginDTO { username = _fakeUsername };
 
             // Act
-            var result = await _accountService.Login(loginDTO);
+            var result = await _userService.Login(loginDTO);
 
             // Assert
             Assert.Null(result);
@@ -209,13 +209,13 @@ namespace FitAppServer.Tests.Services
             // Arrange
             var user = _registerDTO;
 
-            await _accountService.RegisterUser(user);
+            await _userService.RegisterUser(user);
 
             try
             {                
                 // Act & Assert
                 var loginDTO = new LoginDTO { username = _fakeUsername, password = _fakeWrongPassword };
-                await Assert.ThrowsAsync<Exception>(() => _accountService.Login(loginDTO));
+                await Assert.ThrowsAsync<Exception>(() => _userService.Login(loginDTO));
             }
             finally
             {

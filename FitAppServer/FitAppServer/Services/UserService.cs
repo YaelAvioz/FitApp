@@ -1,21 +1,15 @@
 ﻿using AutoMapper;
 using FitAppServer.DTO;
 using FitAppServer.Helper;
-using FitAppServer.Interfaces;
 using FitAppServer.Model;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
 using MongoDB.Driver;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
 namespace FitAppServer.Services
 {
-    public class AccountService
+    public class UserService
     {
         protected readonly IMongoCollection<User> _collection;
         public readonly ConversationService _conversationService;
@@ -30,7 +24,7 @@ namespace FitAppServer.Services
         protected readonly string collectionName = "user";
         readonly string fakeId = "aaaaaaaaaaaaaaaaaaaaaaaa";
 
-        public AccountService(IMapper mapper)
+        public UserService(IMapper mapper)
         {
             _mapper = mapper;
             var client = new MongoClient(connectionString);
@@ -43,7 +37,7 @@ namespace FitAppServer.Services
             _recipeService = new RecipeService(_mapper);
         }
 
-        public AccountService(IMapper mapper, IMongoCollection<User> collection)
+        public UserService(IMapper mapper, IMongoCollection<User> collection)
         {
             _mapper = mapper;
             var client = new MongoClient(connectionString);
@@ -77,14 +71,14 @@ namespace FitAppServer.Services
                 weight = new List<Tuple<double, DateTime>>(),
                 tags = userDTO.tags,
                 goal = userDTO.goal,
-                water = new List<bool>(),
+                water = new List<Tuple<List<bool>, DateTime>>(),
                 mentor = userDTO.mentor,
             };
 
             // Update weight, bmi and recommended water
             newUser.weight.Add(Tuple.Create(userDTO.weight, DateTime.Now));
             newUser.bmi = newUser.getBmi(userDTO.weight);
-            newUser.water = Enumerable.Repeat(false, newUser.GetWaterRecommendation()).ToList();
+            newUser.water.Add(new Tuple<List<bool>, DateTime>(Enumerable.Repeat(false, newUser.GetWaterRecommendation()).ToList(), DateTime.Now));
 
             // add the user to the db
             await _collection.InsertOneAsync(newUser);
@@ -190,7 +184,7 @@ namespace FitAppServer.Services
         public async Task<List<bool>> GetWater(string id)
         {
             User user = await GetUserById(id);
-            return user.water;
+            return user.water[user.water.Count - 1].Item1;
         }
 
         public async Task<List<bool>> UpdateWater(string id, int cupsToAdd)
@@ -201,7 +195,7 @@ namespace FitAppServer.Services
             // update the user in the db (water changed)
             await _collection.UpdateOneAsync(Builders<User>.Filter.Eq(u => u.Id, user.Id),
             Builders<User>.Update.Set(u => u.water, user.water));
-            return user.water;
+            return user.water[user.water.Count -1].Item1;
         }
 
         public async Task<UserDTO> UpdateWeight(string id, double newWeight)
@@ -354,24 +348,69 @@ namespace FitAppServer.Services
             return null;
         }
 
-        public async Task<GradeDTO> GetGrade(string id)
+        public async Task<FoodDTO> GetTodaysFoodData(User user)
         {
-            User user = await GetUserById(id);
+            if ((user != null) && (user.foods != null))
+            {
+                FoodDTO res = new FoodDTO();
+
+                double calories = 0;
+                double total_fat = 0;
+                double calcium = 0;
+                double protein = 0;
+                double carbohydrate = 0;
+                double fiber = 0;
+                double sugars = 0;
+                double fat = 0;
+
+
+                foreach (Tuple<string, double, DateTime> unit in user.foods)
+                {
+                    DateTime date = unit.Item3;
+                    DateTime now = DateTime.Now;
+
+                    if (date >= now.AddHours(-24) && date <= now)
+                    {
+                        FoodDTO food = await _foodService.GetFoodInfoByAmount(unit.Item1, unit.Item2);
+
+                        calories += double.Parse(CleanString(food.calories));
+                        total_fat += double.Parse(CleanString(food.total_fat));
+                        calcium += double.Parse(CleanString(food.calcium));
+                        protein += double.Parse(CleanString(food.protein));
+                        carbohydrate += double.Parse(CleanString(food.carbohydrate));
+                        fiber += double.Parse(CleanString(food.fiber));
+                        sugars += double.Parse(CleanString(food.sugars));
+                        fat += double.Parse(CleanString(food.fat));
+                    }
+                }
+
+                res.calories = calories.ToString();
+                res.total_fat = total_fat.ToString();
+                res.protein = protein.ToString();
+                res.sugars = sugars.ToString();
+                res.calcium = calcium.ToString();
+                res.fat = fat.ToString();
+                res.fiber = fiber.ToString();
+                res.carbohydrate = carbohydrate.ToString();
+
+                return res;
+
+            }
+            return null;
+        }
+
+        public async Task<GradeDTO> GetGrade(string username)
+        {
+            User user = await GetUserByUsername(username);
             if (user != null)
             {
-                string prompt = ChatGPT.GradePrompt(user);
-                string answer = await ChatGPT.GetAnswer(prompt);
+                GradeDTO expected = GradeCalculator.CalculateDailyExpectedNutrition(user.gender, user.age, user.weight[user.weight.Count - 1].Item1, user.height);
+                FoodDTO currentStrings = await GetTodaysFoodData(user);
+                DoubleFoodDTO currentDouble = GetDoubleFromFoodDTO(currentStrings);
 
-                if ((answer != null) && (answer != ""))
+                if ((expected != null) && (currentDouble != null))
                 {
-                    GradeDTO expected = ParseAnswer(answer);
-                    FoodDTO currentStrings = await GetTodaysFoodData(user.Id);
-                    DoubleFoodDTO currentDouble = GetDoubleFromFoodDTO(currentStrings);
-
-                    if ((expected != null) && (currentDouble != null))
-                    {
-                        return GradeCalculator.AnalyzeData(currentDouble, expected);
-                    }
+                    return GradeCalculator.AnalyzeData(currentDouble, expected);
                 }
             }
             return null;
@@ -400,27 +439,6 @@ namespace FitAppServer.Services
         {
             var user = await _collection.Find(x => x.username.ToLower().Equals(username.ToLower())).FirstOrDefaultAsync();
             return user;
-        }
-
-        private GradeDTO ParseAnswer(string answer)
-        {
-            GradeDTO gradeDTO = new GradeDTO();
-
-            answer = answer.Replace("\n", "");
-            string[] values = answer.Split(", ");
-
-            if (values.Length != 7) return null;
-
-            gradeDTO.calories = int.Parse(values[0]);
-            gradeDTO.total_fat_diff = double.Parse(values[1]);
-            gradeDTO.calcium_diff = double.Parse(values[2]);
-            gradeDTO.protein_diff = double.Parse(values[3]);
-            gradeDTO.carbohydrate_diff = double.Parse(values[4]);
-            gradeDTO.fiber_diff = double.Parse(values[5]);
-            gradeDTO.sugars_diff = double.Parse(values[6]);
-            gradeDTO.fat_diff = double.Parse(values[7]);
-
-            return gradeDTO;
         }
 
         private string CleanString(string input)

@@ -33,10 +33,9 @@ export class ProfilePageComponent {
   weights: number[] = [];
   selectedGoal!: number;
   selectedWeight!: number;
-  goalError: boolean = false;
-  goalSuccess: boolean = false;
-  weightError: boolean = false;
-  weightSuccess: boolean = false;
+  errorMessage!: string;
+  successMessage!: string;
+ 
 
   constructor(private sessionService: SessionService, private store: Store<{ mentorPageReducer: MentorsPageState, userReducer: UserState }>) {
     this.mentor$ = this.store.select((state) => {
@@ -95,27 +94,6 @@ export class ProfilePageComponent {
     this.user$.subscribe(currentUser => {
       this.user = currentUser;
     });
-  }
-
-  updateGoal() {
-    if (this.selectedGoal) {
-      this.goalError = false;
-      this.goalSuccess = true;
-      console.log("goal", this.selectedGoal);
-    } else {
-      this.goalError = true;
-    }
-  }
-
-
-  updateWeight() {
-    if (this.selectedWeight) {
-      this.weightError = false;
-      this.weightSuccess = true;
-      console.log("goal", this.selectedWeight);
-    } else {
-      this.weightError = true;
-    }
   }
 
   initializeWeightChart() {

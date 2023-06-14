@@ -83,10 +83,10 @@
         }
     }
 
-    .update-form-container {
+    .goal-container {
     display: flex;
     justify-content: center;
-    .update-form {
+    .goal-form {
         justify-content: center;
         border: 10px solid rgb(163 163 158 / 97%);
         width: 78%;
@@ -111,10 +111,6 @@
 
             .goal-filed {
                 width: 800px;
-            }
-
-            .weight-filed {
-                width: 250px;
             }
         }
 

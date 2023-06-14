@@ -38,9 +38,9 @@
             [styles]="{width: '1000%', height:'360px'}"></canvasjs-chart>
     </div>
 
-    <div class="update-form-container">
-        <div class="update-form">
-            <h3 class="update-data-title">Update Your Weight and Goal</h3>
+    <div class="goal-container">
+        <div class="goal-form">
+            <h3 class="update-data-title">Tell us What is your goal</h3>
             <div>
                 <div>
                     <mat-form-field class="goal-filed">
@@ -48,28 +48,10 @@
                         <input matInput placeholder="Write what is your Goal" [(ngModel)]="selectedGoal"
                             maxlength="150">
                     </mat-form-field>
-                </div>
-
-                <div>
-                    <mat-form-field class="weight-filed">
-                        <mat-label for="weight">Weight</mat-label>
-                        <mat-select placeholder="Current Weight" required [(ngModel)]="selectedWeight">
-                            <mat-option *ngFor="let weight of weights" [value]="weight">
-                                {{weight}}kg
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-            <!-- <p *ngIf="error && (!selectedWeight || !selectedGoal)" class="error-message">Please fill in both the goal
-                and weight
-                fields.</p>
-            <button class="btn" (click)="updateData()">Update</button>
-            <p *ngIf="success" class="success-message">Update Success</p> -->
+                </div>  
         </div>
+        <button class="btn">Submit</button>
     </div>
-
-    <!-- <h3 *ngIf="user.goal">Goal: {{user.goal}}</h3> -->
 
     <div class="food-table">
 

@@ -11,7 +11,7 @@ import { FoodItem } from 'src/interfaces/foodItem';
 })
 
 export class userService {
-  baseUrl: string = "https://localhost:7248/api/Account";
+  baseUrl: string = "https://localhost:7248/api/User";
 
   constructor(private store: Store, private http: HttpClient) { }
 

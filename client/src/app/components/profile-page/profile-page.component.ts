@@ -36,7 +36,6 @@ export class ProfilePageComponent {
   errorMessage!: string;
   successMessage!: string;
  
-
   constructor(private sessionService: SessionService, private store: Store<{ mentorPageReducer: MentorsPageState, userReducer: UserState }>) {
     this.mentor$ = this.store.select((state) => {
       return state.mentorPageReducer.mentor;
@@ -94,6 +93,11 @@ export class ProfilePageComponent {
     this.user$.subscribe(currentUser => {
       this.user = currentUser;
     });
+  }
+
+  enterGoal(){
+    
+    console.log(this.selectedGoal);
   }
 
   initializeWeightChart() {

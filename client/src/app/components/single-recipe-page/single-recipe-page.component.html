@@ -1,9 +1,18 @@
-<h1 class="title">{{ recipe.title }}</h1>
-<!-- <ul>
-    <li *ngFor="let ingredient of recipe.ingredients">{{ ingredient }}</li>
-</ul> -->
- <!-- <div *ngFor="let ingredient of recipe.ingredients">{{ ingredient }}</div> --> 
-<p>{{ recipe.instructions }}</p>
+<h1 class="title">{{ recipe?.title }}</h1>
+
+<div class="ingredients-container">
+    <div class="ingredients">
+        <h1>Ingredients:</h1>
+        <h3 *ngFor="let ingredient of ingredients">
+            {{ingredient}}
+        </h3>
+    </div>
+</div>
+
+
+
+
+<p>{{ recipe?.instructions }}</p>
 
 <img class="recipe-img" [src]="recipe.url" alt="{{ recipe.title }}">
 <div class="btn-container">

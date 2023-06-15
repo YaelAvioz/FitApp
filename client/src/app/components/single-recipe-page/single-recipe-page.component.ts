@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { singleRecipePageState } from 'src/app/store/single-recipe-page/singleRecipePageReducer';
 import { loadSingleRecipe } from 'src/app/store/single-recipe-page/singleRecipePageAction';
 
-
 @Component({
   selector: 'app-single-recipe-page',
   templateUrl: './single-recipe-page.component.html',
@@ -17,6 +16,8 @@ export class SingleRecipePageComponent {
   recipeToShow: Recipe | undefined;
   id !: string | null;
   recipe!: Recipe;
+  ingredients!: string[];
+  ingredientsString!:string;
   // instructions !: string;
   
 
@@ -31,12 +32,16 @@ export class SingleRecipePageComponent {
     if (this.id != null) {
       this.store.dispatch(loadSingleRecipe({ recipeName: this.id }));
       this.recipe$.subscribe(recipeToShow => {
+        this.ingredientsString = recipeToShow[0].ingredients;
+
+          // Remove the outer single quotes and replace inner single quotes with double quotes
+          this.ingredientsString = this.ingredientsString.replace(/^'(.*)'$/, '[$1]').replace(/'/g, '"');
+    
+          // Parse the string into an array.
+          this.ingredients = JSON.parse(this.ingredientsString);
+      
         return this.recipe = recipeToShow[0];
       })    
     }
-  console.log(this.recipe);
-    
-
-    // this.instructions= this.recipe.instructions.replace(/\. /g, '.<br/>');
   }
 }

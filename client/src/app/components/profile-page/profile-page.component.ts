@@ -133,27 +133,30 @@ export class ProfilePageComponent {
       this.foodHistory = foodHistoryList;
       console.log("food histort:", this.foodHistory);
 
+  const currentDate = new Date();
+  currentDate.setHours(0, 0, 0, 0); // Reset time to midnight
+
+  const filteredItems = this.foodHistory.filter(item => {
+    const item2 = new Date(item.item2);
+    return item2.setHours(0, 0, 0, 0) === currentDate.getTime();
+  }).map(item => item.item1);
+  
+  console.log("filter", filteredItems);
+
     })
 
     this.store.dispatch(loadUserGrade({ username: this.user.username }));
     this.grade$.subscribe(grade => {
       this.grade = grade;
-      console.log("user grade:", this.foodHistory);
+      console.log("user grade:", this.grade);
     })
-    const currentDate = new Date().toISOString().split('T')[0];
-    console.log("date:", currentDate);
 
-//     // Get the current date
-// const currentDate1 = new Date();
+    // const currentDate = new Date();
+    // currentDate.setHours(0, 0, 0, 0); // Reset time to midnight
 
-// // Subtract 1 day from the current date
-// currentDate1.setDate(currentDate1.getDate() - 1);
+    // const filteredItems = this.foodHistory.filter(item => item.item2.setHours(0, 0, 0, 0) === currentDate.getTime()).map(item => item.item1);
 
-// // Get the date in the format "YYYY-MM-DD"
-// const yesterday = currentDate1.toISOString().split('T')[0];
-
-// console.log("yestardey:",yesterday);
-    
+    // console.log("filter", filteredItems);
   }
 
   enterGoal() {

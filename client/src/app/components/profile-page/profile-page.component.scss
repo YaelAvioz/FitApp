@@ -88,6 +88,12 @@
         }
     }
 
+    .food-chart-container {
+        display: flex;
+        justify-content: center;
+        margin: 5%;
+    }
+
     .chart-container {
         display: flex;
         flex-direction: column;
@@ -164,7 +170,7 @@
                     background-color: lightgray;
                 }
             }
-            
+
             .right-side-img {
                 width: 60%;
                 display: flex;
@@ -244,4 +250,8 @@
                 background-color: lightgray;
             }
         }
+    }
+
+    .mat-sort-header-container {
+        align-items: center;
     }

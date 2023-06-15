@@ -53,6 +53,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ProfilePageComponent } from '../components/profile-page/profile-page.component';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -98,6 +99,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatProgressSpinnerModule,
     CanvasJSAngularChartsModule,
     MatProgressBarModule,
+    MatSortModule,
   ],
   providers: [SessionService],
   bootstrap: [AppComponent]

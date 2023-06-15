@@ -1,4 +1,5 @@
 export interface FoodItem {
+    id: string;
     name: string;
     serving_size: string;
     calories: number;
@@ -9,5 +10,4 @@ export interface FoodItem {
     fiber: string;
     sugars: string;
     fat: string;
-    id: string;
 }

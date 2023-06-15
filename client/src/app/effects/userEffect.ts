@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { map, catchError, switchMap } from 'rxjs/operators';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { addFoodItem, addFoodItemFailure, addFoodItemSuccess, loadNutritionalValues, loadNutritionalValuesFailure, loadNutritionalValuesSuccess, loadUserByUsername, loadUserByUsernameFailure, loadUserByUsernameSuccess, login, loginFailure, loginSuccess, register, registerFailure, registerSuccess, updateUserGoal, updateUserGoalFailure, updateUserGoalSuccess, updateUserWeight, updateUserWeightFailure, updateUserWeightSuccess } from '../store/user/userAction';
+import { addFoodItem, addFoodItemFailure, addFoodItemSuccess, loadNutritionalValues, loadNutritionalValuesFailure, loadNutritionalValuesSuccess, loadUserByUsername, loadUserByUsernameFailure, loadUserByUsernameSuccess, loadUserFoodHistory, loadUserFoodHistoryFailure, loadUserFoodHistorySuccess, loadUserGrade, loadUserGradeFailure, loadUserGradeSuccess, login, loginFailure, loginSuccess, register, registerFailure, registerSuccess, updateUserGoal, updateUserGoalFailure, updateUserGoalSuccess, updateUserWeight, updateUserWeightFailure, updateUserWeightSuccess } from '../store/user/userAction';
 import { userService } from '../service/userService';
 
 @Injectable()
@@ -91,6 +91,30 @@ export class userEffects {
                 this.userService.updateGoal(userId, goal).pipe(
                     map((user) => updateUserGoalSuccess({ user })),
                     catchError((error) => of(updateUserGoalFailure({ error })))
+                )
+            )
+        )
+    );
+
+    getUserFoodHistory = createEffect(() =>
+        this.actions$.pipe(
+            ofType(loadUserFoodHistory),
+            switchMap(({ username }) =>
+                this.userService.getUserFoodHistory(username).pipe(
+                    map((foodHistory) => loadUserFoodHistorySuccess({ foodHistory })),
+                    catchError((error) => of(loadUserFoodHistoryFailure({ error })))
+                )
+            )
+        )
+    );
+
+    getUserGrade = createEffect(() =>
+        this.actions$.pipe(
+            ofType(loadUserGrade),
+            switchMap(({ username }) =>
+                this.userService.getUserGrade(username).pipe(
+                    map((grade) => loadUserGradeSuccess({ grade })),
+                    catchError((error) => of(loadUserGradeFailure({ error })))
                 )
             )
         )

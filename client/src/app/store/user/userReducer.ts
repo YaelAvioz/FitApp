@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import { addFoodItem, addFoodItemFailure, addFoodItemSuccess, loadUserByUsername, login, loginFailure, loginSuccess, register, registerFailure, registerSuccess, loadUserByUsernameSuccess, loadUserByUsernameFailure, loadNutritionalValues, loadNutritionalValuesSuccess, loadNutritionalValuesFailure, updateUserWeight, updateUserWeightFailure, updateUserWeightSuccess, updateUserGoal, updateUserGoalFailure, updateUserGoalSuccess } from './userAction';
-import { Login, Register, User } from 'src/interfaces/user';
+import { addFoodItem, addFoodItemFailure, addFoodItemSuccess, loadUserByUsername, login, loginFailure, loginSuccess, register, registerFailure, registerSuccess, loadUserByUsernameSuccess, loadUserByUsernameFailure, loadNutritionalValues, loadNutritionalValuesSuccess, loadNutritionalValuesFailure, updateUserWeight, updateUserWeightFailure, updateUserWeightSuccess, updateUserGoal, updateUserGoalFailure, updateUserGoalSuccess, loadUserFoodHistory, loadUserFoodHistorySuccess, loadUserFoodHistoryFailure, loadUserGrade, loadUserGradeSuccess, loadUserGradeFailure } from './userAction';
+import { FoodHistory, Grade, Login, Register, User } from 'src/interfaces/user';
 import { FoodItem } from 'src/interfaces/foodItem';
 
 export interface UserState {
@@ -8,6 +8,8 @@ export interface UserState {
   newUser: Register | null;
   user: User;
   nutritionalValues: FoodItem;
+  foodHistory: FoodHistory[];
+  grade: Grade;
   error: Error;
 }
 
@@ -16,6 +18,8 @@ export const initialState: UserState = {
   newUser: null,
   user: {} as User,
   nutritionalValues: {} as FoodItem,
+  foodHistory: [],
+  grade: {} as Grade,
   error: {} as Error,
 };
 
@@ -42,4 +46,10 @@ export const userReducer = createReducer(
   on(updateUserGoal, (state) => ({ ...state })),
   on(updateUserGoalSuccess, (state, { user }) => ({ ...state, user, })),
   on(updateUserGoalFailure, (state, { error }) => ({ ...state, error, })),
+  on(loadUserFoodHistory, (state) => ({ ...state })),
+  on(loadUserFoodHistorySuccess, (state, { foodHistory }) => ({ ...state, foodHistory })),
+  on(loadUserFoodHistoryFailure, (state, { error }) => ({ ...state, error })),
+  on(loadUserGrade, (state) => ({ ...state })),
+  on(loadUserGradeSuccess, (state, { grade }) => ({ ...state, grade })),
+  on(loadUserGradeFailure, (state, { error }) => ({ ...state, error })),
 );

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Login, Register, User } from 'src/interfaces/user';
+import { FoodHistory, Grade, Login, Register, User } from 'src/interfaces/user';
 import { FoodItem } from 'src/interfaces/foodItem';
 
 
@@ -53,5 +53,13 @@ export class userService {
       .set('Content-Type', 'application/json')
       .set('Accept', 'text/plain');
     return this.http.post<User>(`${this.baseUrl}/${userId}/goal`, body, { headers });
+  }
+
+  getUserFoodHistory(username: string){
+    return this.http.get<FoodHistory[]>(`${this.baseUrl}/${username}/foods`);
+  }
+
+  getUserGrade(username: string){
+    return this.http.get<Grade>(`${this.baseUrl}/${username}/grade`);
   }
 }

@@ -1,3 +1,5 @@
+import { FoodItem } from "./foodItem"
+
 export interface Login {
     username: string,
     password: string,
@@ -18,19 +20,19 @@ export interface Register {
 }
 
 //TODO: chnage in the server to weight and date
-export interface Weight{
-item1: number,
-item2: Date,
+export interface Weight {
+    item1: number,
+    item2: Date,
 }
 
-export interface Food{
+export interface Food {
     item1: string,
     item2: number,
     item3: Date
-    }
+}
 
 export interface User {
-    id:string,
+    id: string,
     username: string,
     firstname: string,
     lastname: string,
@@ -59,3 +61,21 @@ export interface RegisterResponse {
     username: string
 }
 
+export interface FoodHistory{
+    item1: FoodItem,
+    item2: Date,
+}
+
+export interface Grade {
+    grade: number;
+    calories_diff: number;
+    total_fat_diff: number;
+    calcium_diff: number;
+    protein_diff: number;
+    carbohydrate_diff: number;
+    fiber_diff: number;
+    sugars_diff: number;
+    fat_diff: number;
+    id: null;
+  }
+  

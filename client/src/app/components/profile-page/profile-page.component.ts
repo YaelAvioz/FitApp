@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionService } from 'src/app/service/sessionService';
-import { User } from 'src/interfaces/user';
+import { FoodHistory, Grade, User } from 'src/interfaces/user';
 import * as moment from 'moment';
 import { Mentor } from 'src/interfaces/mentor';
 import { Observable } from 'rxjs';
@@ -8,9 +8,10 @@ import { Store } from '@ngrx/store';
 import { loadMentorByName } from 'src/app/store/mentors-page/mentorsPageAction';
 import { MentorsPageState } from 'src/app/store/mentors-page/mentorPageReducer';
 import { UserState } from 'src/app/store/user/userReducer';
-import { loadNutritionalValues, loadUserByUsername, updateUserGoal, updateUserWeight } from 'src/app/store/user/userAction';
+import { loadNutritionalValues, loadUserByUsername, loadUserFoodHistory, loadUserGrade, updateUserGoal, updateUserWeight } from 'src/app/store/user/userAction';
 import { FoodItem } from 'src/interfaces/foodItem';
-import {Sort} from '@angular/material/sort';
+import { Sort } from '@angular/material/sort';
+import { state } from '@angular/animations';
 
 export interface Dessert {
   calories: number;
@@ -32,6 +33,10 @@ export class ProfilePageComponent {
   user: User;
   nutritionalValues$: Observable<FoodItem>;
   nutritionalValues !: FoodItem;
+  foodHistory$: Observable<FoodHistory[]>;
+  foodHistory !: FoodHistory[];
+  grade$: Observable<Grade>;
+  grade!: Grade;
   currentWeight!: number;
   chart: any;
   dataPoints!: any[];
@@ -51,7 +56,7 @@ export class ProfilePageComponent {
     { name: 'Cupcake', calories: 305, fat: 4, carbs: 67, protein: 4 },
     { name: 'Gingerbread', calories: 356, fat: 16, carbs: 49, protein: 4 },
   ];
-  
+
   sortedData: Dessert[];
 
   constructor(private sessionService: SessionService, private store: Store<{ mentorPageReducer: MentorsPageState, userReducer: UserState }>) {
@@ -65,6 +70,14 @@ export class ProfilePageComponent {
 
     this.nutritionalValues$ = this.store.select((state) => {
       return state.userReducer.nutritionalValues;
+    })
+
+    this.foodHistory$ = this.store.select((state) => {
+      return state.userReducer.foodHistory;
+    })
+
+    this.grade$ = this.store.select((state) => {
+      return state.userReducer.grade;
     })
 
     for (let i = 40; i <= 200; i++) {
@@ -111,9 +124,36 @@ export class ProfilePageComponent {
     });
 
     this.store.dispatch(loadUserByUsername({ username: this.user.username }));
-    this.user$.subscribe(currentUser => {
-      this.user = currentUser;
-    });
+    // this.user$.subscribe(currentUser => {
+    //   this.user = currentUser;
+    // });
+
+    this.store.dispatch(loadUserFoodHistory({ username: this.user.username }));
+    this.foodHistory$.subscribe(foodHistoryList => {
+      this.foodHistory = foodHistoryList;
+      console.log("food histort:", this.foodHistory);
+
+    })
+
+    this.store.dispatch(loadUserGrade({ username: this.user.username }));
+    this.grade$.subscribe(grade => {
+      this.grade = grade;
+      console.log("user grade:", this.foodHistory);
+    })
+    const currentDate = new Date().toISOString().split('T')[0];
+    console.log("date:", currentDate);
+
+//     // Get the current date
+// const currentDate1 = new Date();
+
+// // Subtract 1 day from the current date
+// currentDate1.setDate(currentDate1.getDate() - 1);
+
+// // Get the date in the format "YYYY-MM-DD"
+// const yesterday = currentDate1.toISOString().split('T')[0];
+
+// console.log("yestardey:",yesterday);
+    
   }
 
   enterGoal() {
@@ -206,7 +246,7 @@ export class ProfilePageComponent {
       this.sortedData = data;
       return;
     }
-  
+
     this.sortedData = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {

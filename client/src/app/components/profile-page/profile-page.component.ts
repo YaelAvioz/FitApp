@@ -92,12 +92,16 @@ export class ProfilePageComponent {
           text: `Daily Nutritional Intake - Total Calories ${nutritionalValues.calories}`,
         }],
         data: [{
-          type: "pie",
-          indexLabel: "{name}: {y}%",
+          // type: "doughnut",
+          type:"pie",
+          indexLabel: "{name}: {y}g",
           dataPoints: [
             { name: "Carbs", y: nutritionalValues.carbohydrate },
             { name: "Fat", y: nutritionalValues.fat },
             { name: "Proteins", y: nutritionalValues.protein },
+            { name: "sugers" , y: nutritionalValues.sugars},
+            { name: "fiber" , y: nutritionalValues.fiber},
+            { name: "calcium" , y: parseFloat(nutritionalValues.calcium) / 1000},
           ]
         }]
       }

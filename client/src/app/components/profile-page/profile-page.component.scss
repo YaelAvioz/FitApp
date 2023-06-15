@@ -88,69 +88,15 @@
         }
     }
 
-    .goal-container {
+    .chart-container {
         display: flex;
+        flex-direction: column;
         justify-content: center;
+        gap: 1%;
 
-        .goal-form {
-            justify-content: center;
-            border: 10px solid rgb(163 163 158 / 97%);
-            width: 78%;
-            padding: 2%;
-            flex-wrap: wrap;
+        .chart {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            .update-data-title {
-                font-size: 32px;
-                font-weight: bold;
-                margin-bottom: 2%;
-                padding: 2%;
-            }
-
-            div {
-                gap: 5%;
-                display: flex;
-                justify-content: center;
-                flex-direction: column;
-
-                .goal-filed {
-                    width: 800px;
-                }
-            }
-
-            .error-message {
-                margin-top: 0px;
-                padding: 0px;
-                color: red;
-            }
-
-            .success-message {
-                margin-top: 0px;
-                padding: 0px;
-                color: green;
-            }
-
-            .btn {
-                align-items: center;
-                background-color: #fff;
-                border: 1px solid #ccc;
-                border-radius: 10px;
-                cursor: pointer;
-                height: 50px;
-                justify-content: center;
-                letter-spacing: 0.25px;
-                font-weight: bold;
-                padding: 5px;
-                width: 150px;
-                font-size: 16px;
-                margin: 1%;
-            }
-
-            .btn:hover {
-                background-color: lightgray;
-            }
+            margin: 8%;
         }
     }
 
@@ -233,14 +179,69 @@
         }
     }
 
-    .chart-container {
+    .goal-container {
         display: flex;
-        flex-direction: column;
         justify-content: center;
-        gap: 1%;
 
-        .chart {
+        .goal-form {
+            justify-content: center;
+            border: 10px solid rgb(163 163 158 / 97%);
+            width: 78%;
+            padding: 2%;
+            flex-wrap: wrap;
             display: flex;
-            margin: 8%;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 5%;
+
+            .update-data-title {
+                font-size: 32px;
+                font-weight: bold;
+                margin-bottom: 2%;
+                padding: 2%;
+            }
+
+            div {
+                gap: 5%;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+
+                .goal-filed {
+                    width: 800px;
+                }
+            }
+
+            .error-message {
+                margin-top: 0px;
+                padding: 0px;
+                color: red;
+            }
+
+            .success-message {
+                margin-top: 0px;
+                padding: 0px;
+                color: green;
+            }
+
+            .btn {
+                align-items: center;
+                background-color: #fff;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                cursor: pointer;
+                height: 50px;
+                justify-content: center;
+                letter-spacing: 0.25px;
+                font-weight: bold;
+                padding: 5px;
+                width: 150px;
+                font-size: 16px;
+                margin: 1%;
+            }
+
+            .btn:hover {
+                background-color: lightgray;
+            }
         }
     }

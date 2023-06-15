@@ -102,13 +102,14 @@
 
         .chart {
             display: flex;
-            margin: 8%;
+            margin: 4% 8%;
         }
     }
 
     .weight-container {
         display: flex;
         justify-content: space-around;
+        margin-top: 2%;
 
         .weight-form {
             justify-content: center;

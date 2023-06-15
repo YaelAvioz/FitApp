@@ -86,14 +86,13 @@ export class ProfilePageComponent {
         creditHref: null,
         exportEnabled: false,
         title: {
-          text: "Nutritional Values"
+          text: "Total Nutritional Values"
         },
         subtitles: [{
           text: `Daily Nutritional Intake - Total Calories ${nutritionalValues.calories}`,
         }],
         data: [{
-          // type: "doughnut",
-          type:"pie",
+          type: "doughnut",
           indexLabel: "{name}: {y}g",
           dataPoints: [
             { name: "Carbs", y: nutritionalValues.carbohydrate },

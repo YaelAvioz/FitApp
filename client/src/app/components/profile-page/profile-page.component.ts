@@ -42,6 +42,7 @@ export class ProfilePageComponent {
   successMessage!: string;
   filteredFoodItems!: FoodItem[];
   sortedData!: FoodItem[];
+  water: boolean[] = [false, false, false, false, false, false, false, false];
 
   constructor(private sessionService: SessionService, private store: Store<{ mentorPageReducer: MentorsPageState, userReducer: UserState }>) {
     this.mentor$ = this.store.select((state) => {
@@ -85,8 +86,6 @@ export class ProfilePageComponent {
       this.grade$.subscribe(grade => {
         this.grade = grade;
         this.initializeRecommendedvsActualChart(this.grade, this.nutritionalValues)
-        console.log("grade:",);
-        console.log("values",);
       })
     });
 
@@ -98,6 +97,12 @@ export class ProfilePageComponent {
       this.filteredFoodItems = getFoodHistory(this.foodHistory);
       this.sortedData = this.filteredFoodItems.slice();
     })
+  }
+
+  toggleWaterStatus(index: number) {
+    console.log(index);
+    console.log(this.water);
+    this.water[index] = !this.water[index];
   }
 
   enterGoal() {

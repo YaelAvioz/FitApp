@@ -32,6 +32,11 @@
 
                 h1 {
                     margin: 0px 0px;
+                    font-weight: bold;
+                }
+
+                h3 {
+                    font-weight: bold;
                 }
 
                 img {
@@ -84,68 +89,148 @@
     }
 
     .goal-container {
-    display: flex;
-    justify-content: center;
-    .goal-form {
-        justify-content: center;
-        border: 10px solid rgb(163 163 158 / 97%);
-        width: 78%;
-        padding:2%;
-        flex-wrap: wrap;
         display: flex;
-        flex-direction: column;
-        align-items: center;
+        justify-content: center;
 
-        .update-data-title {
-            font-size: 32px;
-            font-weight: bold;
-            margin-bottom: 2%;
-            padding:2%;
-        }
-
-        div {
-            gap: 5%;
-            display: flex;
+        .goal-form {
             justify-content: center;
+            border: 10px solid rgb(163 163 158 / 97%);
+            width: 78%;
+            padding: 2%;
+            flex-wrap: wrap;
+            display: flex;
             flex-direction: column;
+            align-items: center;
 
-            .goal-filed {
-                width: 800px;
+            .update-data-title {
+                font-size: 32px;
+                font-weight: bold;
+                margin-bottom: 2%;
+                padding: 2%;
+            }
+
+            div {
+                gap: 5%;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+
+                .goal-filed {
+                    width: 800px;
+                }
+            }
+
+            .error-message {
+                margin-top: 0px;
+                padding: 0px;
+                color: red;
+            }
+
+            .success-message {
+                margin-top: 0px;
+                padding: 0px;
+                color: green;
+            }
+
+            .btn {
+                align-items: center;
+                background-color: #fff;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                cursor: pointer;
+                height: 50px;
+                justify-content: center;
+                letter-spacing: 0.25px;
+                font-weight: bold;
+                padding: 5px;
+                width: 150px;
+                font-size: 16px;
+                margin: 1%;
+            }
+
+            .btn:hover {
+                background-color: lightgray;
             }
         }
-
-        .error-message {
-            margin-top: 0px;
-            padding: 0px;
-            color: red;
-        }
-
-        .success-message{
-            margin-top: 0px;
-            padding: 0px;
-            color: green;
-        }
-
-        .btn {
-            align-items: center;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            cursor: pointer;
-            height: 50px;
-            justify-content: center;
-            letter-spacing: 0.25px;
-            font-weight: bold;
-            padding: 5px;
-            width: 150px;
-            font-size: 16px;
-            margin: 1%;
-        }
-
-        .btn:hover {
-            background-color: lightgray;
-        }
     }
+
+    .weight-container {
+        display: flex;
+        justify-content: space-around;
+
+        .weight-form {
+            justify-content: center;
+            width: 83.4%;
+            display: flex;
+            align-items: center;
+            margin-bottom: 4%;
+
+            .left-side-form {
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+                width: 40%;
+
+                .update-data-title {
+                    font-size: 32px;
+                    align-items: center;
+                    width: 300px;
+                    font-weight: bold;
+                    padding: 5%;
+                    justify-content: center;
+                    display: flex;
+                }
+
+                .weight-filed {
+                    width: 300px;
+                }
+
+                .error-message {
+                    margin-top: 0px;
+                    padding: 0px;
+                    color: red;
+                }
+
+                .success-message {
+                    margin-top: 0px;
+                    padding: 0px;
+                    color: green;
+                }
+
+                .btn {
+                    align-items: center;
+                    background-color: #fff;
+                    border: 1px solid #ccc;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    height: 50px;
+                    justify-content: center;
+                    letter-spacing: 0.25px;
+                    font-weight: bold;
+                    padding: 5px;
+                    width: 150px;
+                    font-size: 16px;
+                    margin: 1%;
+                }
+
+                .btn:hover {
+                    background-color: lightgray;
+                }
+            }
+            
+            .right-side-img {
+                width: 60%;
+                display: flex;
+                justify-content: end;
+
+                img {
+                    width: 85%;
+                    height: auto;
+                    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+                }
+            }
+        }
     }
 
     .chart-container {

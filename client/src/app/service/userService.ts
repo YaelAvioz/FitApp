@@ -40,7 +40,11 @@ export class userService {
   }
 
   updateWeight(userId: string, newWeight: number) {
-    return this.http.post<User>(`${this.baseUrl}/${userId}/weight`, { newWeight });
+    const body = JSON.stringify(newWeight);
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Accept', 'text/plain');
+    return this.http.post<User>(`${this.baseUrl}/${userId}/weight`, body, { headers });
   }
 
   updateGoal(userId: string, goal: string) {

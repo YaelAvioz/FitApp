@@ -38,20 +38,6 @@
             [styles]="{width: '1000%', height:'360px'}"></canvasjs-chart>
     </div>
 
-    <div class="goal-container">
-        <div class="goal-form">
-            <h3 class="update-data-title">Tell us What is your goal</h3>
-            <div>
-                <div>
-                    <mat-form-field class="goal-filed">
-                        <mat-label for="goal">Goal</mat-label>
-                        <input matInput placeholder="Write what is your Goal" [(ngModel)]="selectedGoal"
-                            maxlength="150">
-                    </mat-form-field>
-                </div>  
-        </div>
-        <button (click)="enterGoal()" claas="btn">Submit</button>
-    </div>
 
     <!-- <div class="food-table">
 
@@ -61,4 +47,51 @@
         <canvasjs-chart class="chart" [options]="nutritionalValuesChart"
             [styles]="{width: '100%', height:'360px'}"></canvasjs-chart>
     </div> -->
-</div>
+
+    <div class="weight-container">
+        <div class="weight-form">
+            <div class="left-side-form">
+                <h3 class="update-data-title">Update your weight</h3>
+                <mat-form-field class="filed">
+                    <mat-label for="weight">Weight</mat-label>
+                    <mat-select placeholder="Current Weight" required [(ngModel)]="selectedWeight">
+                        <mat-option *ngFor="let weight of weights" [value]="weight">
+                            {{weight}}kg
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button (click)="updateWeight()" class="btn">Submit</button>
+                <div *ngIf="errorMessage!='' && !selectedWeight">
+                    <p class="error-message">{{errorMessage}}</p>
+                </div>
+                <div *ngIf="successMessage!=''">
+                    <p class="success-message">{{successMessage}}</p>
+                </div>
+            </div>
+            <div class="right-side-img">
+                <img src="../../../assets/images/update-weight.jpeg" alt="update-weight-img">
+            </div>
+        </div>
+    </div>
+
+    <div class="goal-container">
+        <div class="goal-form">
+            <h3 class="update-data-title">Tell Us What Is Your Goal</h3>
+            <div>
+                <div>
+                    <mat-form-field class="goal-filed">
+                        <mat-label for="goal">Goal</mat-label>
+                        <input matInput placeholder="Write what is your Goal" [(ngModel)]="selectedGoal"
+                            maxlength="150">
+                    </mat-form-field>
+                </div>
+            </div>
+            <button (click)="enterGoal()" class="btn">Submit</button>
+            <div *ngIf="errorMessage!='' || !selectedGoal">
+                <p class="error-message">{{errorMessage}}</p>
+            </div>
+            <div *ngIf="successMessage!=''">
+                <p class="success-message">{{successMessage}}</p>
+            </div>
+        </div>
+    </div>

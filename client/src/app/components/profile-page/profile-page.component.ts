@@ -8,8 +8,7 @@ import { Store } from '@ngrx/store';
 import { loadMentorByName } from 'src/app/store/mentors-page/mentorsPageAction';
 import { MentorsPageState } from 'src/app/store/mentors-page/mentorPageReducer';
 import { UserState } from 'src/app/store/user/userReducer';
-import { state } from '@angular/animations';
-import { loadNutritionalValues, loadUserByUsername, updateUserGoal } from 'src/app/store/user/userAction';
+import { loadNutritionalValues, loadUserByUsername, updateUserGoal, updateUserWeight } from 'src/app/store/user/userAction';
 import { FoodItem } from 'src/interfaces/foodItem';
 
 @Component({
@@ -56,7 +55,7 @@ export class ProfilePageComponent {
     this.user = this.sessionService.getUserFromSession();
     this.currentWeight = this.user.weight[this.user.weight.length - 1].item1;
 
-    this.initializeWeightChart();
+    this.initializeWeightChart(this.user);
   }
 
   ngOnInit() {
@@ -96,11 +95,39 @@ export class ProfilePageComponent {
   }
 
   enterGoal(){
-    this.store.dispatch(updateUserGoal({userId: this.user.id, goal: this.selectedGoal}))
+    if(this.selectedGoal)
+    {
+      this.errorMessage="";
+      this.successMessage="We got your goal";
+      this.store.dispatch(updateUserGoal({userId: this.user.id, goal: this.selectedGoal}));
+    }
+    else{
+      this.successMessage="";
+      this.errorMessage="Please enter your goal";
+    } 
   }
 
-  initializeWeightChart() {
-    this.dataPoints = this.user.weight.map((item) => ({
+  updateWeight(){
+    if(this.selectedWeight)
+    {
+      this.errorMessage="";
+      this.successMessage="We update your weight";
+      this.store.dispatch(updateUserWeight({userId: this.user.id, newWeight: this.selectedWeight}));
+      this.user$.subscribe(currentUser => {
+        this.initializeWeightChart(currentUser);      
+        this.user = currentUser;
+      });
+      
+      
+    }
+    else{
+      this.successMessage="";
+      this.errorMessage="Please enter your weight";
+    } 
+  }
+
+  initializeWeightChart(user: User) {
+    this.dataPoints = user.weight.map((item) => ({
       x: new Date(item.item2),
       y: item.item1
     }));

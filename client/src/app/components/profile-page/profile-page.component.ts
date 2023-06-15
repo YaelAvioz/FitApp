@@ -48,16 +48,17 @@ export class ProfilePageComponent {
   selectedWeight!: number;
   errorMessage!: string;
   successMessage!: string;
+  filteredFoodItems!:FoodItem[];
 
-  desserts: Dessert[] = [
-    { name: 'Frozen yogurt', calories: 159, fat: 6, carbs: 24, protein: 4 },
-    { name: 'Ice cream sandwich', calories: 237, fat: 9, carbs: 37, protein: 4 },
-    { name: 'Eclair', calories: 262, fat: 16, carbs: 24, protein: 6 },
-    { name: 'Cupcake', calories: 305, fat: 4, carbs: 67, protein: 4 },
-    { name: 'Gingerbread', calories: 356, fat: 16, carbs: 49, protein: 4 },
-  ];
+  // desserts: Dessert[] = [
+  //   { name: 'Frozen yogurt', calories: 159, fat: 6, carbs: 24, protein: 4 },
+  //   { name: 'Ice cream sandwich', calories: 237, fat: 9, carbs: 37, protein: 4 },
+  //   { name: 'Eclair', calories: 262, fat: 16, carbs: 24, protein: 6 },
+  //   { name: 'Cupcake', calories: 305, fat: 4, carbs: 67, protein: 4 },
+  //   { name: 'Gingerbread', calories: 356, fat: 16, carbs: 49, protein: 4 },
+  // ];
 
-  sortedData: Dessert[];
+  sortedData!: FoodItem[];
 
   constructor(private sessionService: SessionService, private store: Store<{ mentorPageReducer: MentorsPageState, userReducer: UserState }>) {
     this.mentor$ = this.store.select((state) => {
@@ -88,9 +89,6 @@ export class ProfilePageComponent {
     this.currentWeight = this.user.weight[this.user.weight.length - 1].item1;
 
     this.initializeWeightChart(this.user);
-
-    ///////////initalized//////////////////
-    this.sortedData = this.desserts.slice();
   }
 
   ngOnInit() {
@@ -124,40 +122,23 @@ export class ProfilePageComponent {
     });
 
     this.store.dispatch(loadUserByUsername({ username: this.user.username }));
-    // this.user$.subscribe(currentUser => {
-    //   this.user = currentUser;
-    // });
-
+ 
     this.store.dispatch(loadUserFoodHistory({ username: this.user.username }));
     this.foodHistory$.subscribe(foodHistoryList => {
       this.foodHistory = foodHistoryList;
-      console.log("food histort:", this.foodHistory);
+      this.filteredFoodItems = getFoodHistory(this.foodHistory);
 
-  const currentDate = new Date();
-  currentDate.setHours(0, 0, 0, 0); // Reset time to midnight
-
-  const filteredItems = this.foodHistory.filter(item => {
-    const item2 = new Date(item.item2);
-    return item2.setHours(0, 0, 0, 0) === currentDate.getTime();
-  }).map(item => item.item1);
-  
-  console.log("filter", filteredItems);
-
+    ///////////initalized//////////////////
+    this.sortedData = this.filteredFoodItems.slice();
     })
 
     this.store.dispatch(loadUserGrade({ username: this.user.username }));
     this.grade$.subscribe(grade => {
       this.grade = grade;
-      console.log("user grade:", this.grade);
     })
-
-    // const currentDate = new Date();
-    // currentDate.setHours(0, 0, 0, 0); // Reset time to midnight
-
-    // const filteredItems = this.foodHistory.filter(item => item.item2.setHours(0, 0, 0, 0) === currentDate.getTime()).map(item => item.item1);
-
-    // console.log("filter", filteredItems);
   }
+
+
 
   enterGoal() {
     if (this.selectedGoal) {
@@ -180,8 +161,6 @@ export class ProfilePageComponent {
         this.initializeWeightChart(currentUser);
         this.user = currentUser;
       });
-
-
     }
     else {
       this.successMessage = "";
@@ -244,7 +223,7 @@ export class ProfilePageComponent {
   }
 
   sortData(sort: Sort) {
-    const data = this.desserts.slice();
+    const data = this.filteredFoodItems.slice();
     if (!sort.active || sort.direction === '') {
       this.sortedData = data;
       return;
@@ -260,7 +239,7 @@ export class ProfilePageComponent {
         case 'fat':
           return compare(a.fat, b.fat, isAsc);
         case 'carbs':
-          return compare(a.carbs, b.carbs, isAsc);
+          return compare(a.carbohydrate, b.carbohydrate, isAsc);
         case 'protein':
           return compare(a.protein, b.protein, isAsc);
         default:
@@ -275,8 +254,17 @@ export class ProfilePageComponent {
 
 
 
+function getFoodHistory(foodHistory: FoodHistory[]) {
+  const currentDate = new Date();
+  currentDate.setHours(0, 0, 0, 0); // Reset time to midnight
 
+  const filteredItems = foodHistory.filter(item => {
+    const item2 = new Date(item.item2);
+    return item2.setHours(0, 0, 0, 0) === currentDate.getTime();
+  }).map(item => item.item1);
 
+  return filteredItems;
+}
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);

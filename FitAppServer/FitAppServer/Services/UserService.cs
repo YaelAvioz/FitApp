@@ -235,6 +235,43 @@ namespace FitAppServer.Services
             return null;
         }
 
+        public async Task<UserDTO> UpdateGoal(string id, string goal)
+        {
+            User user = await GetUserById(id);
+            if (user != null)
+            {
+                user.goal = goal;
+
+                // Update the user in the db
+                await _collection.UpdateOneAsync(
+                    Builders<User>.Filter.Eq(u => u.Id, user.Id),
+                    Builders<User>.Update.Set(u => u.goal, user.goal));
+
+                // Create a UserDTO from the updated user
+                UserDTO userDto = new UserDTO
+                {
+                    id = user.Id,
+                    username = user.username,
+                    token = user.token,
+                    firstname = user.firstname,
+                    lastname = user.lastname,
+                    age = user.age,
+                    height = user.height,
+                    weight = user.weight,
+                    gender = user.gender,
+                    bmi = user.bmi,
+                    goal = user.goal,
+                    mentor = user.mentor,
+                    tags = user.tags,
+                    water = user.water,
+                    foods = user.foods,
+                };
+
+                return userDto;
+            }
+            return null;
+        }
+
         public async Task<Food> AddFood(string username, string foodId, double amount)
         {
             User user = await GetUserByUsername(username);

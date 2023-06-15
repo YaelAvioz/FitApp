@@ -95,6 +95,17 @@ namespace FitAppServer.Controllers
             return BadRequest();
         }
 
+        [HttpPost("{id}/goal")]
+        public async Task<ActionResult<object>> UpdateGoal(string id, [FromBody] string goal)
+        {
+            UserDTO res = await _userService.UpdateGoal(id, goal);
+            if (res != null)
+            {
+                return Ok(res);
+            }
+            return BadRequest();
+        }
+
         [HttpGet("{id}/water")]
         public async Task<ActionResult<List<bool>>> GetWater(string id)
         {

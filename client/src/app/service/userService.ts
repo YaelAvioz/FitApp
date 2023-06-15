@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Login, Register, User } from 'src/interfaces/user';
 import { FoodItem } from 'src/interfaces/foodItem';
@@ -23,7 +23,7 @@ export class userService {
     return this.http.post(`${this.baseUrl}/register`, registerInfo);
   }
 
-  addFoodItem(userId: string, foodItemId: string, amount:number){
+  addFoodItem(userId: string, foodItemId: string, amount: number) {
     const payload = {
       foodId: foodItemId,
       amount: amount
@@ -31,11 +31,11 @@ export class userService {
     return this.http.post<any>(this.baseUrl + `/${userId}/food`, payload);
   }
 
-  getUserByUsername(username: string){
+  getUserByUsername(username: string) {
     return this.http.get<User>(this.baseUrl + `/username/${username}`);
   }
 
-  getNnutritionalValues(userId: string){
+  getNnutritionalValues(userId: string) {
     return this.http.get<FoodItem>(this.baseUrl + `/${userId}/recent-food`);
   }
 
@@ -44,6 +44,10 @@ export class userService {
   }
 
   updateGoal(userId: string, goal: string) {
-    return this.http.post<User>(`${this.baseUrl}/${userId}/weight`, { goal });
+    const body = JSON.stringify(goal);
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Accept', 'text/plain');
+    return this.http.post<User>(`${this.baseUrl}/${userId}/goal`, body, { headers });
   }
 }

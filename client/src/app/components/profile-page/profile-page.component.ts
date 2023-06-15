@@ -9,7 +9,7 @@ import { loadMentorByName } from 'src/app/store/mentors-page/mentorsPageAction';
 import { MentorsPageState } from 'src/app/store/mentors-page/mentorPageReducer';
 import { UserState } from 'src/app/store/user/userReducer';
 import { state } from '@angular/animations';
-import { loadNutritionalValues, loadUserByUsername } from 'src/app/store/user/userAction';
+import { loadNutritionalValues, loadUserByUsername, updateUserGoal } from 'src/app/store/user/userAction';
 import { FoodItem } from 'src/interfaces/foodItem';
 
 @Component({
@@ -31,7 +31,7 @@ export class ProfilePageComponent {
   nutritionalValuesChart: any;
   output!: any;
   weights: number[] = [];
-  selectedGoal!: number;
+  selectedGoal!: string;
   selectedWeight!: number;
   errorMessage!: string;
   successMessage!: string;
@@ -96,8 +96,7 @@ export class ProfilePageComponent {
   }
 
   enterGoal(){
-    
-    console.log(this.selectedGoal);
+    this.store.dispatch(updateUserGoal({userId: this.user.id, goal: this.selectedGoal}))
   }
 
   initializeWeightChart() {

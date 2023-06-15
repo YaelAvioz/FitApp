@@ -34,28 +34,33 @@
     </div>
 
     <div class="food-chart-container">
+             <h1>Check What You Have Eaten Today</h1> 
         <div class="food-chart">
             <table matSort (matSortChange)="sortData($event)">
                 <tr>
-                    <th mat-sort-header="name">Food Item</th>
-                    <th mat-sort-header="calories">Calories</th>
-                    <th mat-sort-header="fat">Fat (g)</th>
-                    <th mat-sort-header="carbs">Carbs (g)</th>
-                    <th mat-sort-header="protein">Protein (g)</th>
+                    <th class="mat-sort-header" mat-sort-header="name">Food Item</th>
+                    <th class="mat-sort-header" mat-sort-header="calories">Calories</th>
+                    <th class="mat-sort-header" mat-sort-header="fat">Fat</th>
+                    <th class="mat-sort-header" mat-sort-header="carbs">Carbs</th>
+                    <th class="mat-sort-header" mat-sort-header="protein">Protein</th>
+                    <th class="mat-sort-header" mat-sort-header="sugars">Sugars</th>
+                    <th class="mat-sort-header" mat-sort-header="calcium">Calcium</th>
+                    <th class="mat-sort-header" mat-sort-header="fiber">Fiber</th>
                 </tr>
 
-                <tr *ngFor="let dessert of sortedData">
-                    <td>{{dessert.name}}</td>
-                    <td>{{dessert.calories}}</td>
-                    <td>{{dessert.fat}}</td>
-                    <td>{{dessert.carbohydrate}}</td>
-                    <td>{{dessert.protein}}</td>
+                <tr *ngFor="let foodItem of sortedData">
+                    <td>{{foodItem.name}}</td>
+                    <td>{{foodItem.calories}}</td>
+                    <td>{{foodItem.fat}}</td>
+                    <td>{{foodItem.carbohydrate}}</td>
+                    <td>{{foodItem.protein}}</td>
+                    <td>{{foodItem.sugars}}</td>
+                    <td>{{foodItem.calcium}}</td>
+                    <td>{{foodItem.fiber}}</td>
                 </tr>
             </table>
         </div>
     </div>
-
-
 
     <!-- show this just when the food array is not empty -->
     <div class="chart-container">
@@ -80,7 +85,7 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <button (click)="updateWeight()" class="btn">Submit</button>
+                <button (click)="updateWeight()" class="btn">Update</button>
                 <div *ngIf="errorMessage!='' && !selectedWeight">
                     <p class="error-message">{{errorMessage}}</p>
                 </div>

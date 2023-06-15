@@ -11,15 +11,6 @@ import { UserState } from 'src/app/store/user/userReducer';
 import { loadNutritionalValues, loadUserByUsername, loadUserFoodHistory, loadUserGrade, updateUserGoal, updateUserWeight } from 'src/app/store/user/userAction';
 import { FoodItem } from 'src/interfaces/foodItem';
 import { Sort } from '@angular/material/sort';
-import { state } from '@angular/animations';
-
-export interface Dessert {
-  calories: number;
-  carbs: number;
-  fat: number;
-  name: string;
-  protein: number;
-}
 
 @Component({
   selector: 'app-profile-page',
@@ -48,16 +39,7 @@ export class ProfilePageComponent {
   selectedWeight!: number;
   errorMessage!: string;
   successMessage!: string;
-  filteredFoodItems!:FoodItem[];
-
-  // desserts: Dessert[] = [
-  //   { name: 'Frozen yogurt', calories: 159, fat: 6, carbs: 24, protein: 4 },
-  //   { name: 'Ice cream sandwich', calories: 237, fat: 9, carbs: 37, protein: 4 },
-  //   { name: 'Eclair', calories: 262, fat: 16, carbs: 24, protein: 6 },
-  //   { name: 'Cupcake', calories: 305, fat: 4, carbs: 67, protein: 4 },
-  //   { name: 'Gingerbread', calories: 356, fat: 16, carbs: 49, protein: 4 },
-  // ];
-
+  filteredFoodItems!: FoodItem[];
   sortedData!: FoodItem[];
 
   constructor(private sessionService: SessionService, private store: Store<{ mentorPageReducer: MentorsPageState, userReducer: UserState }>) {
@@ -122,14 +104,12 @@ export class ProfilePageComponent {
     });
 
     this.store.dispatch(loadUserByUsername({ username: this.user.username }));
- 
+
     this.store.dispatch(loadUserFoodHistory({ username: this.user.username }));
     this.foodHistory$.subscribe(foodHistoryList => {
       this.foodHistory = foodHistoryList;
       this.filteredFoodItems = getFoodHistory(this.foodHistory);
-
-    ///////////initalized//////////////////
-    this.sortedData = this.filteredFoodItems.slice();
+      this.sortedData = this.filteredFoodItems.slice();
     })
 
     this.store.dispatch(loadUserGrade({ username: this.user.username }));
@@ -242,6 +222,12 @@ export class ProfilePageComponent {
           return compare(a.carbohydrate, b.carbohydrate, isAsc);
         case 'protein':
           return compare(a.protein, b.protein, isAsc);
+        case 'sugers':
+          return compare(a.sugars, b.sugars, isAsc);
+        case 'calcium':
+          return compare(a.calcium, b.calcium, isAsc);
+        case 'fiber':
+          return compare(a.fiber, b.fiber, isAsc);  
         default:
           return 0;
       }

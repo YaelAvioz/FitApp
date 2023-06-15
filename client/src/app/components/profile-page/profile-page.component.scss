@@ -252,6 +252,27 @@
         }
     }
 
+    .food-chart-container {
+        display: flex;
+        flex-direction: column;
+        margin: 2% 3%;
+
+        h1 {
+            margin: 1% 5%;
+            font-weight: bold;
+        }
+
+        .food-chart {
+            width: 100%;
+            font-weight: 16px;
+            margin: 0% 5%;
+
+            .mat-sort-header {
+                font-size: 20px;
+            }
+        }
+    }
+
     .mat-sort-header-container {
         align-items: center;
     }

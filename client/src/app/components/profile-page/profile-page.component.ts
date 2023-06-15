@@ -115,10 +115,9 @@ export class ProfilePageComponent {
     this.store.dispatch(loadUserGrade({ username: this.user.username }));
     this.grade$.subscribe(grade => {
       this.grade = grade;
+      console.log(this.grade);
     })
   }
-
-
 
   enterGoal() {
     if (this.selectedGoal) {
@@ -234,11 +233,6 @@ export class ProfilePageComponent {
     });
   }
 }
-
-
-
-
-
 
 function getFoodHistory(foodHistory: FoodHistory[]) {
   const currentDate = new Date();

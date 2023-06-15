@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { loadMentorByName } from 'src/app/store/mentors-page/mentorsPageAction';
 import { MentorsPageState } from 'src/app/store/mentors-page/mentorPageReducer';
-import { UserState } from 'src/app/store/user/userReducer';
+import { UserState, initialState } from 'src/app/store/user/userReducer';
 import { loadNutritionalValues, loadUserByUsername, loadUserFoodHistory, loadUserGrade, updateUserGoal, updateUserWeight } from 'src/app/store/user/userAction';
 import { FoodItem } from 'src/interfaces/foodItem';
 import { Sort } from '@angular/material/sort';
@@ -33,6 +33,7 @@ export class ProfilePageComponent {
   dataPoints!: any[];
   chartOptions: any;
   nutritionalValuesChart: any;
+  recommendedvsActual: any;
   output!: any;
   weights: number[] = [];
   selectedGoal!: string;
@@ -79,31 +80,14 @@ export class ProfilePageComponent {
     this.store.dispatch(loadNutritionalValues({ userId: this.user.username }));
     this.nutritionalValues$.subscribe(nutritionalValues => {
       this.nutritionalValues = nutritionalValues;
-      this.nutritionalValuesChart = {
-        animationEnabled: true,
-        theme: "light2",
-        creditText: "",
-        creditHref: null,
-        exportEnabled: false,
-        title: {
-          text: "Total Nutritional Values"
-        },
-        subtitles: [{
-          text: `Daily Nutritional Intake - Total Calories ${nutritionalValues.calories}`,
-        }],
-        data: [{
-          type: "doughnut",
-          indexLabel: "{name}: {y}g",
-          dataPoints: [
-            { name: "Carbs", y: nutritionalValues.carbohydrate },
-            { name: "Fat", y: nutritionalValues.fat },
-            { name: "Proteins", y: nutritionalValues.protein },
-            { name: "sugers" , y: nutritionalValues.sugars},
-            { name: "fiber" , y: nutritionalValues.fiber},
-            { name: "calcium" , y: parseFloat(nutritionalValues.calcium) / 1000},
-          ]
-        }]
-      }
+      this.initializeNutritionalValuesChart(nutritionalValues);
+      this.store.dispatch(loadUserGrade({ username: this.user.username }));
+      this.grade$.subscribe(grade => {
+        this.grade = grade;
+        this.initializeRecommendedvsActualChart(this.grade, this.nutritionalValues)
+        console.log("grade:",);
+        console.log("values",);
+      })
     });
 
     this.store.dispatch(loadUserByUsername({ username: this.user.username }));
@@ -113,12 +97,6 @@ export class ProfilePageComponent {
       this.foodHistory = foodHistoryList;
       this.filteredFoodItems = getFoodHistory(this.foodHistory);
       this.sortedData = this.filteredFoodItems.slice();
-    })
-
-    this.store.dispatch(loadUserGrade({ username: this.user.username }));
-    this.grade$.subscribe(grade => {
-      this.grade = grade;
-      console.log(this.grade);
     })
   }
 
@@ -147,6 +125,101 @@ export class ProfilePageComponent {
     else {
       this.successMessage = "";
       this.errorMessage = "Please enter your weight";
+    }
+  }
+
+  initializeRecommendedvsActualChart(diffrent: Grade, real: FoodItem) {
+    let carbsPerDay = parseFloat(real.carbohydrate) + diffrent.carbohydrate_diff;
+    let fatPerDay = parseFloat(real.fat) + diffrent.fat_diff;
+    let proteinsPerDay = parseFloat(real.protein) + diffrent.protein_diff;
+    let sugersPerDay = parseFloat(real.sugars) + diffrent.sugars_diff;
+    let fiberPerDay = parseFloat(real.fiber) + diffrent.fiber_diff;
+    let calciumPerDay = (parseFloat(real.calcium) + diffrent.calcium_diff) / 1000;
+    
+    this.recommendedvsActual = {
+      animationEnabled: true,
+      theme: "light2",
+      title: {
+        text: "Recommended vs Actual Food Consumption"
+      },
+      axisX: {
+        labelAngle: -90
+      },
+      axisY: {
+        title: "billion of barrels",
+        minimum: 0
+      },
+      toolTip: {
+        shared: true
+      },
+      legend: {
+        cursor: "pointer",
+        itemclick: function (e: any) {
+          if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+            e.dataSeries.visible = false;
+          }
+          else {
+            e.dataSeries.visible = true;
+          }
+          e.chart.render();
+        }
+      },
+      data: [{
+        type: "column",
+        name: "Recommended Amount Per Day (g)",
+        legendText: "Recommended Amount Per Day (g)",
+        showInLegend: true,
+        dataPoints: [
+          { label: "Carbs", y: carbsPerDay },
+          { label: "Fat", y: fatPerDay },
+          { label: "Proteins", y: proteinsPerDay },
+          { label: "sugers", y: sugersPerDay },
+          { label: "Fiber", y: fiberPerDay },
+          { label: "calcium", y: calciumPerDay },
+        ]
+      }, {
+        type: "column",
+        name: "Amount Per Day (g)",
+        legendText: "Amount Per Day (g)",
+        axisYType: "secondary",
+        showInLegend: true,
+        dataPoints: [
+          { label: "Carbs", y: parseFloat(real.carbohydrate) },
+          { label: "Fat", y: parseFloat(real.fat) },
+          { label: "Proteins", y: parseFloat(real.protein) },
+          { label: "sugers", y: parseFloat(real.sugars) },
+          { label: "Fiber", y: parseFloat(real.fiber) },
+          { label: "calcium", y: parseFloat(real.calcium) / 1000 },
+        ]
+      }]
+    }
+  }
+
+  initializeNutritionalValuesChart(nutritionalValues: FoodItem) {
+    this.nutritionalValuesChart = {
+      animationEnabled: true,
+      theme: "light2",
+      creditText: "",
+      creditHref: null,
+      exportEnabled: false,
+      title: {
+        text: "Total Nutritional Values"
+      },
+      subtitles: [{
+        text: `Daily Nutritional Intake - Total Calories ${nutritionalValues.calories}`,
+      }],
+      data: [{
+        type: "doughnut",
+        indexLabel: "{name}: {y}g",
+        dataPoints: [
+          { name: "Carbs", y: nutritionalValues.carbohydrate },
+          { name: "Fat", y: nutritionalValues.fat },
+          { name: "Proteins", y: nutritionalValues.protein },
+          { name: "sugers", y: nutritionalValues.sugars },
+          { name: "fiber", y: nutritionalValues.fiber },
+          { name: "calcium", y: parseFloat(nutritionalValues.calcium) / 1000 },
+        ]
+      }]
     }
   }
 
@@ -229,7 +302,7 @@ export class ProfilePageComponent {
         case 'calcium':
           return compare(a.calcium, b.calcium, isAsc);
         case 'fiber':
-          return compare(a.fiber, b.fiber, isAsc);  
+          return compare(a.fiber, b.fiber, isAsc);
         default:
           return 0;
       }

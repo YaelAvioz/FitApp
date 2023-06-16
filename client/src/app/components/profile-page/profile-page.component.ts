@@ -44,7 +44,7 @@ export class ProfilePageComponent {
   successMessage!: string;
   filteredFoodItems!: FoodItem[];
   sortedData!: FoodItem[];
-  water: boolean[] = [false, false, false, false, false, false, false, false];
+  water: boolean[] =[];
 
   constructor(private sessionService: SessionService, private store: Store<{ mentorPageReducer: MentorsPageState, userReducer: UserState }>) {
     this.mentor$ = this.store.select((state) => {
@@ -84,6 +84,11 @@ export class ProfilePageComponent {
   ngOnInit() {
     this.user = this.sessionService.getUserFromSession();
     this.store.dispatch(loadUserWater({ username: this.user.username }));
+    this.water$.subscribe((data: boolean[]) => {
+      this.water = data;
+      console.log(data);
+      
+    });    
     this.store.dispatch(loadMentorByName({ name: this.user.mentor }));
     this.store.dispatch(loadNutritionalValues({ userId: this.user.username }));
     this.nutritionalValues$.subscribe(nutritionalValues => {
@@ -97,7 +102,6 @@ export class ProfilePageComponent {
     });
 
     this.store.dispatch(loadUserByUsername({ username: this.user.username }));
-
     this.store.dispatch(loadUserFoodHistory({ username: this.user.username }));
     this.foodHistory$.subscribe(foodHistoryList => {
       this.foodHistory = foodHistoryList;
@@ -107,9 +111,9 @@ export class ProfilePageComponent {
   }
 
   toggleWaterStatus(index: number) {
-    console.log(index);
-    this.water[index] = !this.water[index];
-    console.log(this.water);
+    let waterCopy = [...this.water]; 
+    waterCopy[index] = !waterCopy[index]; 
+    this.water = waterCopy; 
   }
 
   enterGoal() {

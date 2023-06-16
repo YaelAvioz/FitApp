@@ -73,15 +73,15 @@
             [styles]="{width: '100%', height:'360px'}"></canvasjs-chart>
     </div>
 
-    <div class="water-container" *ngIf="water$ | async as water">
-        <h1>How Much Cups Of Water did you drink today?</h1>
-        <div class="water-icon-container" >
-            <div class="water-icons" *ngFor="let status of water; let i = index" (click)="toggleWaterStatus(i)"
-                [class.active]="status">
-                <img src="../../../assets/images/water-icon.png" alt="water-icon">
-            </div>
+    <div class="water-container">
+        <h1>How many cups of water did you drink today?</h1>
+        <div class="water-icon-container">
+          <div class="water-icons" *ngFor="let status of water; let i = index" (click)="toggleWaterStatus(i)"
+               [class.active]="status">
+            <img src="../../../assets/images/water-icon.png" alt="water-icon">
+          </div>
         </div>
-    </div>
+      </div>
 
     <div class="chart-container">
         <canvasjs-chart class="chart" [options]="chartOptions"

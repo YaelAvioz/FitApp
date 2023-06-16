@@ -62,4 +62,16 @@ export class userService {
   getUserGrade(username: string){
     return this.http.get<Grade>(`${this.baseUrl}/${username}/grade`);
   }
+
+  getUserWater(username: string){
+    return this.http.get<boolean[]>(`${this.baseUrl}/${username}/water`);
+  }
+
+  updateUserWater(username: string, water: boolean[]){
+    const body = water;
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Accept', 'text/plain');
+    return this.http.post<boolean[]>(`${this.baseUrl}/${username}/water`, body, { headers });
+  }
 }

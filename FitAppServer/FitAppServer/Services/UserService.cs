@@ -181,21 +181,21 @@ namespace FitAppServer.Services
             return user.weight;
         }
 
-        public async Task<List<bool>> GetWater(string id)
+        public async Task<List<bool>> GetWater(string username)
         {
-            User user = await GetUserById(id);
+            User user = await GetUserByUsername(username);
             return user.water[user.water.Count - 1].Item1;
         }
-
-        public async Task<List<bool>> UpdateWater(string id, int cupsToAdd)
+        
+        public async Task<List<bool>> UpdateWater(string username, int cupsToAdd)
         {
-            User user = await GetUserById(id);
+            User user = await GetUserByUsername(username);
             user.AddWater(cupsToAdd);
 
             // update the user in the db (water changed)
-            await _collection.UpdateOneAsync(Builders<User>.Filter.Eq(u => u.Id, user.Id),
+            await _collection.UpdateOneAsync(Builders<User>.Filter.Eq(u => u.username, user.username),
             Builders<User>.Update.Set(u => u.water, user.water));
-            return user.water[user.water.Count -1].Item1;
+            return user.water[user.water.Count - 1].Item1;
         }
 
         public async Task<UserDTO> UpdateWeight(string id, double newWeight)

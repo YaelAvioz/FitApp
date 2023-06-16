@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { map, catchError, switchMap } from 'rxjs/operators';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { addFoodItem, addFoodItemFailure, addFoodItemSuccess, loadNutritionalValues, loadNutritionalValuesFailure, loadNutritionalValuesSuccess, loadUserByUsername, loadUserByUsernameFailure, loadUserByUsernameSuccess, loadUserFoodHistory, loadUserFoodHistoryFailure, loadUserFoodHistorySuccess, loadUserGrade, loadUserGradeFailure, loadUserGradeSuccess, login, loginFailure, loginSuccess, register, registerFailure, registerSuccess, updateUserGoal, updateUserGoalFailure, updateUserGoalSuccess, updateUserWeight, updateUserWeightFailure, updateUserWeightSuccess } from '../store/user/userAction';
+import { addFoodItem, addFoodItemFailure, addFoodItemSuccess, loadNutritionalValues, loadNutritionalValuesFailure, loadNutritionalValuesSuccess, loadUserByUsername, loadUserByUsernameFailure, loadUserByUsernameSuccess, loadUserFoodHistory, loadUserFoodHistoryFailure, loadUserFoodHistorySuccess, loadUserGrade, loadUserGradeFailure, loadUserGradeSuccess, loadUserWater, loadUserWaterFailure, loadUserWaterSuccess, login, loginFailure, loginSuccess, register, registerFailure, registerSuccess, updateUserGoal, updateUserGoalFailure, updateUserGoalSuccess, updateUserWater, updateUserWaterFailure, updateUserWaterSuccess, updateUserWeight, updateUserWeightFailure, updateUserWeightSuccess } from '../store/user/userAction';
 import { userService } from '../service/userService';
 
 @Injectable()
@@ -115,6 +115,30 @@ export class userEffects {
                 this.userService.getUserGrade(username).pipe(
                     map((grade) => loadUserGradeSuccess({ grade })),
                     catchError((error) => of(loadUserGradeFailure({ error })))
+                )
+            )
+        )
+    );
+
+    getUserWater = createEffect(() =>
+        this.actions$.pipe(
+            ofType(loadUserWater),
+            switchMap(({ username }) =>
+                this.userService.getUserWater(username).pipe(
+                    map((water) => loadUserWaterSuccess({ water })),
+                    catchError((error) => of(loadUserWaterFailure({ error })))
+                )
+            )
+        )
+    );
+
+    updateUserWater = createEffect(() =>
+        this.actions$.pipe(
+            ofType(updateUserWater),
+            switchMap(({ username, water }) =>
+                this.userService.updateUserWater(username, water).pipe(
+                    map((water) => updateUserWaterSuccess({ water })),
+                    catchError((error) => of(updateUserWaterFailure({ error })))
                 )
             )
         )

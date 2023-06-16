@@ -37,3 +37,11 @@ export const loadUserFoodHistoryFailure = createAction('[User] load user food hi
 export const loadUserGrade = createAction('[User] load user grade', props<{ username: string }>());
 export const loadUserGradeSuccess = createAction('[User] load user grade success', props<{ grade: Grade }>());
 export const loadUserGradeFailure = createAction('[User] load user grade Failure', props<{ error: any }>());
+
+export const loadUserWater = createAction('[User] load user water', props<{ username: string }>());
+export const loadUserWaterSuccess = createAction('[User] load user water success', props<{ water: boolean[] }>());
+export const loadUserWaterFailure = createAction('[User] load user water Failure', props<{ error: any }>());
+
+export const updateUserWater = createAction('[User] update user water', props<{ username: string, water: boolean[] }>());
+export const updateUserWaterSuccess = createAction('[User] update user water success', props<{ water: boolean[] }>());
+export const updateUserWaterFailure = createAction('[User] update user water Failure', props<{ error: any }>());

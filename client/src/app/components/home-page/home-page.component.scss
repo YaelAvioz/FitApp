@@ -5,7 +5,7 @@
     align-items: center;
 
     img {
-        margin:5%;
+        margin: 5%;
         width: 83%;
         height: 600px;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
@@ -16,43 +16,6 @@
     display: flex;
     justify-content: center;
     margin: 3%;
-}
-
-.about {
-    display: flex;
-    padding: 5%;
-    border: 1px solid white;
-
-    .about-left-side {
-        width: 80%;
-        display: flex;
-        justify-content: center;
-
-        img {
-            width: 85%;
-            height: auto;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-        }
-    }
-
-    .about-right-side {
-        width: 80%;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-
-        .title {
-            font-size: 40px;
-        }
-
-        .text {
-            width: 90%;
-            font-size: 20px;
-            height: auto;
-            line-height: initial;
-            letter-spacing: 2px;
-        }
-    }
 }
 
 .mentors {
@@ -67,5 +30,28 @@
         left: 82%;
         font-size: 20px;
         font-weight: bold;
+    }
+}
+
+/* For small devices (phones) */
+@media (max-width: 576px) {
+    .logo-container {
+        display: flex;
+        justify-content: center;
+
+        svg {
+            width: 200px;
+            height: 55px;
+            padding: 10%;
+        }
+    }
+
+    
+}
+
+/* For medium devices (tablets) */
+@media (min-width: 577px) and (max-width: 992px) {
+    .logo-container {
+        /* Adjust styles for medium screens */
     }
 }

@@ -106,19 +106,19 @@ namespace FitAppServer.Controllers
             return BadRequest();
         }
 
-        [HttpGet("{id}/water")]
-        public async Task<ActionResult<List<bool>>> GetWater(string id)
+        [HttpGet("{username}/water")]
+        public async Task<ActionResult<List<bool>>> GetWater(string username)
         {
-            List<bool> res = await _userService.GetWater(id);
+            List<bool> res = await _userService.GetWater(username);
             if (res != null && res.Count > 0) return Ok(res);
 
             return BadRequest();
         }
 
-        [HttpPost("{id}/water")]
-        public async Task<ActionResult<List<bool>>> UpdateWater(string id, [FromBody] int cupsToAdd)
+        [HttpPost("{username}/water")]
+        public async Task<ActionResult<List<bool>>> UpdateWater(string username, [FromBody] int cupsToAdd)
         {
-            List<bool> res = await _userService.UpdateWater(id, cupsToAdd);
+            List<bool> res = await _userService.UpdateWater(username, cupsToAdd);
             if (res != null && res.Count > 0) return Ok(res);
 
             return BadRequest();

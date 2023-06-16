@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { SessionService } from 'src/app/service/sessionService';
 import { FoodHistory, Grade, User } from 'src/interfaces/user';
 import * as moment from 'moment';
@@ -7,10 +7,11 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { loadMentorByName } from 'src/app/store/mentors-page/mentorsPageAction';
 import { MentorsPageState } from 'src/app/store/mentors-page/mentorPageReducer';
-import { UserState, initialState } from 'src/app/store/user/userReducer';
-import { loadNutritionalValues, loadUserByUsername, loadUserFoodHistory, loadUserGrade, updateUserGoal, updateUserWeight } from 'src/app/store/user/userAction';
+import { UserState } from 'src/app/store/user/userReducer';
+import { loadNutritionalValues, loadUserByUsername, loadUserFoodHistory, loadUserGrade, loadUserWater, updateUserGoal, updateUserWeight } from 'src/app/store/user/userAction';
 import { FoodItem } from 'src/interfaces/foodItem';
 import { Sort } from '@angular/material/sort';
+import { state } from '@angular/animations';
 
 @Component({
   selector: 'app-profile-page',
@@ -26,6 +27,7 @@ export class ProfilePageComponent {
   nutritionalValues !: FoodItem;
   foodHistory$: Observable<FoodHistory[]>;
   foodHistory !: FoodHistory[];
+  water$: Observable<boolean[]>;
   grade$: Observable<Grade>;
   grade!: Grade;
   currentWeight!: number;
@@ -65,6 +67,10 @@ export class ProfilePageComponent {
       return state.userReducer.grade;
     })
 
+    this.water$ = this.store.select((state) => {
+      return state.userReducer.water;
+    })
+
     for (let i = 40; i <= 200; i++) {
       this.weights.push(i);
     }
@@ -77,6 +83,7 @@ export class ProfilePageComponent {
 
   ngOnInit() {
     this.user = this.sessionService.getUserFromSession();
+    this.store.dispatch(loadUserWater({ username: this.user.username }));
     this.store.dispatch(loadMentorByName({ name: this.user.mentor }));
     this.store.dispatch(loadNutritionalValues({ userId: this.user.username }));
     this.nutritionalValues$.subscribe(nutritionalValues => {
@@ -101,8 +108,8 @@ export class ProfilePageComponent {
 
   toggleWaterStatus(index: number) {
     console.log(index);
-    console.log(this.water);
     this.water[index] = !this.water[index];
+    console.log(this.water);
   }
 
   enterGoal() {
@@ -140,7 +147,7 @@ export class ProfilePageComponent {
     let sugersPerDay = parseFloat(real.sugars) + diffrent.sugars_diff;
     let fiberPerDay = parseFloat(real.fiber) + diffrent.fiber_diff;
     let calciumPerDay = (parseFloat(real.calcium) + diffrent.calcium_diff) / 1000;
-    
+
     this.recommendedvsActual = {
       animationEnabled: true,
       theme: "light2",

@@ -34,3 +34,42 @@
         font-size: 20px;
     }
 }
+
+/* For small devices (phones) */
+@media (max-width: 576px) {
+    .join-us-container {
+        display: flex;
+        justify-content: center;
+
+        .join-us {
+            height: 180px;
+            width: 80%;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url("../../../assets/images/join-us.jpeg");
+            background-size: cover;
+            position: relative;
+        }
+
+        .text {
+            position: absolute;
+            top: 30%;
+            left: 3%;
+            font-size: 9px;
+        }
+
+        .join-btn {
+            position: absolute;
+            top: 44%;
+            left: 14%;
+            background-color: black;
+            border-radius: 40px;
+            color: white;
+            padding: 10px;
+            border: none;
+            font-size: 10px;
+        }
+    }
+}

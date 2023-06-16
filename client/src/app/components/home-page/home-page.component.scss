@@ -46,6 +46,21 @@
         }
     }
 
+    .mentors {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid white;
+    
+        .all-mentors {
+            cursor: pointer;
+            display: flex;
+            position: relative;
+            left: 55%;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    }
+
     
 }
 

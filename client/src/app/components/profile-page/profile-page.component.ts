@@ -159,7 +159,7 @@ export class ProfilePageComponent {
         text: "Recommended vs Actual Food Consumption"
       },
       subtitles: [{
-        text: `Daily Grade: ${diffrent.grade}`,
+        text: `Daily Grade: ${diffrent.grade}/10`,
       }],
       axisX: {
         labelAngle: -90

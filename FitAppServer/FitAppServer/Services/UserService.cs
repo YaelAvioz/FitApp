@@ -187,10 +187,10 @@ namespace FitAppServer.Services
             return user.water[user.water.Count - 1].Item1;
         }
         
-        public async Task<List<bool>> UpdateWater(string username, int cupsToAdd)
+        public async Task<List<bool>> UpdateWater(string username, List<bool> water)
         {
             User user = await GetUserByUsername(username);
-            user.AddWater(cupsToAdd);
+            user.UpdateWater(water);
 
             // update the user in the db (water changed)
             await _collection.UpdateOneAsync(Builders<User>.Filter.Eq(u => u.username, user.username),

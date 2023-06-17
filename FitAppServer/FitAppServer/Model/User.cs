@@ -87,47 +87,19 @@ namespace FitAppServer.Model
             return (int)Math.Ceiling(liters * 4.2267528377);
         }
 
-        public void AddWater(int capsToAdd)
+        public void UpdateWater(List<bool> newWater)
         {
-            if (capsToAdd == 0)
-                return;
-
             int days = water.Count;
+            var date = DateTime.Now.Date;
 
-            if (water[days - 1].Item2.Date != DateTime.Now.Date)
+            // if it's the same day
+            if (water[days - 1].Item2.Date == date)
             {
-                Tuple<List<bool>, DateTime> newElement = new Tuple<List<bool>, DateTime>(new List<bool>(), DateTime.Today);
-                water.Add(newElement);
-                
-                days += 1;
-            }
-            
-            int firstFalse = water[days - 1].Item1.FindLastIndex(b => b == true) + 1;
-
-            // add water
-            if (capsToAdd > 0)
-            {
-                for (int i = 0; i < capsToAdd; i++)
-                {
-                    water[days - 1].Item1[firstFalse] = true;
-                    firstFalse += 1;
-                }
+                water.RemoveAt(days - 1);
             }
 
-            // remove water
-            else
-            {
-                for (int i = 0; i < Math.Abs(capsToAdd); i++)
-                {
-                    int todays = water[days - 1].Item1.Count;
-                    if (todays > 0)
-                    {
-                        firstFalse -= 1;
-                        water[days - 1].Item1[firstFalse] = false;
-                    }
-                }
-            }
-
+            Tuple<List<bool>, DateTime> newElement = new Tuple<List<bool>, DateTime>(newWater, DateTime.Now);
+            water.Add(newElement);
         }
     }
 }

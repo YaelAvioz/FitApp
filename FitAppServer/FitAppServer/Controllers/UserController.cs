@@ -116,9 +116,9 @@ namespace FitAppServer.Controllers
         }
 
         [HttpPost("{username}/water")]
-        public async Task<ActionResult<List<bool>>> UpdateWater(string username, [FromBody] int cupsToAdd)
+        public async Task<ActionResult<List<bool>>> UpdateWater(string username, [FromBody] List<bool> water)
         {
-            List<bool> res = await _userService.UpdateWater(username, cupsToAdd);
+            List<bool> res = await _userService.UpdateWater(username, water);
             if (res != null && res.Count > 0) return Ok(res);
 
             return BadRequest();

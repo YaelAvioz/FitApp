@@ -1,6 +1,6 @@
 ![Alt Text](client/src/assets/images/FitApp_Logo.png)
+<img src="client/src/assets/images/FitApp_Logo.png" alt="Alt Text" width="200">
 
-# **FitApp**
 FitApp is a website designed to assist users in managing their health and achieving their fitness goals. It offers a range of features to help individuals track their progress, access nutritional information, and receive personalized guidance from an AI mentor. This README file provides an overview of FitApp's functionalities, installation instructions, and usage guidelines.
 
 ##  Features

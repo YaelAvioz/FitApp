@@ -104,8 +104,8 @@
                 <div *ngIf="errorMessage!='' && !selectedWeight">
                     <p class="error-message">{{errorMessage}}</p>
                 </div>
-                <div *ngIf="successMessage!=''">
-                    <p class="success-message">{{successMessage}}</p>
+                <div *ngIf="successMessageWeight!=''">
+                    <p class="success-message">{{successMessageWeight}}</p>
                 </div>
             </div>
             <div class="right-side-img">
@@ -130,8 +130,8 @@
             <div *ngIf="errorMessage!='' || !selectedGoal">
                 <p class="error-message">{{errorMessage}}</p>
             </div>
-            <div *ngIf="successMessage!=''">
-                <p class="success-message">{{successMessage}}</p>
+            <div *ngIf="successMessageGoal!=''">
+                <p class="success-message">{{successMessageGoal}}</p>
             </div>
         </div>
     </div>

@@ -40,7 +40,9 @@ export class ProfilePageComponent {
   selectedGoal!: string;
   selectedWeight!: number;
   errorMessage!: string;
-  successMessage!: string;
+  successMessageWeight!: string;
+  errorMessageGoalWeight!: string;
+  successMessageGoal!: string;
   filteredFoodItems!: FoodItem[];
   sortedData!: FoodItem[];
   water: boolean[] =[];
@@ -118,11 +120,11 @@ export class ProfilePageComponent {
   enterGoal() {
     if (this.selectedGoal) {
       this.errorMessage = "";
-      this.successMessage = "We got your goal";
+      this.successMessageGoal = "We got your goal";
       this.store.dispatch(updateUserGoal({username: this.user.username, goal: this.selectedGoal }));
     }
     else {
-      this.successMessage = "";
+      this.successMessageGoal = "";
       this.errorMessage = "Please enter your goal";
     }
   }
@@ -130,7 +132,7 @@ export class ProfilePageComponent {
   updateWeight() {
     if (this.selectedWeight) {
       this.errorMessage = "";
-      this.successMessage = "We update your weight";
+      this.successMessageWeight = "We update your weight";
       this.store.dispatch(updateUserWeight({ username: this.user.username, newWeight: this.selectedWeight }));
       this.user$.pipe(skip(1), take(1)).subscribe(currentUser => {     
         console.log(currentUser);
@@ -141,7 +143,7 @@ export class ProfilePageComponent {
       
     }
     else {
-      this.successMessage = "";
+      this.successMessageWeight = "";
       this.errorMessage = "Please enter your weight";
     }
   }

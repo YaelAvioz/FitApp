@@ -51,7 +51,7 @@ export class FoodDictionaryPageComponent {
           this.foodItemsCount = value;
         });
       }
-    }, 2000);
+    }, 1000);
   }
 
   onPageChange(event: PageEvent) {

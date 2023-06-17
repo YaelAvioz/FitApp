@@ -75,19 +75,19 @@ namespace FitAppServer.Controllers
             return Ok(userDTO);
         }
 
-        [HttpGet("{id}/weight")]
-        public async Task<ActionResult<List<Tuple<double, DateTime>>>> WeightCharts(string id)
+        [HttpGet("{username}/weight")]
+        public async Task<ActionResult<List<Tuple<double, DateTime>>>> WeightCharts(string username)
         {
-            List<Tuple<double, DateTime>> res = await _userService.WeightCharts(id);
+            List<Tuple<double, DateTime>> res = await _userService.WeightCharts(username);
             if (res != null && res.Count > 0) return Ok(res);
 
             return BadRequest();
         }
 
-        [HttpPost("{id}/weight")]
-        public async Task<ActionResult<object>> UpdateWeight(string id, [FromBody] double newWeight)
+        [HttpPost("{username}/weight")]
+        public async Task<ActionResult<object>> UpdateWeight(string username, [FromBody] double newWeight)
         {
-            UserDTO res = await _userService.UpdateWeight(id, newWeight);
+            UserDTO res = await _userService.UpdateWeight(username, newWeight);
             if (res != null)
             {
                 return Ok(res);
@@ -95,10 +95,10 @@ namespace FitAppServer.Controllers
             return BadRequest();
         }
 
-        [HttpPost("{id}/goal")]
-        public async Task<ActionResult<object>> UpdateGoal(string id, [FromBody] string goal)
+        [HttpPost("{username}/goal")]
+        public async Task<ActionResult<object>> UpdateGoal(string username, [FromBody] string goal)
         {
-            UserDTO res = await _userService.UpdateGoal(id, goal);
+            UserDTO res = await _userService.UpdateGoal(username, goal);
             if (res != null)
             {
                 return Ok(res);

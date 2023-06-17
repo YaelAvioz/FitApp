@@ -175,9 +175,9 @@ namespace FitAppServer.Services
             return updatedUserDTO;
         }
 
-        public async Task<List<Tuple<double, DateTime>>> WeightCharts(string id)
+        public async Task<List<Tuple<double, DateTime>>> WeightCharts(string username)
         {
-            User user = await GetUserById(id);
+            User user = await GetUserByUsername(username);
             return user.weight;
         }
 
@@ -198,9 +198,9 @@ namespace FitAppServer.Services
             return user.water[user.water.Count - 1].Item1;
         }
 
-        public async Task<UserDTO> UpdateWeight(string id, double newWeight)
+        public async Task<UserDTO> UpdateWeight(string username, double newWeight)
         {
-            User user = await GetUserById(id);
+            User user = await GetUserByUsername(username);
             if (user != null)
             {
                 user.weight.Add(new Tuple<double, DateTime>(newWeight, DateTime.Now));
@@ -235,9 +235,9 @@ namespace FitAppServer.Services
             return null;
         }
 
-        public async Task<UserDTO> UpdateGoal(string id, string goal)
+        public async Task<UserDTO> UpdateGoal(string username, string goal)
         {
-            User user = await GetUserById(id);
+            User user = await GetUserByUsername(username);
             if (user != null)
             {
                 user.goal = goal;
@@ -294,9 +294,9 @@ namespace FitAppServer.Services
             return null;
         }
 
-        public async Task<Food> AddFoods(string id, string foodId, double amount)
+        public async Task<Food> AddFoods(string username, string foodId, double amount)
         {
-            User user = await GetUserById(id);
+            User user = await GetUserByUsername(username);
             if (user != null)
             {
                 FoodDTO foodDto = await _foodService.GetFoodInfoByAmount(foodId, amount);

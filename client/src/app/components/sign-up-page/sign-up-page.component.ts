@@ -104,8 +104,6 @@ export class SignUpPageComponent {
     setTimeout(() => {
       this.firstMsg = this.response['firstMsg'];
       this.mentor = this.response['mentor'];
-      console.log(this.firstMsg);
-      console.log(this.mentor);
     }, 3000);
 
   }

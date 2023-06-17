@@ -87,8 +87,6 @@ export class ProfilePageComponent {
     this.store.dispatch(loadUserWater({ username: this.user.username }));
     this.water$.subscribe((data: boolean[]) => {
       this.water = data;
-      console.log(data);
-      
     });    
     this.store.dispatch(loadMentorByName({ name: this.user.mentor }));
     this.store.dispatch(loadNutritionalValues({ username: this.user.username }));
@@ -135,8 +133,6 @@ export class ProfilePageComponent {
       this.successMessageWeight = "We update your weight";
       this.store.dispatch(updateUserWeight({ username: this.user.username, newWeight: this.selectedWeight }));
       this.user$.pipe(skip(1), take(1)).subscribe(currentUser => {     
-        console.log(currentUser);
-           
         this.initializeWeightChart(currentUser);
         this.user = currentUser;
       });

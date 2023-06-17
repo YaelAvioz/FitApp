@@ -36,7 +36,6 @@ export class ChatComponent {
     // Subscribe to response$ here and handle the response when it arrives
     this.response$.subscribe(response => {
       this.response = response;
-      console.log("response", this.response.message);
       if (this.response.message) {
         const mentorAnswer: Message = {
           content: this.response.message,

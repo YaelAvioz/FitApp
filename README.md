@@ -1,3 +1,5 @@
+![Alt Text](path/to/image.png)
+
 # **FitApp**
 FitApp is a website designed to assist users in managing their health and achieving their fitness goals. It offers a range of features to help individuals track their progress, access nutritional information, and receive personalized guidance from an AI mentor. This README file provides an overview of FitApp's functionalities, installation instructions, and usage guidelines.
 

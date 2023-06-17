@@ -5,8 +5,8 @@
         <form *ngIf="signUpForm" [formGroup]="signUpForm" class="register-form">
             <div>
                 <mat-form-field class="filed">
-                    <mat-label for="firstName">Fisrt Name</mat-label>
-                    <input matInput placeholder="Enter Your Fisrt Name" formControlName="firstName" required>
+                    <mat-label for="firstName">First Name</mat-label>
+                    <input matInput placeholder="Enter Your First Name" formControlName="firstName" required>
                 </mat-form-field>
 
                 <mat-form-field class="filed">
@@ -66,6 +66,7 @@
                 </mat-form-field>
             </div>
 
+            <div class="error-message" *ngIf="isFormInvalid()">Please fill in all the required fields.</div>
         </form>
         <div class="navigation-btn">
             <button mat-button matStepperNext>Next</button>
@@ -106,12 +107,13 @@
         <div>
             <h2 class="title">Click Here To Start Our Journey Together.</h2>
             <div class="submit-button-container">
-                <button type="submit" class="submit-button" *ngIf="!btnClicked" (click)="onSubmit()" (click)="btnClicked=true">Start</button>
+                <button type="submit" class="submit-button" *ngIf="!btnClicked && !isFormInvalid()" (click)="onSubmit()" (click)="btnClicked=true">Start</button>
+                <div class="error-message" *ngIf="isFormInvalid()">Please fill in all the required fields.</div>
                 <mat-spinner class="spinner" *ngIf="btnClicked"></mat-spinner>
-                <app-sign-up-complete *ngIf="mentor" [mentor]="mentor" [welcomeMsg]="firstMsg"></app-sign-up-complete>
             </div>
+            <app-sign-up-complete *ngIf="mentor" [mentor]="mentor" [welcomeMsg]="firstMsg"></app-sign-up-complete>
         </div>
-        <div class="navigation-btn">
+        <div class="navigation-btn" *ngIf="!mentor">
             <button mat-button matStepperPrevious>Back</button>
         </div>
     </mat-step>

@@ -75,6 +75,10 @@ export class SignUpPageComponent {
     return this.selectedTags.includes(str);
   }
 
+  isFormInvalid(): boolean {
+    return this.signUpForm && this.signUpForm.invalid;
+  }
+
   onSubmit() {
 
     if (!this.signUpForm || !this.signUpForm.valid) return;

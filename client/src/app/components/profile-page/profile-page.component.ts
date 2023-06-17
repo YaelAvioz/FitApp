@@ -3,7 +3,7 @@ import { SessionService } from 'src/app/service/sessionService';
 import { FoodHistory, Grade, User } from 'src/interfaces/user';
 import * as moment from 'moment';
 import { Mentor } from 'src/interfaces/mentor';
-import { Observable } from 'rxjs';
+import { Observable, skip, take } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { loadMentorByName } from 'src/app/store/mentors-page/mentorsPageAction';
 import { MentorsPageState } from 'src/app/store/mentors-page/mentorPageReducer';
@@ -11,7 +11,6 @@ import { UserState } from 'src/app/store/user/userReducer';
 import { loadNutritionalValues, loadUserByUsername, loadUserFoodHistory, loadUserGrade, loadUserWater, updateUserGoal, updateUserWeight } from 'src/app/store/user/userAction';
 import { FoodItem } from 'src/interfaces/foodItem';
 import { Sort } from '@angular/material/sort';
-import { state } from '@angular/animations';
 
 @Component({
   selector: 'app-profile-page',
@@ -90,7 +89,7 @@ export class ProfilePageComponent {
       
     });    
     this.store.dispatch(loadMentorByName({ name: this.user.mentor }));
-    this.store.dispatch(loadNutritionalValues({ userId: this.user.username }));
+    this.store.dispatch(loadNutritionalValues({ username: this.user.username }));
     this.nutritionalValues$.subscribe(nutritionalValues => {
       this.nutritionalValues = nutritionalValues;
       this.initializeNutritionalValuesChart(nutritionalValues);
@@ -120,7 +119,7 @@ export class ProfilePageComponent {
     if (this.selectedGoal) {
       this.errorMessage = "";
       this.successMessage = "We got your goal";
-      this.store.dispatch(updateUserGoal({ userId: this.user.id, goal: this.selectedGoal }));
+      this.store.dispatch(updateUserGoal({username: this.user.username, goal: this.selectedGoal }));
     }
     else {
       this.successMessage = "";
@@ -132,11 +131,14 @@ export class ProfilePageComponent {
     if (this.selectedWeight) {
       this.errorMessage = "";
       this.successMessage = "We update your weight";
-      this.store.dispatch(updateUserWeight({ userId: this.user.id, newWeight: this.selectedWeight }));
-      this.user$.subscribe(currentUser => {
+      this.store.dispatch(updateUserWeight({ username: this.user.username, newWeight: this.selectedWeight }));
+      this.user$.pipe(skip(1), take(1)).subscribe(currentUser => {     
+        console.log(currentUser);
+           
         this.initializeWeightChart(currentUser);
         this.user = currentUser;
       });
+      
     }
     else {
       this.successMessage = "";

@@ -63,8 +63,8 @@ export class userEffects {
     loadNutritionalValues = createEffect(() =>
         this.actions$.pipe(
             ofType(loadNutritionalValues),
-            switchMap(({ userId }) =>
-                this.userService.getNnutritionalValues(userId).pipe(
+            switchMap(({ username}) =>
+                this.userService.getNnutritionalValues(username).pipe(
                     map((nutritionalValues) => loadNutritionalValuesSuccess({ nutritionalValues })),
                     catchError((error) => of(loadNutritionalValuesFailure({ error })))
                 )
@@ -75,8 +75,8 @@ export class userEffects {
     updateUserWeight = createEffect(() =>
         this.actions$.pipe(
             ofType(updateUserWeight),
-            switchMap(({ userId, newWeight }) =>
-                this.userService.updateWeight(userId, newWeight).pipe(
+            switchMap(({ username, newWeight }) =>
+                this.userService.updateWeight(username, newWeight).pipe(
                     map((user) => updateUserWeightSuccess({ user })),
                     catchError((error) => of(updateUserWeightFailure({ error })))
                 )
@@ -87,8 +87,8 @@ export class userEffects {
     updateUserGoal = createEffect(() =>
         this.actions$.pipe(
             ofType(updateUserGoal),
-            switchMap(({ userId, goal }) =>
-                this.userService.updateGoal(userId, goal).pipe(
+            switchMap(({ username, goal }) =>
+                this.userService.updateGoal(username, goal).pipe(
                     map((user) => updateUserGoalSuccess({ user })),
                     catchError((error) => of(updateUserGoalFailure({ error })))
                 )
@@ -143,5 +143,4 @@ export class userEffects {
             )
         )
     );
-
 }

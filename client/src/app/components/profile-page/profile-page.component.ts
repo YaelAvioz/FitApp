@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
 import { loadMentorByName } from 'src/app/store/mentors-page/mentorsPageAction';
 import { MentorsPageState } from 'src/app/store/mentors-page/mentorPageReducer';
 import { UserState } from 'src/app/store/user/userReducer';
-import { loadNutritionalValues, loadUserByUsername, loadUserFoodHistory, loadUserGrade, loadUserWater, updateUserGoal, updateUserWeight } from 'src/app/store/user/userAction';
+import { loadNutritionalValues, loadUserByUsername, loadUserFoodHistory, loadUserGrade, loadUserWater, updateUserGoal, updateUserWater, updateUserWeight } from 'src/app/store/user/userAction';
 import { FoodItem } from 'src/interfaces/foodItem';
 import { Sort } from '@angular/material/sort';
 
@@ -112,7 +112,8 @@ export class ProfilePageComponent {
   toggleWaterStatus(index: number) {
     let waterCopy = [...this.water]; 
     waterCopy[index] = !waterCopy[index]; 
-    this.water = waterCopy; 
+    this.water = waterCopy;
+    this.store.dispatch(updateUserWater({username: this.user.username, water:this.water}));
   }
 
   enterGoal() {
@@ -130,13 +131,13 @@ export class ProfilePageComponent {
   updateWeight() {
     if (this.selectedWeight) {
       this.errorMessage = "";
+      this.currentWeight = this.selectedWeight;
       this.successMessageWeight = "We update your weight";
       this.store.dispatch(updateUserWeight({ username: this.user.username, newWeight: this.selectedWeight }));
       this.user$.pipe(skip(1), take(1)).subscribe(currentUser => {     
         this.initializeWeightChart(currentUser);
         this.user = currentUser;
       });
-      
     }
     else {
       this.successMessageWeight = "";

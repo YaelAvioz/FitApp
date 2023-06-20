@@ -13,7 +13,7 @@ import { User } from 'src/interfaces/user';
 })
 export class FoodItemCardComponent {
   @Input() foodItem !: FoodItem;
-  isModalVisible: boolean = false;
+  // isModalVisible: boolean = false;
   user !: User;
   addFoodItem$: any;
   amount!:number;

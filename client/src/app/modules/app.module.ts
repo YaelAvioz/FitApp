@@ -21,7 +21,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { FoodDictionaryEffects } from '../effects/foodDictionaryPageEffect';
 import { foodDictionaryPageReducer } from '../store/food-dictionary-page/foodDictionaryPageReducer';
 import { FoodItemCardComponent } from '../components/food-item-card/food-item-card.component';
-import { FoodItemModalComponent } from '../components/food-item-modal/food-item-modal.component';
 import { RecipesEffects } from '../effects/recipesPageEffect';
 import { recipesPageReducer } from '../store/recipes-page/recipesPageReducer';
 import { SingleRecipePageComponent } from '../components/single-recipe-page/single-recipe-page.component';
@@ -67,7 +66,6 @@ import { MatSortModule } from '@angular/material/sort';
     OurMentorsComponent,
     MentorCardComponent,
     FoodItemCardComponent,
-    FoodItemModalComponent,
     SingleRecipePageComponent,
     RecipeCardComponent,
     MentorFlipCardComponent,
